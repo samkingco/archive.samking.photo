@@ -1,0 +1,19 @@
+{
+  "name": "node-exif",
+  "version": "1.0.0",
+  "description": "Exif reader",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Sam King",
+  "license": "ISC",
+  "dependencies": {
+    "async": "^1.5.0",
+    "exif-parser": "^0.1.9",
+    "fs-extra": "^0.26.2",
+    "gm": "^1.21.1",
+    "path": "^0.12.7",
+    "underscore": "^1.8.3"
+  }
+}
