@@ -1,6 +1,6 @@
+var colors = require('colors');
 var fs = require('fs-extra');
 var async = require('async');
-var _ = require('underscore');
 var path = require('path');
 var gm = require('gm').subClass({imageMagick: true});
 
@@ -12,14 +12,18 @@ var imageData = [];
 var images = fs.readdirSync('./images').sort();
 
 // Populate the image data with paths
-_.each(images, function (img) {
+images.forEach(function (img) {
     var imagePath = path.join('images/', img);
     imageData.push({ path: imagePath });
 });
 
+console.log('››'.bold.green, 'Built path list');
+
 
 // All the functions to be run
 function _getModifiers (image, callback) {
+    console.log('››'.bold.blue, 'Getting data for '+image.path);
+
     var baseName = image.path.split('.');
     var modifiers = baseName[0].split('-');
     modifiers.splice(0, 1);
@@ -90,7 +94,7 @@ var composer = async.compose(_getModifiers, _getTimestamp, _getShutter, _getAper
 
 // Export the function
 module.exports = function (callback) {
-    async.mapLimit(imageData, 5, composer, function (err, result) {
+    async.mapLimit(imageData, 20, composer, function (err, result) {
         callback(err, result);
     });
 }

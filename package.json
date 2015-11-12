@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "async": "^1.5.0",
+    "colors": "^1.1.2",
     "fs-extra": "^0.26.2",
     "gm": "^1.21.1",
     "path": "^0.12.7",
