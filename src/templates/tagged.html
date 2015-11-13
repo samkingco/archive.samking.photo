@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="description" content="Sam King">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Sam King</title>
+        <link rel="stylesheet" href="../../static/css/style.css">
+        <link rel="author" content="Sam King">
+    </head>
+    <body>
+
+        <div class="image-list">
+        <h1>Tagged: {{ tag_name }}</h1>
+
+        {% for image in images %}
+            <div class="image{% for modifier in image.modifiers %} image--{{ modifier }}{% endfor %}"
+                 data-caption="{{ image.caption }}"
+                 data-tags="{% for tag in image.keywords %}{{ tag }},{% endfor %}"
+                 data-focal="{{ image.focal }}mm"
+                 data-exposure="{{ image.exposure }}s"
+                 data-aperture="f/{{ image.aperture }}"
+                 data-iso="ISO {{ image.iso }}"
+                 data-timestamp="{{ image.timestamp|date('Y-m-d, H:i:s') }}">
+                <div class="image__image-container"
+                     style="padding-bottom: {{ image.dimensions.height / image.dimensions.width * 100 }}%">
+                    <img src="../../{{ image.path }}"
+                         width="{{ image.dimensions.width }}"
+                         height="{{ image.dimensions.height }}">
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+
+        <script src="../../static/js/app.js"></script>
+    </body>
+</html>

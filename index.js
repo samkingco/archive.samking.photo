@@ -1,53 +1,98 @@
 // Output helpers
 var colors = require('colors');
 var prettyHrtime = require('pretty-hrtime');
-
-// Libs
-var _ = require('underscore');
 var startTimer = process.hrtime();
 
+// Libs
+var fs = require('fs-extra');
+var path = require('path');
+var _ = require('underscore');
+var swig = require('swig');
+
 // Created data things
-var getImageJson = require('./getImageData');
+var getSiteJson = require('./getSiteData');
 
 
-function _getAllTags (imageList) {
-    console.log('››'.bold.blue, 'Getting all tags');
+var IMAGES_DIR = './images';
+var SRC_DIR = './src';
+var DEST_DIR = './build/';
 
-    var tags = _.uniq(_.flatten(_.pluck(imageList, 'keywords')));
 
-    return tags;
+
+
+
+// The building of the project thing
+function _renderHomepage (dataList) {
+    console.log('  ››'.blue.bold, 'Rendering homepage template');
+
+    return swig.renderFile(path.join(SRC_DIR, 'templates/homepage.html'), { images: dataList });
 }
 
+function _renderTaggedPage (dataList) {
+    console.log('  ››'.blue.bold, 'Rendering tagged page for: '+dataList.name);
 
-function _buildTagsList (imageList) {
-    var tags = _getAllTags(imageList);
-    var imagesByTag = [];
+    return swig.renderFile(path.join(SRC_DIR, 'templates/tagged.html'), {
+        tag_name: dataList.name,
+        images: dataList.images
+    });
+}
 
-    _.each(tags, function (tag) {
-        console.log('››'.bold.blue, 'Building tag list for "'+tag+'"');
+function _copyStaticFiles (dest) {
+    console.log('  ››'.blue.bold, 'Copying static files');
+    fs.copySync(path.join(SRC_DIR, '/static/'), path.join(dest, '/static'));
+}
 
-        // Loop through all the images and filter for the current tag
-        var imageWithTag = _.filter(imageList, function (imageObject) {
-            return _.contains(imageObject['keywords'], tag);
-        });
+function _makeSiteFiles (siteList) {
+    console.log('››'.blue.bold, 'Building site');
 
-        // Push stuff to the array
-        imagesByTag.push({ name: tag, images: imageWithTag });
+    console.log('  ››'.blue.bold, 'Copying Images');
+
+    _.each(siteList[0].images, function (image) {
+        fs.copySync(image.path, path.join(DEST_DIR, '/'+image.path));
     });
 
-    console.log('››'.bold.green, 'List of all tags is built');
+    _copyStaticFiles(DEST_DIR);
 
-    return imagesByTag;
+    var homePageData = siteList[0].images;
+    var tagsPageData = siteList[0].tags;
+
+    fs.outputFileSync(path.join(DEST_DIR, 'index.html'), _renderHomepage(homePageData));
+
+    _.each(tagsPageData, function (tag) {
+        if (tag.name.length) {
+            fs.outputFileSync(
+                path.join(DEST_DIR, 'tagged/'+tag.name+'/index.html'),
+                _renderTaggedPage(tag)
+            );
+        }
+    });
+
+    console.log('››'.green.bold, 'Built to: '+DEST_DIR);
 }
 
 
-// Get the image json and start formatting it
-getImageJson(function (err, results) {
-    var imageList = results;
-    console.log('››'.bold.green, 'Image data is built');
+function _cleanImagesDir () {
+    fs.removeSync(path.join(DEST_DIR, IMAGES_DIR));
+    console.log('››'.bold.blue, 'Cleaning up image directory');
+}
 
-    // Build the list of tags
-    var tagsList = _buildTagsList(imageList);
+
+// The build process
+function build (siteList) {
+    _cleanImagesDir();
+    _makeSiteFiles(siteList);
+}
+
+
+// Get the image json and start the build
+getSiteJson(function (err, result) {
+    var siteList = result;
+    console.log('››'.bold.green, 'Site data is built');
+    console.log('››'.bold.blue, '------------------------------');
+    console.log('››'.bold.blue, 'Start build steps');
+
+    // Build the site
+    build(siteList);
 
     // Process timers
     var endTimer = process.hrtime(startTimer);
