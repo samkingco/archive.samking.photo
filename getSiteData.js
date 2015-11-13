@@ -1,3 +1,7 @@
+// App config
+var conf = require('./config');
+
+// Libs
 var fs = require('fs-extra');
 var path = require('path');
 var _ = require('underscore');
@@ -35,8 +39,6 @@ function _buildTagsList (imageList) {
 
     return imagesByTag;
 }
-
-
 
 
 function _buildSiteList (imageList) {

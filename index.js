@@ -1,3 +1,6 @@
+// App config
+var conf = require('./config');
+
 // Output helpers
 var colors = require('colors');
 var prettyHrtime = require('pretty-hrtime');
@@ -13,11 +16,6 @@ var swig = require('swig');
 var getSiteJson = require('./getSiteData');
 
 
-var IMAGES_DIR = './images';
-var SRC_DIR = './src';
-var DEST_DIR = './build/';
-
-
 
 
 
@@ -25,13 +23,13 @@ var DEST_DIR = './build/';
 function _renderHomepage (dataList) {
     console.log('  ››'.blue.bold, 'Rendering homepage template');
 
-    return swig.renderFile(path.join(SRC_DIR, 'templates/homepage.html'), { images: dataList });
+    return swig.renderFile(path.join(conf.SRC_DIR, 'templates/homepage.html'), { images: dataList });
 }
 
 function _renderTaggedPage (dataList) {
     console.log('  ››'.blue.bold, 'Rendering tagged page for: '+dataList.name);
 
-    return swig.renderFile(path.join(SRC_DIR, 'templates/tagged.html'), {
+    return swig.renderFile(path.join(conf.SRC_DIR, 'templates/tagged.html'), {
         tag_name: dataList.name,
         images: dataList.images
     });
@@ -39,7 +37,7 @@ function _renderTaggedPage (dataList) {
 
 function _copyStaticFiles (dest) {
     console.log('  ››'.blue.bold, 'Copying static files');
-    fs.copySync(path.join(SRC_DIR, '/static/'), path.join(dest, '/static'));
+    fs.copySync(path.join(conf.SRC_DIR, '/static/'), path.join(dest, '/static'));
 }
 
 function _makeSiteFiles (siteList) {
@@ -48,31 +46,31 @@ function _makeSiteFiles (siteList) {
     console.log('  ››'.blue.bold, 'Copying Images');
 
     _.each(siteList[0].images, function (image) {
-        fs.copySync(image.path, path.join(DEST_DIR, '/'+image.path));
+        fs.copySync(image.path, path.join(conf.DEST_DIR, '/'+image.path));
     });
 
-    _copyStaticFiles(DEST_DIR);
+    _copyStaticFiles(conf.DEST_DIR);
 
     var homePageData = siteList[0].images;
     var tagsPageData = siteList[0].tags;
 
-    fs.outputFileSync(path.join(DEST_DIR, 'index.html'), _renderHomepage(homePageData));
+    fs.outputFileSync(path.join(conf.DEST_DIR, 'index.html'), _renderHomepage(homePageData));
 
     _.each(tagsPageData, function (tag) {
         if (tag.name.length) {
             fs.outputFileSync(
-                path.join(DEST_DIR, 'tagged/'+tag.name+'/index.html'),
+                path.join(conf.DEST_DIR, 'tagged/'+tag.name+'/index.html'),
                 _renderTaggedPage(tag)
             );
         }
     });
 
-    console.log('››'.green.bold, 'Built to: '+DEST_DIR);
+    console.log('››'.green.bold, 'Built to: '+conf.DEST_DIR);
 }
 
 
 function _cleanImagesDir () {
-    fs.removeSync(path.join(DEST_DIR, IMAGES_DIR));
+    fs.removeSync(path.join(conf.DEST_DIR, conf.IMAGES_DIR));
     console.log('››'.bold.blue, 'Cleaning up image directory');
 }
 

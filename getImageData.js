@@ -1,15 +1,28 @@
+// App config
+var conf = require('./config');
+
+// Output helpers
 var colors = require('colors');
+
+// Libs
 var fs = require('fs-extra');
 var async = require('async');
 var path = require('path');
+var _ = require('underscore');
 var gm = require('gm').subClass({imageMagick: true});
 
 
 
 
 
+// Get images from the images directory
 var imageData = [];
-var images = fs.readdirSync('./images').sort();
+var images = fs.readdirSync(conf.IMAGES_DIR).sort();
+
+// Filter just image files
+images = _.filter(images, function (image) {
+    return image.match(/(.png|.jpg|.gif)/i);
+});
 
 // Populate the image data with paths
 images.forEach(function (img) {
