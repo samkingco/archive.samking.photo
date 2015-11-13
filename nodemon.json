@@ -1,0 +1,4 @@
+ {
+    "ignore": ["build/*"],
+    "ext": "html css js png gif jpg"
+ }
