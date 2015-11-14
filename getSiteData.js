@@ -99,17 +99,20 @@ function _buildTaggedList (imageList) {
     _.each(tags, function (tag) {
         console.log('  ››'.bold.blue, 'Building tagged list for "'+tag+'"');
 
+        var url = '/tagged/'+tag+'/';
+
         // Loop through all the images and filter for the current tag
         var imagesWithTag = _.filter(imageList, function (imageObject) {
             return _.contains(imageObject['keywords'], tag);
         });
 
         // Build a paginated list of each tag
-        var paginatedTag = _buildPaginatedIndex(imagesWithTag, '/tagged/'+tag+'/');
+        var paginatedTag = _buildPaginatedIndex(imagesWithTag, url);
 
         // Push all the paginated tag stuff to the array
         taggedList.push({
             name: tag,
+            url: url,
             itemCount: imagesWithTag.length,
             index: paginatedTag
         });
@@ -123,6 +126,7 @@ function _buildTaggedList (imageList) {
 
 function _buildSiteInformation () {
     return {
+        urls: conf.urls,
         author: conf.author,
         info: conf.siteInfo
     }
@@ -155,6 +159,10 @@ module.exports = function (callback) {
         console.log('››'.bold.green, 'Image data is built');
         console.log('››'.bold.blue, 'Building site data');
         var siteList = _buildSiteList(result);
+
+        // Write the site file to the cache
+        fs.writeFile(path.join(conf.CACHE_DIR, conf.SITE_CACHE_FILE), JSON.stringify(siteList, null, 2));
+
         callback(err, siteList);
     });
 }

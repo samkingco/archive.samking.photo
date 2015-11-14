@@ -16,7 +16,7 @@ img {
 }
 
 
-.image-list {
+.post-list {
     max-width: 70%;
     margin: 60px auto;
     display: flex;
@@ -24,35 +24,40 @@ img {
     justify-content: flex-end;
 }
 
-    .image {
+    .post {
         width: 80%;
         margin-bottom: 40px;
         display: flex;
         justify-content: center;
         align-items: center;
-        background: #f2f2f2;
+        flex-wrap: wrap;
     }
 
-        .image--extended {
+        .post--extended {
             width: 100%;
         }
 
-        .image--half {
+        .post--half {
             width: calc(40% - 20px);
         }
 
-        .image--half + .image--half {
+        .post--half + .post--half {
             margin-left: 40px;
         }
 
-        .image__image-container {
-            height: 0;
-            overflow: hidden;
+        .post__image-container {
+            width: 100%;
+            background: #f2f2f2;
         }
 
+            .image-container__sizing {
+                height: 0;
+                overflow: hidden;
+            }
 
-        .image--pad1 { padding: 3%; }
-        .image--pad2 { padding: 5%; }
-        .image--pad3 { padding: 7%; }
-        .image--pad4 { padding: 10%; }
-        .image--pad5 { padding: 15%; }
+
+        .image--pad1 .image__image-container { padding: 5%; }
+        .image--pad2 .image__image-container { padding: 10%; }
+        .image--pad3 .image__image-container { padding: 15%; }
+        .image--pad4 .image__image-container { padding: 20%; }
+        .image--pad5 .image__image-container { padding: 25%; }

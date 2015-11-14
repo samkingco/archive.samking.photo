@@ -117,7 +117,11 @@ function _getFocal (image, callback) {
 function _getKeywords (image, callback) {
     gm(image.path).identify('%[IPTC:2:25]', function (err, value) {
         if (!err) {
-            image.keywords = value.split(';');
+            var keywords = _.map(value.split(';'), function (keyword) {
+                return keyword.replace(/\s+/g, '-').toLowerCase();
+            });
+
+            image.keywords = keywords;
         } else {
             image.keywords = '';
         }

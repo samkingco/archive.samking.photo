@@ -12,9 +12,9 @@
 
         <h1>Index: Page {{ page.currentIndex }}/{{ page.totalPages }}</h1>
 
-        <div class="image-list">
+        <div class="post-list">
         {% for image in page.images %}
-            <div class="image{% for modifier in image.modifiers %} image--{{ modifier }}{% endfor %}"
+            <div class="post{% for modifier in image.modifiers %} post--{{ modifier }}{% endfor %}"
                  data-caption="{{ image.caption }}"
                  data-tags="{% for tag in image.keywords %}{{ tag }},{% endfor %}"
                  data-focal="{{ image.focal }}mm"
@@ -22,11 +22,19 @@
                  data-aperture="f/{{ image.aperture }}"
                  data-iso="ISO {{ image.iso }}"
                  data-timestamp="{{ image.timestamp|date('Y-m-d, H:i:s') }}">
-                <div class="image__image-container"
-                     style="padding-bottom: {{ image.dimensions.height / image.dimensions.width * 100 }}%">
-                    <img src="/{{ image.path }}"
-                         width="{{ image.dimensions.width }}"
-                         height="{{ image.dimensions.height }}">
+                <div class="post__image-container">
+                    <div class="image-container__sizing"
+                         style="padding-bottom: {{ image.dimensions.height / image.dimensions.width * 100 }}%">
+                        <img src="/{{ image.path }}"
+                             width="{{ image.dimensions.width }}"
+                             height="{{ image.dimensions.height }}">
+                    </div>
+                </div>
+
+                <div>
+                    {% for tag in image.keywords %}
+                        <a href="{{ site.urls.tagged }}{{ tag }}">#{{ tag }}</a>
+                    {% endfor %}
                 </div>
             </div>
         {% endfor %}
