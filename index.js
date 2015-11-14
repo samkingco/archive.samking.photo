@@ -72,7 +72,6 @@ function _makeSiteFiles (siteList) {
 
     console.log('  ››'.blue.bold, 'Building index pages');
     _.each(siteList[0].index, function (page) {
-        console.log(page);
         var url = path.join(conf.DEST_DIR, page.url+'/index.html')
         fs.outputFileSync(url, _renderIndex(siteList, page));
     });

@@ -5,6 +5,8 @@ var exports = module.exports = {};
 exports.IMAGES_DIR = './images';
 exports.SRC_DIR = './src';
 exports.DEST_DIR = './build/';
+exports.CACHE_DIR = './cache/';
+exports.IMAGE_CACHE_FILE = 'image-list.json';
 exports.imagesPerPage = 3;
 
 

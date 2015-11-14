@@ -145,8 +145,6 @@ function _buildSiteList (imageList) {
         tags: taggedList
     });
 
-    fs.writeFile(path.join('site-list.txt'), JSON.stringify(siteList, null, 2));
-
     return siteList;
 }
 

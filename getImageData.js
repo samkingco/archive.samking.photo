@@ -140,11 +140,54 @@ function _getCaption (image, callback) {
 // Set up the composer to be called
 var composer = async.compose(_getDimensions, _getModifiers, _getTimestamp, _getShutter, _getAperture, _getIso, _getFocal, _getKeywords, _getCaption);
 
+
+function _imagesLastModified (fileArr) {
+    var lastFile = _.max(fileArr, function (image) {
+        var fullpath = path.join(conf.IMAGES_DIR, image);
+        return fs.statSync(fullpath).mtime;
+    });
+
+    return fs.statSync(path.join(conf.IMAGES_DIR, lastFile)).mtime;
+}
+
+
+function _shouldUseCachedList (callback) {
+    var imagesLastModified = _imagesLastModified(images);
+    var cacheFile = path.join(conf.CACHE_DIR, conf.IMAGE_CACHE_FILE);
+
+    console.log('››'.bold.blue, 'Checking cache status');
+
+    fs.stat(cacheFile, function (err, stats) {
+        if(!err && stats.isFile() && stats.mtime > imagesLastModified) {
+            console.log('››'.bold.green, 'Using cached image list');
+            callback(true);
+        } else {
+            console.log('››'.bold.blue, 'Image cache does not exist');
+            callback(false);
+        }
+    });
+}
+
+
 // Export the function
 module.exports = function (callback) {
-    console.log('››'.bold.blue, 'Building image data');
+    // Check if using the cache file is the right thing to do
+    _shouldUseCachedList(function (useCachedList) {
+        if (useCachedList) {
+            // Use the cached file as the site build data
+            fs.readFile(path.join(conf.CACHE_DIR, conf.IMAGE_CACHE_FILE), 'utf8', function (err, data) {
+                callback(err, JSON.parse(data));
+            });
+        } else {
+            console.log('››'.bold.blue, 'Building image data');
+            // Read all the images to create the data object
+            async.mapLimit(imageData, 20, composer, function (err, result) {
+                // Then save a cache file
+                fs.writeFile(path.join(conf.CACHE_DIR, conf.IMAGE_CACHE_FILE), JSON.stringify(result, null, 2));
 
-    async.mapLimit(imageData, 20, composer, function (err, result) {
-        callback(err, result);
+                // And return the data
+                callback(err, result);
+            });
+        }
     });
 }
