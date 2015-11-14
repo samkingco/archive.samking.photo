@@ -10,6 +10,79 @@ var _ = require('underscore');
 var getImageJson = require('./getImageData');
 
 
+// Helper mixins
+_.mixin({
+    chunk: function (array, unit) {
+        if (!_.isArray(array)) return array;
+
+        unit = Math.abs(unit);
+
+        var results = [];
+        var length = Math.ceil(array.length / unit);
+
+        for (var i = 0; i < length; i++) {
+            results.push(array.slice( i * unit, (i + 1) * unit));
+        }
+
+        return results;
+    }
+});
+
+
+function _paginateList (list, unit, path) {
+    var chunkedList = _.chunk(list, unit);
+    var paginatedList = [];
+    var maxIndex = chunkedList.length;
+
+    _.each(chunkedList, function (pageData, index) {
+        var pageNumber = index + 1;
+
+        var currentUrl = path+'page/'+pageNumber+'/';
+        var prevUrl;
+        var nextUrl = (pageNumber == maxIndex) ? '' : path+'page/'+(pageNumber+1)+'/';
+
+        if (pageNumber == 1) {
+            prevUrl = '';
+            currentUrl = path;
+        } else if (pageNumber == 2) {
+            prevUrl = path;
+        } else {
+            prevUrl = path+'page/'+(pageNumber-1)+'/';
+        }
+
+        var pageInfo = {
+            url: currentUrl,
+            prevUrl: prevUrl,
+            nextUrl: nextUrl,
+            images: pageData
+        }
+
+        paginatedList.push(pageInfo);
+    });
+
+    return paginatedList;
+}
+
+
+function _buildPaginatedIndex (imageList, basePath) {
+    var paginatedIndex = [];
+
+    var indexList = _.sortBy(imageList, 'path').reverse();
+    var indexPages = _paginateList(indexList, conf.imagesPerPage, basePath);
+
+    //Add data to each page in the list
+    _.each(indexPages, function (page, index) {
+        page.currentIndex = index+1;
+        page.totalPages = indexPages.length;
+    });
+
+    // Push all the paginated tag stuff to the array
+    paginatedIndex.push(indexPages);
+
+    return _.flatten(paginatedIndex);
+}
+
+
 function _getAllTags (imageList) {
     console.log('››'.bold.blue, 'Getting all tags');
 
@@ -19,47 +92,71 @@ function _getAllTags (imageList) {
 }
 
 
-function _buildTagsList (imageList) {
+function _buildTaggedList (imageList) {
     var tags = _getAllTags(imageList);
-    var imagesByTag = [];
+    var taggedList = [];
 
     _.each(tags, function (tag) {
-        console.log('  ››'.bold.blue, 'Building tag list for "'+tag+'"');
+        console.log('  ››'.bold.blue, 'Building tagged list for "'+tag+'"');
 
         // Loop through all the images and filter for the current tag
-        var imageWithTag = _.filter(imageList, function (imageObject) {
+        var imagesWithTag = _.filter(imageList, function (imageObject) {
             return _.contains(imageObject['keywords'], tag);
         });
 
-        // Push stuff to the array
-        imagesByTag.push({ name: tag, images: imageWithTag });
+        // Build a paginated list of each tag
+        var paginatedTag = _buildPaginatedIndex(imagesWithTag, '/tagged/'+tag+'/');
+
+        // Push all the paginated tag stuff to the array
+        taggedList.push({
+            name: tag,
+            itemCount: imagesWithTag.length,
+            index: paginatedTag
+        });
     });
 
     console.log('››'.bold.green, 'List of all tags is built');
 
-    return imagesByTag;
+    return _.flatten(taggedList);
+}
+
+
+function _buildSiteInformation () {
+    return {
+        author: conf.author,
+        info: conf.siteInfo
+    }
 }
 
 
 function _buildSiteList (imageList) {
     var siteList = [];
-    var tagsList = _buildTagsList(imageList);
 
-    siteList.push({ images: imageList, tags: tagsList });
+    // Build the list of global site data
+    var siteInformationList = _buildSiteInformation();
+
+    // Sort & paginate all the lists
+    var indexList = _buildPaginatedIndex(imageList, '/');
+    var taggedList = _buildTaggedList(imageList);
+
+    siteList.push({
+        site: siteInformationList,
+        index: indexList,
+        tags: taggedList
+    });
+
+    fs.writeFile(path.join('site-list.txt'), JSON.stringify(siteList, null, 2));
 
     return siteList;
 }
 
 
-// Get the image json and start formatting it
+// Get the image json and start formatting it into the site list
 module.exports = function (callback) {
     getImageJson(function (err, result) {
         console.log('››'.bold.green, 'Image data is built');
-
         console.log('››'.bold.blue, 'Building site data');
-        // Build the list of tags
         var siteList = _buildSiteList(result);
-
         callback(err, siteList);
     });
 }

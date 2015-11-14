@@ -20,49 +20,69 @@ var getSiteJson = require('./getSiteData');
 
 
 // The building of the project thing
-function _renderHomepage (dataList) {
-    console.log('  ››'.blue.bold, 'Rendering homepage template');
+function _renderIndex (siteList, pageData) {
+    var siteInfo = siteList[0].site;
 
-    return swig.renderFile(path.join(conf.SRC_DIR, 'templates/homepage.html'), { images: dataList });
+    return swig.renderFile(path.join(conf.SRC_DIR, 'templates/index.html'), {
+                site: siteInfo,
+                page: pageData
+            });
 }
 
-function _renderTaggedPage (dataList) {
-    console.log('  ››'.blue.bold, 'Rendering tagged page for: '+dataList.name);
+
+function _renderTaggedPage (siteList, tag, tagPage) {
+    var siteInfo = siteList[0].site;
 
     return swig.renderFile(path.join(conf.SRC_DIR, 'templates/tagged.html'), {
-        tag_name: dataList.name,
-        images: dataList.images
+                site: siteInfo,
+                tag: tag,
+                page: tagPage
+            });
+}
+
+
+function _copyImages (dest) {
+    var images = fs.readdirSync(conf.IMAGES_DIR).sort();
+
+    // Filter just image files
+    images = _.filter(images, function (image) {
+        return image.match(/(.png|.jpg|.gif)/i);
+    });
+
+    _.each(images, function (image) {
+        var imagePath = path.join(conf.IMAGES_DIR, '/'+image);
+        fs.copySync(imagePath, path.join(dest, imagePath));
     });
 }
 
+
 function _copyStaticFiles (dest) {
-    console.log('  ››'.blue.bold, 'Copying static files');
     fs.copySync(path.join(conf.SRC_DIR, '/static/'), path.join(dest, '/static'));
 }
+
 
 function _makeSiteFiles (siteList) {
     console.log('››'.blue.bold, 'Building site');
 
     console.log('  ››'.blue.bold, 'Copying Images');
+    _copyImages(conf.DEST_DIR);
 
-    _.each(siteList[0].images, function (image) {
-        fs.copySync(image.path, path.join(conf.DEST_DIR, '/'+image.path));
-    });
-
+    console.log('  ››'.blue.bold, 'Copying static files');
     _copyStaticFiles(conf.DEST_DIR);
 
-    var homePageData = siteList[0].images;
-    var tagsPageData = siteList[0].tags;
+    console.log('  ››'.blue.bold, 'Building index pages');
+    _.each(siteList[0].index, function (page) {
+        console.log(page);
+        var url = path.join(conf.DEST_DIR, page.url+'/index.html')
+        fs.outputFileSync(url, _renderIndex(siteList, page));
+    });
 
-    fs.outputFileSync(path.join(conf.DEST_DIR, 'index.html'), _renderHomepage(homePageData));
-
-    _.each(tagsPageData, function (tag) {
-        if (tag.name.length) {
-            fs.outputFileSync(
-                path.join(conf.DEST_DIR, 'tagged/'+tag.name+'/index.html'),
-                _renderTaggedPage(tag)
-            );
-        }
+    console.log('  ››'.blue.bold, 'Building tags pages');
+    _.each(siteList[0].tags, function (tag) {
+        _.each(tag.index, function (page) {
+            var url = path.join(conf.DEST_DIR, page.url+'/index.html')
+            fs.outputFileSync(url, _renderTaggedPage(siteList, tag, page));
+        });
     });
 
     console.log('››'.green.bold, 'Built to: '+conf.DEST_DIR);
@@ -74,10 +94,14 @@ function _cleanImagesDir () {
     console.log('››'.bold.blue, 'Cleaning up image directory');
 }
 
+function _cleanBuildDir() {
+    fs.removeSync(conf.DEST_DIR);
+    console.log('››'.bold.blue, 'Cleaning up build directory');
+}
 
 // The build process
 function build (siteList) {
-    _cleanImagesDir();
+    _cleanBuildDir();
     _makeSiteFiles(siteList);
 }
 

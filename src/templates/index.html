@@ -4,14 +4,16 @@
         <meta charset="utf-8">
         <meta name="description" content="Sam King">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Sam King</title>
-        <link rel="stylesheet" href="static/css/style.css">
+        <title>{{ site.author.name }}</title>
+        <link rel="stylesheet" href="/static/css/style.css">
         <link rel="author" content="Sam King">
     </head>
     <body>
 
+        <h1>Index: Page {{ page.currentIndex }}/{{ page.totalPages }}</h1>
+
         <div class="image-list">
-        {% for image in images %}
+        {% for image in page.images %}
             <div class="image{% for modifier in image.modifiers %} image--{{ modifier }}{% endfor %}"
                  data-caption="{{ image.caption }}"
                  data-tags="{% for tag in image.keywords %}{{ tag }},{% endfor %}"
@@ -22,12 +24,17 @@
                  data-timestamp="{{ image.timestamp|date('Y-m-d, H:i:s') }}">
                 <div class="image__image-container"
                      style="padding-bottom: {{ image.dimensions.height / image.dimensions.width * 100 }}%">
-                    <img src="{{ image.path }}"
+                    <img src="/{{ image.path }}"
                          width="{{ image.dimensions.width }}"
                          height="{{ image.dimensions.height }}">
                 </div>
             </div>
         {% endfor %}
+        </div>
+
+        <div class="pagination">
+            {% if page.prevUrl %}<a href="{{ page.prevUrl }}">Prev</a>{% endif %}
+            {% if page.nextUrl %}<a href="{{ page.nextUrl }}">Next</a>{% endif %}
         </div>
 
         <script src="static/js/app.js"></script>
