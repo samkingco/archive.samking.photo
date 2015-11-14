@@ -159,14 +159,21 @@ function _shouldUseCachedList (callback) {
     var imagesLastModified = _imagesLastModified(images);
     var cacheFile = path.join(conf.CACHE_DIR, conf.IMAGE_CACHE_FILE);
 
+    var cacheFileContents = fs.readFileSync(cacheFile, 'utf8');
+    var cachedImageTotal = JSON.parse(cacheFileContents).length;
+
     console.log('››'.bold.blue, 'Checking cache status');
 
     fs.stat(cacheFile, function (err, stats) {
-        if(!err && stats.isFile() && stats.mtime > imagesLastModified) {
+        if(!err
+            && stats.isFile()
+            && stats.mtime > imagesLastModified
+            && cachedImageTotal == images.length) {
             console.log('››'.bold.green, 'Using cached image list');
             callback(true);
         } else {
-            console.log('››'.bold.blue, 'Image cache does not exist');
+            console.log('››'.bold.blue, 'Image cache does not exist, creating empty file');
+            fs.writeFile(cacheFile, '');
             callback(false);
         }
     });
