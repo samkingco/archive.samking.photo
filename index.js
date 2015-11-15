@@ -58,6 +58,7 @@ function _copyImages (dest) {
 
 function _copyStaticFiles (dest) {
     fs.copySync(path.join(conf.SRC_DIR, '/static/'), path.join(dest, '/static'));
+    fs.copySync(path.join(conf.SRC_DIR, '/.htaccess'), path.join(dest, '/.htaccess'));
 }
 
 
@@ -100,7 +101,7 @@ function _cleanBuildDir() {
 
 // The build process
 function build (siteList) {
-    _cleanBuildDir();
+    // _cleanBuildDir();
     _makeSiteFiles(siteList);
 }
 

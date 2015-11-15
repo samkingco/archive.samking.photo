@@ -1,51 +1,36 @@
-<!doctype html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta name="description" content="Sam King">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>{{ site.author.name }}</title>
-        <link rel="stylesheet" href="/static/css/style.css">
-        <link rel="author" content="Sam King">
-    </head>
-    <body>
+{% extends 'layout.html' %}
 
-        <h1>Tagged: {{ tag.name }}</h1>
-        <h2>Page {{ page.currentIndex }}/{{ page.totalPages }}</h2>
+{% block content %}
+<h1>Tagged: {{ tag.name }}</h1>
 
-        <div class="post-list">
-        {% for image in page.images %}
-            <div class="post{% for modifier in image.modifiers %} post--{{ modifier }}{% endfor %}"
-                 data-caption="{{ image.caption }}"
-                 data-tags="{% for tag in image.keywords %}{{ tag }},{% endfor %}"
-                 data-focal="{{ image.focal }}mm"
-                 data-exposure="{{ image.exposure }}s"
-                 data-aperture="f/{{ image.aperture }}"
-                 data-iso="ISO {{ image.iso }}"
-                 data-timestamp="{{ image.timestamp|date('Y-m-d, H:i:s') }}">
-                <div class="post__image-container">
-                    <div class="image-container__sizing"
-                         style="padding-bottom: {{ image.dimensions.height / image.dimensions.width * 100 }}%">
-                        <img src="/{{ image.path }}"
-                             width="{{ image.dimensions.width }}"
-                             height="{{ image.dimensions.height }}">
-                    </div>
-                </div>
-
-                <div>
-                    {% for tag in image.keywords %}
-                        <a href="{{ site.urls.tagged }}{{ tag }}">#{{ tag }}</a>
-                    {% endfor %}
-                </div>
+<div class="post-grid">
+{% for image in page.images %}
+    <div class="post  post--in-grid"
+         data-caption="{{ image.caption }}"
+         data-tags="{% for tag in image.keywords %}{{ tag }},{% endfor %}"
+         data-focal="{{ image.focal }}mm"
+         data-exposure="{{ image.exposure }}s"
+         data-aperture="f/{{ image.aperture }}"
+         data-iso="ISO {{ image.iso }}"
+         data-timestamp="{{ image.timestamp|date('Y-m-d, H:i:s') }}">
+        <div class="post__image-container">
+            <div class="image-container__sizing"
+                 style="padding-bottom: {{ image.dimensions.height / image.dimensions.width * 100 }}%">
+                <img src="/{{ image.path }}"
+                     width="{{ image.dimensions.width }}"
+                     height="{{ image.dimensions.height }}">
             </div>
-        {% endfor %}
         </div>
 
-        <div class="pagination">
-            {% if page.prevUrl %}<a href="{{ page.prevUrl }}">Prev</a>{% endif %}
-            {% if page.nextUrl %}<a href="{{ page.nextUrl }}">Next</a>{% endif %}
+        <div>
+            {% for tag in image.keywords %}
+                <a href="{{ site.urls.tagged }}{{ tag }}">#{{ tag }}</a>
+            {% endfor %}
         </div>
+    </div>
+{% endfor %}
+</div>
 
-        <script src="/static/js/app.js"></script>
-    </body>
-</html>
+{% include './partials/pagination.html' %}
+
+{% endblock %}

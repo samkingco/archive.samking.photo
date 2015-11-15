@@ -61,3 +61,18 @@ img {
         .image--pad3 .image__image-container { padding: 15%; }
         .image--pad4 .image__image-container { padding: 20%; }
         .image--pad5 .image__image-container { padding: 25%; }
+
+
+
+
+.post-grid {
+    margin: 60px auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+    .post--in-grid {
+        width: calc(25% - 20px);
+        margin: 0 10px 40px;
+    }

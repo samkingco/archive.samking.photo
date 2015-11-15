@@ -1,0 +1,21 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="description" content="Sam King">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{{ site.author.name }}</title>
+        <link rel="stylesheet" href="{{ site.staticFiles.css }}">
+        <link rel="author" content="Sam King">
+    </head>
+    <body>
+
+        <div class="header">
+            <a href="/">Sam King</a>
+        </div>
+
+        {% block content %}{% endblock %}
+
+        <script src="{{ site.staticFiles.css }}"></script>
+    </body>
+</html>

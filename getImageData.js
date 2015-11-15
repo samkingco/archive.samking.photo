@@ -12,11 +12,32 @@ var _ = require('underscore');
 var gm = require('gm').subClass({imageMagick: true});
 
 
+// Helper functions
+function existsSync (filePath) {
+    try {
+        fs.statSync(filePath);
+    } catch (err) {
+        if (err.code === 'ENOENT') return false;
+    }
+    return true;
+}
 
+
+
+
+
+// Reference to cache file and it's contents
+var cacheFile = path.join(conf.CACHE_DIR, conf.IMAGE_CACHE_FILE);
+var cachedImagesList;
+
+if (existsSync(cacheFile)) {
+    cachedImagesList = JSON.parse(fs.readFileSync(cacheFile, 'utf8'));
+} else {
+    cachedImagesList = [];
+}
 
 
 // Get images from the images directory
-var imageData = [];
 var images = fs.readdirSync(conf.IMAGES_DIR).sort();
 
 // Filter just image files
@@ -24,16 +45,108 @@ images = _.filter(images, function (image) {
     return image.match(/(.png|.jpg|.gif)/i);
 });
 
-// Populate the image data with paths
-images.forEach(function (img) {
-    var imagePath = path.join('images/', img);
-    imageData.push({ path: imagePath });
-});
-
 console.log('››'.bold.green, 'Built path list');
 
 
-// All the functions to be run
+
+
+
+// ------------------------------------------
+// Add or remove images from the cache object
+// ------------------------------------------
+
+// Remove any changed images from the cache object
+_.each(cachedImagesList, function (cachedImage) {
+    if (_imageShouldBeRemoved(cachedImage)) {
+        // Remove the image from the cache object
+        _removeImageFromList(cachedImage);
+    }
+
+    // Check modified times of files to see if the image
+    // needs to be marked for re-processing
+    _checkForReProcessing(cachedImage);
+});
+
+
+// Add any images to the cache object
+_.each(images, function (image) {
+    if (!_imageHasBeenSeenBefore(image)) {
+        _addImageToList(image);
+    }
+});
+
+
+// Function to check if the image no longer exists in the images dir
+// but still exists in the cache object
+function _imageShouldBeRemoved (image) {
+    var imageName = image.path.replace('images/', '');
+    return !_.contains(images, imageName);
+}
+
+
+// Function to check if the image needs to be re-processed
+// and update the mtime in the cache
+function _checkForReProcessing (image) {
+    if (existsSync(image.path)) {
+        var srcImageMtime = fs.lstatSync(image.path).mtime;
+        var cachedImageMtime = image.modified;
+
+        if (srcImageMtime > cachedImageMtime) {
+            image.processed = false;
+            image.modified = srcImageMtime;
+
+            console.log('››'.bold.yellow, image.path+' needs to be re-processed');
+        }
+    }
+}
+
+
+// Function to add an image to the cache object
+function _addImageToList (image) {
+    var imagePath = path.join('images/', image);
+    var modified = Date.parse(fs.statSync(imagePath).mtime);
+
+    cachedImagesList.push({
+        path: imagePath,
+        modified: modified,
+        processed: false
+    });
+
+    console.log('››'.bold.green, 'Added '+imagePath+' to the cache');
+}
+
+
+// Function to remove an image from the cache object
+function _removeImageFromList (imageObj) {
+    cachedImagesList = _.without(cachedImagesList, imageObj);
+
+    console.log('››'.bold.red, 'Removed '+imageObj.path+' from the cache');
+}
+
+
+// Function to check if an image exists in the json file
+function _imageHasBeenSeenBefore (imagePath) {
+    var seenBefore = _.some(cachedImagesList, function (image) {
+        var imageName = image.path.replace('images/', '');
+        return imageName === imagePath;
+    });
+
+    return seenBefore;
+}
+
+
+
+
+
+// ---------------------------------------------
+// Functions that process all the data in images
+// ---------------------------------------------
+
+function _setAsProcessed (image, callback) {
+    image.processed = true;
+    callback(null, image);
+}
+
 function _getDimensions (image, callback) {
     gm(image.path).size(function (err, size) {
         image.dimensions = size;
@@ -141,64 +254,60 @@ function _getCaption (image, callback) {
 }
 
 
+
+
+
+// -----------------------------------
+// Generate responsive sizes of images
+// -----------------------------------
+
+// TODO
+
+
+
+
+
+// -----------------------------------------------
+// Async thing to process only images that need it
+// -----------------------------------------------
+
+
 // Set up the composer to be called
-var composer = async.compose(_getDimensions, _getModifiers, _getTimestamp, _getShutter, _getAperture, _getIso, _getFocal, _getKeywords, _getCaption);
+var composer = async.compose(_setAsProcessed, _getDimensions, _getModifiers, _getTimestamp, _getShutter, _getAperture, _getIso, _getFocal, _getKeywords, _getCaption);
 
 
-function _imagesLastModified (fileArr) {
-    var lastFile = _.max(fileArr, function (image) {
-        var fullpath = path.join(conf.IMAGES_DIR, image);
-        return fs.statSync(fullpath).mtime;
-    });
-
-    return fs.statSync(path.join(conf.IMAGES_DIR, lastFile)).mtime;
+// First built a list of images that need meta data
+function _imagesNeedingData () {
+    return _.where(cachedImagesList, { processed: false });
 }
 
 
-function _shouldUseCachedList (callback) {
-    var imagesLastModified = _imagesLastModified(images);
-    var cacheFile = path.join(conf.CACHE_DIR, conf.IMAGE_CACHE_FILE);
-
-    var cacheFileContents = fs.readFileSync(cacheFile, 'utf8');
-    var cachedImageTotal = JSON.parse(cacheFileContents).length;
-
-    console.log('››'.bold.blue, 'Checking cache status');
-
-    fs.stat(cacheFile, function (err, stats) {
-        if(!err
-            && stats.isFile()
-            && stats.mtime > imagesLastModified
-            && cachedImageTotal == images.length) {
-            console.log('››'.bold.green, 'Using cached image list');
-            callback(true);
-        } else {
-            console.log('››'.bold.blue, 'Image cache does not exist, creating empty file');
-            fs.writeFile(cacheFile, '');
-            callback(false);
-        }
+// Async process all the images
+function _processImages (imagesToProcess, callback) {
+    async.mapLimit(imagesToProcess, 20, composer, function (err, result) {
+        callback(err, result);
     });
 }
 
 
 // Export the function
 module.exports = function (callback) {
-    // Check if using the cache file is the right thing to do
-    _shouldUseCachedList(function (useCachedList) {
-        if (useCachedList) {
-            // Use the cached file as the site build data
-            fs.readFile(path.join(conf.CACHE_DIR, conf.IMAGE_CACHE_FILE), 'utf8', function (err, data) {
-                callback(err, JSON.parse(data));
-            });
-        } else {
-            console.log('››'.bold.blue, 'Building image data');
-            // Read all the images to create the data object
-            async.mapLimit(imageData, 20, composer, function (err, result) {
-                // Then save a cache file
-                fs.writeFile(path.join(conf.CACHE_DIR, conf.IMAGE_CACHE_FILE), JSON.stringify(result, null, 2));
+    console.log('››'.bold.blue, 'Building image data');
 
-                // And return the data
-                callback(err, result);
-            });
-        }
-    });
+    // Check if any images need proccessing and begin processing them
+    if (_imagesNeedingData().length) {
+        console.log('››'.bold.yellow, 'There are images that need proccessing!');
+
+        _processImages(_imagesNeedingData(), function (err, result) {
+            console.log('››'.bold.blue, 'Processing complete, updating cache file');
+            // Update the cache file on disk
+            fs.writeFile(path.join(conf.CACHE_DIR, conf.IMAGE_CACHE_FILE), JSON.stringify(cachedImagesList, null, 2));
+            // Return with the newly updated list
+            callback(err, cachedImagesList);
+        });
+    } else {
+        console.log('››'.bold.blue, 'Nothing new - returning image data from cache');
+        // Just return the image list from the cache object
+        callback(null, cachedImagesList);
+    }
 }

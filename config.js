@@ -8,7 +8,14 @@ exports.DEST_DIR = './build/';
 exports.CACHE_DIR = './cache/';
 exports.IMAGE_CACHE_FILE = 'image-list.json';
 exports.SITE_CACHE_FILE = 'site-list.json';
-exports.imagesPerPage = 3;
+exports.imagesPerPage = 6;
+
+
+// Static urls
+exports.staticFiles = {
+    css: '/static/css/style.css',
+    js: '/static/js/app.js'
+}
 
 
 // Author & site info
