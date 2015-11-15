@@ -253,6 +253,29 @@ function _getCaption (image, callback) {
     });
 }
 
+function _resizeImages (image, callback) {
+    var sizes = {};
+
+    async.forEachOf(conf.imageSizes, function (sizeObj, sizeName, callback) {
+        var extension = sizeObj.extension + '.' + image.modified + image.path.substring(image.path.lastIndexOf("."));
+        var fileName = image.path.substring(0, image.path.lastIndexOf(".")) + extension;
+        var writeFileName = path.join('optimised_images/', fileName.replace('images/', ''));
+
+        sizes[sizeName] = fileName;
+
+        gm(image.path)
+        .resize(sizeObj.width)
+        .quality(sizeObj.quality)
+        .write(writeFileName, function (err) {
+            if (!err) callback();
+        });
+    }, function (err) {
+        image.sizes = sizes;
+        console.log('  ››'.bold.green, 'Resized '+image.path);
+        callback(null, image)
+    });
+}
+
 
 
 
@@ -261,7 +284,13 @@ function _getCaption (image, callback) {
 // Generate responsive sizes of images
 // -----------------------------------
 
-// TODO
+// var imageResizeComposer = async.compose(_setAsProcessed, _getDimensions, _getModifiers, _getTimestamp, _getShutter, _getAperture, _getIso, _getFocal, _getKeywords, _getCaption);
+
+// function _resizeImages (imagesToResize, callback) {
+//     async.mapLimit(imagesToResize, 20, imageResizeComposer, function (err, result) {
+//         callback(err, result);
+//     });
+// }
 
 
 
@@ -273,7 +302,7 @@ function _getCaption (image, callback) {
 
 
 // Set up the composer to be called
-var composer = async.compose(_setAsProcessed, _getDimensions, _getModifiers, _getTimestamp, _getShutter, _getAperture, _getIso, _getFocal, _getKeywords, _getCaption);
+var imageProcessComposer = async.compose(_setAsProcessed, _resizeImages, _getDimensions, _getModifiers, _getTimestamp, _getShutter, _getAperture, _getIso, _getFocal, _getKeywords, _getCaption);
 
 
 // First built a list of images that need meta data
@@ -284,7 +313,7 @@ function _imagesNeedingData () {
 
 // Async process all the images
 function _processImages (imagesToProcess, callback) {
-    async.mapLimit(imagesToProcess, 20, composer, function (err, result) {
+    async.mapLimit(imagesToProcess, 20, imageProcessComposer, function (err, result) {
         callback(err, result);
     });
 }

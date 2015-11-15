@@ -42,17 +42,7 @@ function _renderTaggedPage (siteList, tag, tagPage) {
 
 
 function _copyImages (dest) {
-    var images = fs.readdirSync(conf.IMAGES_DIR).sort();
-
-    // Filter just image files
-    images = _.filter(images, function (image) {
-        return image.match(/(.png|.jpg|.gif)/i);
-    });
-
-    _.each(images, function (image) {
-        var imagePath = path.join(conf.IMAGES_DIR, '/'+image);
-        fs.copySync(imagePath, path.join(dest, imagePath));
-    });
+    fs.copySync(conf.OPT_IMAGES_DIR, path.join(dest, conf.IMAGES_DIR));
 }
 
 
@@ -89,19 +79,15 @@ function _makeSiteFiles (siteList) {
 }
 
 
-function _cleanImagesDir () {
-    fs.removeSync(path.join(conf.DEST_DIR, conf.IMAGES_DIR));
-    console.log('››'.bold.blue, 'Cleaning up image directory');
-}
-
 function _cleanBuildDir() {
     fs.removeSync(conf.DEST_DIR);
     console.log('››'.bold.blue, 'Cleaning up build directory');
 }
 
+
 // The build process
 function build (siteList) {
-    // _cleanBuildDir();
+    _cleanBuildDir();
     _makeSiteFiles(siteList);
 }
 
