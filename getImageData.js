@@ -58,6 +58,12 @@ console.log('››'.bold.green, 'Built path list');
 // Remove any changed images from the cache object
 _.each(cachedImagesList, function (cachedImage) {
     if (_imageShouldBeRemoved(cachedImage)) {
+        _.each(cachedImage.sizes, function (size) {
+            // TODO: Make this path better
+            var sizePath = size.replace('images/', 'optimised_images/');
+            fs.removeSync(sizePath);
+        });
+
         // Remove the image from the cache object
         _removeImageFromList(cachedImage);
     }
