@@ -63,7 +63,7 @@ function _copyStaticFiles (dest, siteList) {
 function _makeSiteFiles (siteList) {
     console.log('››'.blue.bold, 'Building site');
 
-    console.log('  ››'.blue.bold, 'Copying Images');
+    console.log('  ››'.blue.bold, 'Copying images');
     _copyImages(conf.DEST_DIR);
 
     console.log('  ››'.blue.bold, 'Copying static files');
@@ -104,7 +104,7 @@ function build (siteList) {
 getSiteJson(function (err, result) {
     var siteList = result;
     console.log('››'.bold.green, 'Site data is built');
-    console.log('››'.bold.blue, '------------------------------');
+    console.log('››››'.bold.green, '----------');
     console.log('››'.bold.blue, 'Start build steps');
 
     // Build the site
@@ -113,6 +113,6 @@ getSiteJson(function (err, result) {
     // Process timers
     var endTimer = process.hrtime(startTimer);
     var formattedTimer = prettyHrtime(endTimer);
-    console.log('››'.bold.green, '------------------------------');
+    console.log('››››'.bold.green, '----------');
     console.log('››'.bold.green, 'Completed in: '+formattedTimer);
 });

@@ -25,6 +25,12 @@ function existsSync (filePath) {
 
 
 
+// Start logging
+console.log('››››'.bold.green, '----------');
+
+
+
+
 
 // Reference to cache file and it's contents
 var cacheFile = path.join(conf.CACHE_DIR, conf.IMAGE_CACHE_FILE);
@@ -281,22 +287,6 @@ function _resizeImages (image, callback) {
         callback(null, image)
     });
 }
-
-
-
-
-
-// -----------------------------------
-// Generate responsive sizes of images
-// -----------------------------------
-
-// var imageResizeComposer = async.compose(_setAsProcessed, _getDimensions, _getModifiers, _getTimestamp, _getShutter, _getAperture, _getIso, _getFocal, _getKeywords, _getCaption);
-
-// function _resizeImages (imagesToResize, callback) {
-//     async.mapLimit(imagesToResize, 20, imageResizeComposer, function (err, result) {
-//         callback(err, result);
-//     });
-// }
 
 
 
