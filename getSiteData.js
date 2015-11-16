@@ -141,25 +141,12 @@ function _cachebustStatic (staticList) {
 
     _.each(staticList, function (file, key) {
         var modified = Date.parse(fs.statSync(path.join(conf.SRC_DIR, file)).mtime);
-        var newFileName = file.substring(0, file.lastIndexOf(".")) + "." + modified + file.substring(file.lastIndexOf("."));
+        var newFileName = file.substring(0, file.lastIndexOf(".")) + "_" + modified + file.substring(file.lastIndexOf("."));
 
         staticFiles[key] = newFileName;
     });
 
     return staticFiles;
-}
-
-
-function _cachebustImages (imageList) {
-    _.each(imageList, function (image) {
-        var imagePath = image.path;
-        var modified = Date.parse(fs.statSync(imagePath).mtime);
-        var newFileName = imagePath.substring(0, imagePath.lastIndexOf(".")) + "." + modified + imagePath.substring(imagePath.lastIndexOf("."));
-
-        image['path'] = newFileName;
-    });
-
-    return imageList;
 }
 
 
@@ -189,8 +176,7 @@ module.exports = function (callback) {
         console.log('››'.bold.green, 'Image data is built');
         console.log('››'.bold.blue, 'Building site data');
 
-        var cachebustedImages = _cachebustImages(result);
-        var siteList = _buildSiteList(cachebustedImages);
+        var siteList = _buildSiteList(result);
 
         // Write the site file to the cache
         fs.writeFile(path.join(conf.CACHE_DIR, conf.SITE_CACHE_FILE), JSON.stringify(siteList, null, 2));

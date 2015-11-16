@@ -263,7 +263,7 @@ function _resizeImages (image, callback) {
     var sizes = {};
 
     async.forEachOf(conf.imageSizes, function (sizeObj, sizeName, callback) {
-        var extension = sizeObj.extension + '.' + image.modified + image.path.substring(image.path.lastIndexOf("."));
+        var extension = sizeObj.extension + '_' + image.modified + image.path.substring(image.path.lastIndexOf("."));
         var fileName = image.path.substring(0, image.path.lastIndexOf(".")) + extension;
         var writeFileName = path.join('optimised_images/', fileName.replace('images/', ''));
 

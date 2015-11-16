@@ -46,8 +46,16 @@ function _copyImages (dest) {
 }
 
 
-function _copyStaticFiles (dest) {
+function _copyStaticFiles (dest, siteList) {
     fs.copySync(path.join(conf.SRC_DIR, '/static/'), path.join(dest, '/static'));
+
+    _.each(conf.staticFiles, function (file, index) {
+        var oldName = path.join(dest, '/'+file);
+        var newName = path.join(dest, '/'+siteList[0].site.staticFiles[index]);
+
+        fs.rename(oldName, newName);
+    });
+
     fs.copySync(path.join(conf.SRC_DIR, '/.htaccess'), path.join(dest, '/.htaccess'));
 }
 
@@ -59,7 +67,7 @@ function _makeSiteFiles (siteList) {
     _copyImages(conf.DEST_DIR);
 
     console.log('  ››'.blue.bold, 'Copying static files');
-    _copyStaticFiles(conf.DEST_DIR);
+    _copyStaticFiles(conf.DEST_DIR, siteList);
 
     console.log('  ››'.blue.bold, 'Building index pages');
     _.each(siteList[0].index, function (page) {
