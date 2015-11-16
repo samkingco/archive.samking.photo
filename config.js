@@ -33,6 +33,7 @@ exports.imageSizes = {
 // Static urls
 exports.staticFiles = {
     css: '/static/css/style.css',
+    scss: '/static/_sass/style.scss',
     js: '/static/js/app.js'
 }
 

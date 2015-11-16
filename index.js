@@ -11,6 +11,7 @@ var fs = require('fs-extra');
 var path = require('path');
 var _ = require('underscore');
 var swig = require('swig');
+var sass = require('node-sass');
 
 // Created data things
 var getSiteJson = require('./getSiteData');
@@ -46,6 +47,24 @@ function _copyImages (dest) {
 }
 
 
+function _buildSass (dest, siteList) {
+    var result = sass.renderSync({
+        file: path.join(conf.SRC_DIR, conf.staticFiles.scss),
+        outFile: path.join(conf.SRC_DIR, conf.staticFiles.css),
+        ouputStyle: 'compressed',
+        sourceMap: true
+    });
+
+    fs.outputFileSync(path.join(conf.SRC_DIR, conf.staticFiles.css), result.css);
+    fs.outputFileSync(path.join(conf.SRC_DIR, conf.staticFiles.css).replace('.css', '.map'), result.map);
+}
+
+
+function _buildStaticFiles (siteList) {
+    _buildSass();
+}
+
+
 function _copyStaticFiles (dest, siteList) {
     fs.copySync(path.join(conf.SRC_DIR, '/static/'), path.join(dest, '/static'));
 
@@ -65,6 +84,8 @@ function _makeSiteFiles (siteList) {
 
     console.log('  ››'.blue.bold, 'Copying images');
     _copyImages(conf.DEST_DIR);
+
+    _buildStaticFiles(siteList);
 
     console.log('  ››'.blue.bold, 'Copying static files');
     _copyStaticFiles(conf.DEST_DIR, siteList);
