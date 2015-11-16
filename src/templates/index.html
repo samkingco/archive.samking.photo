@@ -14,7 +14,7 @@
         <div class="post__image-container">
             <div class="image-container__sizing"
                  style="padding-bottom: {{ image.dimensions.height / image.dimensions.width * 100 }}%">
-                <img src="/{{ image.path }}"
+                <img src="/{{ image.sizes.large }}"
                      width="{{ image.dimensions.width }}"
                      height="{{ image.dimensions.height }}">
             </div>
