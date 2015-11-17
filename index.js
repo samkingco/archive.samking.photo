@@ -64,6 +64,24 @@ function _buildIndexPage (siteList, callback) {
 }
 
 
+function _renderArchivePage (siteList, pageData) {
+    var siteInfo = siteList[0].site;
+
+    return swig.renderFile(path.join(conf.SRC_DIR, 'templates/archive.html'), {
+                site: siteInfo,
+                page: pageData
+            });
+}
+
+
+function _buildArchivePage (siteList, callback) {
+    console.log('  ››'.blue.bold, 'Building tags pages');
+    fs.outputFileSync(path.join(conf.DEST_DIR, '/archive/index.html'), _renderArchivePage(siteList, siteList[0].archive));
+
+    callback(null, siteList);
+}
+
+
 function _renderTaggedPage (siteList, tag, tagPage) {
     var siteInfo = siteList[0].site;
 
@@ -147,7 +165,7 @@ function _copyImages (siteList, callback) {
 }
 
 
-var buildComposer = async.compose(_copyImages, _copyStaticFiles, _buildJs, _buildCss, _buildIndexPage, _buildTaggedPage, _cleanBuildDir);
+var buildComposer = async.compose(_copyImages, _copyStaticFiles, _buildJs, _buildCss, _buildIndexPage, _buildArchivePage, _buildTaggedPage, _cleanBuildDir);
 
 
 

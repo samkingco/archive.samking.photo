@@ -124,6 +124,40 @@ function _buildTaggedList (imageList) {
 }
 
 
+function _buildArchivesList (imageList) {
+    var archiveList = [];
+
+    var archivedByDate = _.groupBy(imageList, function (image) {
+        var timestamp = new Date(image.timestamp);
+        var yyyymm = timestamp.getFullYear() + '-' + (timestamp.getMonth() + 1);
+
+        return yyyymm;
+    });
+
+    _.each(archivedByDate, function (monthData, YYYY_MM) {
+        console.log('  ››'.bold.blue, 'Building archive list for "'+YYYY_MM+'"');
+
+        monthData = _.sortBy(monthData, 'path').reverse();
+
+        // Set the name to be the timestamp of the first item
+        // so we can format to whatever in the template
+        var name = monthData[0].timestamp;
+
+        var url = '/archive/'+YYYY_MM+'/';
+
+        // Push all the paginated tag stuff to the array
+        archiveList.push({
+            name: name,
+            url: url,
+            itemCount: monthData.length,
+            images: monthData
+        });
+    });
+
+    return _.flatten(archiveList);
+}
+
+
 function _buildSiteInformation () {
     var staticFiles = _cachebustStatic(conf.staticFiles);
 
@@ -164,8 +198,10 @@ function _buildSiteList (imageList) {
     // Sort & paginate all the lists
     var indexList = _buildPaginatedIndex(imageList, '/');
     var taggedList = _buildTaggedList(imageList);
+    var archiveList = _buildArchivesList(imageList);
 
     siteList.push({
+        archive: archiveList,
         site: siteInformationList,
         index: indexList,
         tagged: taggedList
