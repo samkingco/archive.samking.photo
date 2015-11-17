@@ -78,7 +78,7 @@ function _renderTaggedPage (siteList, tag, tagPage) {
 
 function _buildTaggedPage (siteList, callback) {
     console.log('  ››'.blue.bold, 'Building tags pages');
-    _.each(siteList[0].tags, function (tag) {
+    _.each(siteList[0].tagged, function (tag) {
         _.each(tag.index, function (page) {
             var url = path.join(conf.DEST_DIR, page.url+'/index.html')
             fs.outputFileSync(url, _renderTaggedPage(siteList, tag, page));

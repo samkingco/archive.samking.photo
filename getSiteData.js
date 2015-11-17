@@ -168,7 +168,7 @@ function _buildSiteList (imageList) {
     siteList.push({
         site: siteInformationList,
         index: indexList,
-        tags: taggedList
+        tagged: taggedList
     });
 
     return siteList;
