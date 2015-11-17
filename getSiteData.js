@@ -140,10 +140,15 @@ function _cachebustStatic (staticList) {
     var staticFiles = {};
 
     _.each(staticList, function (file, key) {
-        var modified = Date.parse(fs.statSync(path.join(conf.SRC_DIR, file)).mtime);
-        var newFileName = file.substring(0, file.lastIndexOf(".")) + "_" + modified + file.substring(file.lastIndexOf("."));
+        var modified = Date.parse(fs.statSync(path.join(conf.SRC_DIR, file.src)).mtime);
+        var newFileName = file.dest.substring(0, file.dest.lastIndexOf(".")) + "_" + modified + file.dest.substring(file.dest.lastIndexOf("."));
 
-        staticFiles[key] = newFileName;
+        var fileObj = {
+            src: file.src,
+            dest: newFileName
+        }
+
+        staticFiles[key] = fileObj;
     });
 
     return staticFiles;
