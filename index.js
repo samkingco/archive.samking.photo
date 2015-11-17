@@ -28,7 +28,6 @@ var cssnano = require('cssnano');
 
 // Created data things
 var getSiteJson = require('./getSiteData');
-var buildStatic = require('./buildStatic');
 
 
 
@@ -169,67 +168,3 @@ getSiteJson(function (err, result) {
         console.log('››'.bold.green, 'Completed in: '+formattedTimer);
     });
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// function _copyStaticFiles (dest, siteList) {
-//     fs.copySync(path.join(conf.SRC_DIR, '/static/'), path.join(dest, '/static'));
-
-//     _.each(conf.staticFiles, function (file, index) {
-//         var oldName = path.join(dest, '/'+file);
-//         var newName = path.join(dest, '/'+siteList[0].site.staticFiles[index]);
-
-//         fs.rename(oldName, newName);
-//     });
-
-//     fs.copySync(path.join(conf.SRC_DIR, '/.htaccess'), path.join(dest, '/.htaccess'));
-// }
-
-
-// function _makeSiteFiles (siteList) {
-//     console.log('››'.blue.bold, 'Building site');
-
-//     console.log('  ››'.blue.bold, 'Copying images');
-//     _copyImages(conf.DEST_DIR);
-
-//     console.log('  ››'.blue.bold, 'Copying static files');
-//     _copyStaticFiles(conf.DEST_DIR, siteList);
-
-//     console.log('››'.green.bold, 'Built to: '+conf.DEST_DIR);
-// }
-
-
-
-// // The build process
-// function build (siteList) {
-//     async.waterfall([
-//         function (callback) {
-//             _cleanBuildDir();
-//             callback(null);
-//         },
-//         function(arg1, arg2, callback) {
-//           // arg1 now equals 'one' and arg2 now equals 'two'
-//             callback(null, 'three');
-//         },
-//         function(arg1, callback) {
-//             // arg1 now equals 'three'
-//             callback(null, 'done');
-//         }
-//     ], function (err, result) {
-//         // result now equals 'done'
-//     });
-//     buildStatic(siteList, _makeSiteFiles(siteList));
-// }
