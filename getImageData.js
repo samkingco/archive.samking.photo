@@ -246,7 +246,11 @@ function _getKeywords (image, callback) {
                 return keyword.replace(/\s+/g, '-').toLowerCase();
             });
 
-            image.keywords = keywords;
+            if (keywords[0].length) {
+                image.keywords = keywords;
+            } else {
+                image.keywords = null;
+            }
         } else {
             image.keywords = null;
         }

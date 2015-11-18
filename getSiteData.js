@@ -140,7 +140,7 @@ function _buildArchivesList (imageList, urlKey) {
 
 function _getAllTags (imageList) {
     console.log('››'.bold.blue, 'Getting all tags');
-    var tags = _.uniq(_.flatten(_.pluck(imageList, 'keywords')));
+    var tags = _.compact(_.uniq(_.flatten(_.pluck(imageList, 'keywords'))));
     return tags;
 }
 
@@ -174,6 +174,7 @@ function _buildTaggedList (imageList, urlKey) {
 
         //Add data to each page in the list
         _.each(paginatedData, function (page, index) {
+            page.tagName = tag;
             page.currentIndex = index+1;
             page.totalPages = paginatedData.length;
         });
@@ -203,7 +204,8 @@ function _buildSiteInformation () {
     return {
         staticFiles: staticFiles,
         author: conf.author,
-        info: conf.siteInfo
+        info: conf.siteInfo,
+        urls: conf.urls
     }
 }
 

@@ -1,7 +1,7 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-<h1>Tagged: {{ tag.name }}</h1>
+<h1>Tagged: {{ page.tagName }}</h1>
 
 <div class="post-grid">
 {% for image in page.images %}
@@ -24,7 +24,7 @@
 
         <div>
             {% for tag in image.keywords %}
-                <a href="{{ site.urls.tagged }}{{ tag }}">#{{ tag }}</a>
+                <a href="{{ site.urls.tagged.basePath }}{{ tag }}">#{{ tag }}</a>
             {% endfor %}
         </div>
     </div>
