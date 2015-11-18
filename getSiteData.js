@@ -1,13 +1,13 @@
 // App config
-var conf = require('./config');
+const conf = require('./config');
 
 // Libs
-var fs = require('fs-extra');
-var path = require('path');
-var _ = require('underscore');
+const fs = require('fs-extra');
+const path = require('path');
+const _ = require('underscore');
 
 // Created data things
-var getImageJson = require('./getImageData');
+const getImageJson = require('./getImageData');
 
 
 // Helper mixins
@@ -17,8 +17,8 @@ _.mixin({
 
         unit = Math.abs(unit);
 
-        var results = [];
-        var length = Math.ceil(array.length / unit);
+        const results = [];
+        const length = Math.ceil(array.length / unit);
 
         for (var i = 0; i < length; i++) {
             results.push(array.slice( i * unit, (i + 1) * unit));
@@ -30,27 +30,25 @@ _.mixin({
 
 
 function _paginateList (list, unit, path) {
-    var chunkedList = _.chunk(list, unit);
-    var paginatedList = [];
-    var maxIndex = chunkedList.length;
+    const chunkedList = _.chunk(list, unit);
+    const paginatedList = [];
+    const maxIndex = chunkedList.length;
 
     _.each(chunkedList, function (pageData, index) {
-        var pageNumber = index + 1;
+        const pageNumber = index + 1;
 
-        var currentUrl = path+'page/'+pageNumber+'/';
-        var prevUrl;
-        var nextUrl = (pageNumber == maxIndex) ? '' : path+'page/'+(pageNumber+1)+'/';
+        var currentUrl = `${path}page/${pageNumber}/`;
+        var prevUrl = `${path}page/${pageNumber-1}/`;
+        const nextUrl = (pageNumber == maxIndex) ? '' : `${path}page/${pageNumber+1}/`;
 
         if (pageNumber == 1) {
             prevUrl = '';
             currentUrl = path;
         } else if (pageNumber == 2) {
             prevUrl = path;
-        } else {
-            prevUrl = path+'page/'+(pageNumber-1)+'/';
         }
 
-        var pageInfo = {
+        const pageInfo = {
             currentUrl: currentUrl,
             prevUrl: prevUrl,
             nextUrl: nextUrl,
@@ -66,17 +64,17 @@ function _paginateList (list, unit, path) {
 
 function _buildIndexData (imageList, urlKey) {
     // Some useful things for rendering
-    var template = conf.urls[urlKey].template;
-    var basePath = conf.urls[urlKey].basePath;
+    const template = conf.urls[urlKey].template;
+    const basePath = conf.urls[urlKey].basePath;
 
     // Data setup
-    var indexData = {};
+    const indexData = {};
 
     // Sort the list of data to paginate
-    var listToPage = _.sortBy(imageList, 'path').reverse();
+    const listToPage = _.sortBy(imageList, 'path').reverse();
 
     // Get a list of the paginated data
-    var paginatedData = _paginateList(listToPage, conf.imagesPerPage, basePath);
+    const paginatedData = _paginateList(listToPage, conf.imagesPerPage, basePath);
 
     //Add data to each page in the list
     _.each(paginatedData, function (page, index) {
@@ -95,31 +93,31 @@ function _buildIndexData (imageList, urlKey) {
 
 function _buildArchivesList (imageList, urlKey) {
     // Some useful things for rendering
-    var template = conf.urls[urlKey].template;
-    var basePath = conf.urls[urlKey].basePath;
+    const template = conf.urls[urlKey].template;
+    const basePath = conf.urls[urlKey].basePath;
 
     // Data setup
-    var archivesData = {};
-    var monthList = [];
+    const archivesData = {};
+    const monthList = [];
 
     // Group archive images by date
-    var archivedByDate = _.groupBy(imageList, function (image) {
-        var timestamp = new Date(image.timestamp);
-        var yyyymm = timestamp.getFullYear() + '-' + (timestamp.getMonth() + 1);
+    const archivedByDate = _.groupBy(imageList, function (image) {
+        const timestamp = new Date(image.timestamp);
+        const yyyymm = timestamp.getFullYear() + '-' + (timestamp.getMonth() + 1);
 
         return yyyymm;
     });
 
     // Create an object for each date group
     _.each(archivedByDate, function (monthImages, YYYY_MM) {
-        console.log('  ››'.bold.blue, 'Building archive group for "'+YYYY_MM+'"');
+        console.log('  ››'.bold.blue, `Building archive group for ${YYYY_MM}`);
 
         // Apply a sort to the images
         monthImages = _.sortBy(monthImages, 'path').reverse();
 
         // Set the month name to be the timestamp of the first item
         // so we can format to whatever in the template
-        var name = monthImages[0].timestamp;
+        const name = monthImages[0].timestamp;
 
         // Push each month to the array
         monthList.push({
@@ -140,37 +138,37 @@ function _buildArchivesList (imageList, urlKey) {
 
 function _getAllTags (imageList) {
     console.log('››'.bold.blue, 'Getting all tags');
-    var tags = _.compact(_.uniq(_.flatten(_.pluck(imageList, 'keywords'))));
+    const tags = _.compact(_.uniq(_.flatten(_.pluck(imageList, 'keywords'))));
     return tags;
 }
 
 
 function _buildTaggedList (imageList, urlKey) {
     // Some useful things for rendering
-    var template = conf.urls[urlKey].template;
-    var basePath = conf.urls[urlKey].basePath;
+    const template = conf.urls[urlKey].template;
+    const basePath = conf.urls[urlKey].basePath;
 
     // Data setup
-    var taggedData = {};
-    var paginatedTaggedList = [];
-    var tags = _getAllTags(imageList);
+    const taggedData = {};
+    const paginatedTaggedList = [];
+    const tags = _getAllTags(imageList);
 
     _.each(tags, function (tag) {
-        console.log('  ››'.bold.blue, 'Building tagged list for "'+tag+'"');
+        console.log('  ››'.bold.blue, `Building tagged list for ${tag}`);
 
-        var url = path.join(basePath, tag+'/');
+        const url = path.join(basePath, tag+'/');
 
         // Loop through all the images and filter for the current tag
         // and return all images that match
-        var imagesWithTag = _.filter(imageList, function (imageObject) {
+        const imagesWithTag = _.filter(imageList, function (imageObject) {
             return _.contains(imageObject['keywords'], tag);
         });
 
         // Sort the list of data to paginate
-        var listToPage = _.sortBy(imagesWithTag, 'path').reverse();
+        const listToPage = _.sortBy(imagesWithTag, 'path').reverse();
 
         // Get a list of the paginated data
-        var paginatedData = _paginateList(listToPage, conf.imagesPerPage, url);
+        const paginatedData = _paginateList(listToPage, conf.imagesPerPage, url);
 
         //Add data to each page in the list
         _.each(paginatedData, function (page, index) {
@@ -199,7 +197,7 @@ function _buildTaggedList (imageList, urlKey) {
 
 
 function _buildSiteInformation () {
-    var staticFiles = _cachebustStatic(conf.staticFiles);
+    const staticFiles = _cachebustStatic(conf.staticFiles);
 
     return {
         staticFiles: staticFiles,
@@ -211,13 +209,15 @@ function _buildSiteInformation () {
 
 
 function _cachebustStatic (staticList) {
-    var staticFiles = {};
+    const staticFiles = {};
 
     _.each(staticList, function (file, key) {
-        var modified = Date.parse(fs.statSync(path.join(conf.SRC_DIR, file.src)).mtime);
-        var newFileName = file.dest.substring(0, file.dest.lastIndexOf(".")) + "_" + modified + file.dest.substring(file.dest.lastIndexOf("."));
+        const modified = Date.parse(fs.statSync(path.join(conf.SRC_DIR, file.src)).mtime);
 
-        var fileObj = {
+        // file-name_${modified}.ext
+        const newFileName = `${file.dest.substring(0, file.dest.lastIndexOf("."))}_${modified}${file.dest.substring(file.dest.lastIndexOf("."))}`;
+
+        const fileObj = {
             src: file.src,
             dest: newFileName
         }
@@ -230,15 +230,15 @@ function _cachebustStatic (staticList) {
 
 
 function _buildSiteList (imageList) {
-    var siteList = [];
+    const siteList = [];
 
     // Build the list of global site data
-    var siteInformationList = _buildSiteInformation();
+    const siteInformationList = _buildSiteInformation();
 
     // Sort & paginate all the lists
-    var indexList = _buildIndexData(imageList, 'index');
-    var archiveList = _buildArchivesList(imageList, 'archive');
-    var taggedList = _buildTaggedList(imageList, 'tagged');
+    const indexList = _buildIndexData(imageList, 'index');
+    const archiveList = _buildArchivesList(imageList, 'archive');
+    const taggedList = _buildTaggedList(imageList, 'tagged');
 
     siteList.push({
         site: siteInformationList,
@@ -259,7 +259,7 @@ module.exports = function (callback) {
         console.log('››'.bold.green, 'Image data is built');
         console.log('››'.bold.blue, 'Building site data');
 
-        var siteList = _buildSiteList(result);
+        const siteList = _buildSiteList(result);
 
         // Write the site file to the cache
         fs.outputFileSync(path.join(conf.CACHE_DIR, conf.SITE_CACHE_FILE), JSON.stringify(siteList, null, 2));

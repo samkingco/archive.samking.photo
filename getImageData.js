@@ -1,15 +1,15 @@
 // App config
-var conf = require('./config');
+const conf = require('./config');
 
 // Output helpers
-var colors = require('colors');
+const colors = require('colors');
 
 // Libs
-var fs = require('fs-extra');
-var async = require('async');
-var path = require('path');
-var _ = require('underscore');
-var gm = require('gm').subClass({imageMagick: true});
+const fs = require('fs-extra');
+const path = require('path');
+const async = require('async');
+const _ = require('underscore');
+const gm = require('gm').subClass({imageMagick: true});
 
 
 // Helper functions
@@ -33,7 +33,7 @@ console.log('››››'.bold.green, '----------');
 
 
 // Reference to cache file and it's contents
-var cacheFile = path.join(conf.CACHE_DIR, conf.IMAGE_CACHE_FILE);
+const cacheFile = path.join(conf.CACHE_DIR, conf.IMAGE_CACHE_FILE);
 var cachedImagesList;
 
 if (existsSync(cacheFile)) {
@@ -65,8 +65,8 @@ console.log('››'.bold.green, 'Built path list');
 _.each(cachedImagesList, function (cachedImage) {
     if (_imageShouldBeRemoved(cachedImage)) {
         _.each(cachedImage.sizes, function (size) {
-            // TODO: Make this path better
-            var sizePath = size.replace('images/', 'optimised_images/');
+            // TODO: Make this path better and use vars from conf
+            const sizePath = size.replace('images/', 'optimised_images/');
             fs.removeSync(sizePath);
         });
 
@@ -90,33 +90,33 @@ _.each(images, function (image) {
 
 // Function to check if the image no longer exists in the images dir
 // but still exists in the cache object
-function _imageShouldBeRemoved (image) {
-    var imageName = image.path.replace('images/', '');
+function _imageShouldBeRemoved(image) {
+    const imageName = image.path.replace('images/', '');
     return !_.contains(images, imageName);
 }
 
 
 // Function to check if the image needs to be re-processed
 // and update the mtime in the cache
-function _checkForReProcessing (image) {
+function _checkForReProcessing(image) {
     if (existsSync(image.path)) {
-        var srcImageMtime = fs.lstatSync(image.path).mtime;
-        var cachedImageMtime = image.modified;
+        const srcImageMtime = fs.lstatSync(image.path).mtime;
+        const cachedImageMtime = image.modified;
 
         if (srcImageMtime > cachedImageMtime) {
             image.processed = false;
             image.modified = srcImageMtime;
 
-            console.log('››'.bold.yellow, image.path+' needs to be re-processed');
+            console.log('››'.bold.yellow, `${image.path} needs to be re-processed`);
         }
     }
 }
 
 
 // Function to add an image to the cache object
-function _addImageToList (image) {
-    var imagePath = path.join('images/', image);
-    var modified = Date.parse(fs.statSync(imagePath).mtime);
+function _addImageToList(image) {
+    const imagePath = path.join('images/', image);
+    const modified = Date.parse(fs.statSync(imagePath).mtime);
 
     cachedImagesList.push({
         path: imagePath,
@@ -124,22 +124,22 @@ function _addImageToList (image) {
         processed: false
     });
 
-    console.log('››'.bold.green, 'Added '+imagePath+' to the cache');
+    console.log('››'.bold.green, `Added ${imagePath} to the cache`);
 }
 
 
 // Function to remove an image from the cache object
-function _removeImageFromList (imageObj) {
+function _removeImageFromList(imageObj) {
     cachedImagesList = _.without(cachedImagesList, imageObj);
 
-    console.log('››'.bold.red, 'Removed '+imageObj.path+' from the cache');
+    console.log('››'.bold.red, `Removed ${imageObj.path} from the cache`);
 }
 
 
 // Function to check if an image exists in the json file
-function _imageHasBeenSeenBefore (imagePath) {
-    var seenBefore = _.some(cachedImagesList, function (image) {
-        var imageName = image.path.replace('images/', '');
+function _imageHasBeenSeenBefore(imagePath) {
+    const seenBefore = _.some(cachedImagesList, function (image) {
+        const imageName = image.path.replace('images/', '');
         return imageName === imagePath;
     });
 
@@ -154,23 +154,24 @@ function _imageHasBeenSeenBefore (imagePath) {
 // Functions that process all the data in images
 // ---------------------------------------------
 
-function _setAsProcessed (image, callback) {
+function _setAsProcessed(image, callback) {
     image.processed = true;
     callback(null, image);
 }
 
-function _getDimensions (image, callback) {
+function _getDimensions(image, callback) {
     gm(image.path).size(function (err, size) {
         image.dimensions = size;
         callback(null, image);
     });
 }
 
-function _getModifiers (image, callback) {
-    console.log('  ››'.bold.blue, 'Getting data for '+image.path);
+function _getModifiers(image, callback) {
+    console.log('  ››'.bold.blue, `Getting data for ${image.path}`);
 
-    var baseName = image.path.split('.');
+    const baseName = image.path.split('.');
     var modifiers = baseName[0].split('-');
+
     modifiers.splice(0, 1);
 
     if (!modifiers.length) {
@@ -181,7 +182,7 @@ function _getModifiers (image, callback) {
     callback(null, image);
 }
 
-function _getTimestamp (image, callback) {
+function _getTimestamp(image, callback) {
     gm(image.path).identify('%[EXIF:DateTimeOriginal]', function (err, value) {
         if (!err) {
             value = value.replace(':', '-').replace(':', '-').replace(' ', 'T');
@@ -193,7 +194,7 @@ function _getTimestamp (image, callback) {
     });
 }
 
-function _getShutter (image, callback) {
+function _getShutter(image, callback) {
     gm(image.path).identify('%[EXIF:ExposureTime]', function (err, value) {
         if (!err) {
             image.exposure = value;
@@ -204,11 +205,11 @@ function _getShutter (image, callback) {
     });
 }
 
-function _getAperture (image, callback) {
+function _getAperture(image, callback) {
     gm(image.path).identify('%[EXIF:FNumber]', function (err, value) {
         if (!err) {
-            var a = value.split('/');
-            var aperture = a[0] / a[1];
+            const a = value.split('/');
+            const aperture = a[0] / a[1];
             image.aperture = aperture.toString();
         } else {
             image.aperture = '';
@@ -217,7 +218,7 @@ function _getAperture (image, callback) {
     });
 }
 
-function _getIso (image, callback) {
+function _getIso(image, callback) {
     gm(image.path).identify('%[EXIF:ISOSpeedRatings]', function (err, value) {
         if (!err) {
             image.iso = value;
@@ -228,7 +229,7 @@ function _getIso (image, callback) {
     });
 }
 
-function _getFocal (image, callback) {
+function _getFocal(image, callback) {
     gm(image.path).identify('%[EXIF:FocalLengthIn35mmFilm]', function (err, value) {
         if (!err) {
             image.focal = value;
@@ -239,10 +240,10 @@ function _getFocal (image, callback) {
     });
 }
 
-function _getKeywords (image, callback) {
+function _getKeywords(image, callback) {
     gm(image.path).identify('%[IPTC:2:25]', function (err, value) {
         if (!err) {
-            var keywords = _.map(value.split(';'), function (keyword) {
+            const keywords = _.map(value.split(';'), function (keyword) {
                 return keyword.replace(/\s+/g, '-').toLowerCase();
             });
 
@@ -258,7 +259,7 @@ function _getKeywords (image, callback) {
     });
 }
 
-function _getCaption (image, callback) {
+function _getCaption(image, callback) {
     gm(image.path).identify('%[IPTC:2:120]', function (err, value) {
         if (!err) {
             image.caption = value;
@@ -269,13 +270,13 @@ function _getCaption (image, callback) {
     });
 }
 
-function _resizeImages (image, callback) {
-    var sizes = {};
+function _resizeImages(image, callback) {
+    const sizes = {};
 
     async.forEachOf(conf.imageSizes, function (sizeObj, sizeName, callback) {
-        var extension = sizeObj.extension + '_' + image.modified + image.path.substring(image.path.lastIndexOf("."));
-        var fileName = image.path.substring(0, image.path.lastIndexOf(".")) + extension;
-        var writeFileName = path.join('optimised_images/', fileName.replace('images/', ''));
+        const extension = sizeObj.extension + '_' + image.modified + image.path.substring(image.path.lastIndexOf("."));
+        const fileName = image.path.substring(0, image.path.lastIndexOf(".")) + extension;
+        const writeFileName = path.join('optimised_images/', fileName.replace('images/', ''));
 
         sizes[sizeName] = fileName;
 
@@ -287,7 +288,7 @@ function _resizeImages (image, callback) {
         });
     }, function (err) {
         image.sizes = sizes;
-        console.log('  ››'.bold.green, 'Resized '+image.path);
+        console.log('  ››'.bold.green, `Resized ${image.path}`);
         callback(null, image)
     });
 }
@@ -302,17 +303,17 @@ function _resizeImages (image, callback) {
 
 
 // Set up the composer to be called
-var imageProcessComposer = async.compose(_setAsProcessed, _resizeImages, _getDimensions, _getModifiers, _getTimestamp, _getShutter, _getAperture, _getIso, _getFocal, _getKeywords, _getCaption);
+const imageProcessComposer = async.compose(_setAsProcessed, _resizeImages, _getDimensions, _getModifiers, _getTimestamp, _getShutter, _getAperture, _getIso, _getFocal, _getKeywords, _getCaption);
 
 
 // First built a list of images that need meta data
-function _imagesNeedingData () {
+function _imagesNeedingData() {
     return _.where(cachedImagesList, { processed: false });
 }
 
 
 // Async process all the images
-function _processImages (imagesToProcess, callback) {
+function _processImages(imagesToProcess, callback) {
     async.mapLimit(imagesToProcess, 20, imageProcessComposer, function (err, result) {
         callback(err, result);
     });
