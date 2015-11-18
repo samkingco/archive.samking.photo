@@ -29,6 +29,21 @@ exports.imageSizes = {
     }
 }
 
+exports.urls = {
+    index: {
+        template: 'templates/index.html',
+        basePath: '/'
+    },
+    tagged: {
+        template: 'templates/tagged.html',
+        basePath: '/tagged/'
+    },
+    archive: {
+        template: 'templates/archive.html',
+        basePath: '/archive/'
+    }
+}
+
 
 // Static urls
 exports.staticFiles = {
@@ -52,13 +67,6 @@ exports.author = {
     github: 'samisking',
     emai: 'mail@samking.co',
     emailSafe: '&#109;&#97;&#105;&#108;&#64;&#115;&#97;&#109;&#107;&#105;&#110;&#103;&#46;&#99;&#111;'
-}
-
-
-exports.urls = {
-    index: '/',
-    tags: '/tags/',
-    tagged: '/tagged/'
 }
 
 

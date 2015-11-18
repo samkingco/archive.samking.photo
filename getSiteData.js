@@ -51,7 +51,7 @@ function _paginateList (list, unit, path) {
         }
 
         var pageInfo = {
-            url: currentUrl,
+            currentUrl: currentUrl,
             prevUrl: prevUrl,
             nextUrl: nextUrl,
             images: pageData
@@ -64,69 +64,45 @@ function _paginateList (list, unit, path) {
 }
 
 
-function _buildPaginatedIndex (imageList, basePath) {
-    var paginatedIndex = [];
+function _buildIndexData (imageList, urlKey) {
+    // Some useful things for rendering
+    var template = conf.urls[urlKey].template;
+    var basePath = conf.urls[urlKey].basePath;
 
-    var indexList = _.sortBy(imageList, 'path').reverse();
-    var indexPages = _paginateList(indexList, conf.imagesPerPage, basePath);
+    // Data setup
+    var indexData = {};
+
+    // Sort the list of data to paginate
+    var listToPage = _.sortBy(imageList, 'path').reverse();
+
+    // Get a list of the paginated data
+    var paginatedData = _paginateList(listToPage, conf.imagesPerPage, basePath);
 
     //Add data to each page in the list
-    _.each(indexPages, function (page, index) {
+    _.each(paginatedData, function (page, index) {
         page.currentIndex = index+1;
-        page.totalPages = indexPages.length;
+        page.totalPages = paginatedData.length;
     });
 
-    // Push all the paginated tag stuff to the array
-    paginatedIndex.push(indexPages);
+    // Push all the data above into the index object
+    indexData.template = template;
+    indexData.basePath = basePath;
+    indexData.pages = paginatedData;
 
-    return _.flatten(paginatedIndex);
+    return indexData;
 }
 
 
-function _getAllTags (imageList) {
-    console.log('››'.bold.blue, 'Getting all tags');
+function _buildArchivesList (imageList, urlKey) {
+    // Some useful things for rendering
+    var template = conf.urls[urlKey].template;
+    var basePath = conf.urls[urlKey].basePath;
 
-    var tags = _.uniq(_.flatten(_.pluck(imageList, 'keywords')));
+    // Data setup
+    var archivesData = {};
+    var monthList = [];
 
-    return tags;
-}
-
-
-function _buildTaggedList (imageList) {
-    var tags = _getAllTags(imageList);
-    var taggedList = [];
-
-    _.each(tags, function (tag) {
-        console.log('  ››'.bold.blue, 'Building tagged list for "'+tag+'"');
-
-        var url = '/tagged/'+tag+'/';
-
-        // Loop through all the images and filter for the current tag
-        var imagesWithTag = _.filter(imageList, function (imageObject) {
-            return _.contains(imageObject['keywords'], tag);
-        });
-
-        // Build a paginated list of each tag
-        var paginatedTag = _buildPaginatedIndex(imagesWithTag, url);
-
-        // Push all the paginated tag stuff to the array
-        taggedList.push({
-            name: tag,
-            url: url,
-            itemCount: imagesWithTag.length,
-            index: paginatedTag
-        });
-    });
-
-    console.log('››'.bold.green, 'List of all tags is built');
-
-    return _.flatten(taggedList);
-}
-
-
-function _buildArchivesList (imageList) {
-    var archiveList = [];
-
+    // Group archive images by date
     var archivedByDate = _.groupBy(imageList, function (image) {
         var timestamp = new Date(image.timestamp);
         var yyyymm = timestamp.getFullYear() + '-' + (timestamp.getMonth() + 1);
@@ -134,27 +110,90 @@ function _buildArchivesList (imageList) {
         return yyyymm;
     });
 
-    _.each(archivedByDate, function (monthData, YYYY_MM) {
-        console.log('  ››'.bold.blue, 'Building archive list for "'+YYYY_MM+'"');
+    // Create an object for each date group
+    _.each(archivedByDate, function (monthImages, YYYY_MM) {
+        console.log('  ››'.bold.blue, 'Building archive group for "'+YYYY_MM+'"');
 
-        monthData = _.sortBy(monthData, 'path').reverse();
+        // Apply a sort to the images
+        monthImages = _.sortBy(monthImages, 'path').reverse();
 
-        // Set the name to be the timestamp of the first item
+        // Set the month name to be the timestamp of the first item
         // so we can format to whatever in the template
-        var name = monthData[0].timestamp;
+        var name = monthImages[0].timestamp;
 
-        var url = '/archive/'+YYYY_MM+'/';
-
-        // Push all the paginated tag stuff to the array
-        archiveList.push({
+        // Push each month to the array
+        monthList.push({
             name: name,
-            url: url,
-            itemCount: monthData.length,
-            images: monthData
+            itemCount: monthImages.length,
+            images: monthImages
         });
     });
 
-    return _.flatten(archiveList);
+    // Push all the data above into the index object
+    archivesData.template = template;
+    archivesData.basePath = basePath;
+    archivesData.page = monthList;
+
+    return archivesData;
+}
+
+
+function _getAllTags (imageList) {
+    console.log('››'.bold.blue, 'Getting all tags');
+    var tags = _.uniq(_.flatten(_.pluck(imageList, 'keywords')));
+    return tags;
+}
+
+
+function _buildTaggedList (imageList, urlKey) {
+    // Some useful things for rendering
+    var template = conf.urls[urlKey].template;
+    var basePath = conf.urls[urlKey].basePath;
+
+    // Data setup
+    var taggedData = {};
+    var paginatedTaggedList = [];
+    var tags = _getAllTags(imageList);
+
+    _.each(tags, function (tag) {
+        console.log('  ››'.bold.blue, 'Building tagged list for "'+tag+'"');
+
+        var url = path.join(basePath, tag+'/');
+
+        // Loop through all the images and filter for the current tag
+        // and return all images that match
+        var imagesWithTag = _.filter(imageList, function (imageObject) {
+            return _.contains(imageObject['keywords'], tag);
+        });
+
+        // Sort the list of data to paginate
+        var listToPage = _.sortBy(imagesWithTag, 'path').reverse();
+
+        // Get a list of the paginated data
+        var paginatedData = _paginateList(listToPage, conf.imagesPerPage, url);
+
+        //Add data to each page in the list
+        _.each(paginatedData, function (page, index) {
+            page.currentIndex = index+1;
+            page.totalPages = paginatedData.length;
+        });
+
+        // Push all the paginated tag stuff to the array
+        paginatedTaggedList.push({
+            name: tag,
+            itemCount: imagesWithTag.length,
+            pages: paginatedData
+        });
+    });
+
+    // Push all the data into the index object
+    taggedData.template = template;
+    taggedData.basePath = basePath;
+    taggedData.data = paginatedTaggedList;
+
+    console.log('››'.bold.green, 'List of all tags is built');
+
+    return taggedData;
 }
 
 
@@ -162,7 +201,6 @@ function _buildSiteInformation () {
     var staticFiles = _cachebustStatic(conf.staticFiles);
 
     return {
-        urls: conf.urls,
         staticFiles: staticFiles,
         author: conf.author,
         info: conf.siteInfo
@@ -196,15 +234,17 @@ function _buildSiteList (imageList) {
     var siteInformationList = _buildSiteInformation();
 
     // Sort & paginate all the lists
-    var indexList = _buildPaginatedIndex(imageList, '/');
-    var taggedList = _buildTaggedList(imageList);
-    var archiveList = _buildArchivesList(imageList);
+    var indexList = _buildIndexData(imageList, 'index');
+    var archiveList = _buildArchivesList(imageList, 'archive');
+    var taggedList = _buildTaggedList(imageList, 'tagged');
 
     siteList.push({
-        archive: archiveList,
         site: siteInformationList,
-        index: indexList,
-        tagged: taggedList
+        sitePages: {
+            index: indexList,
+            archive: archiveList,
+            tagged: taggedList
+        }
     });
 
     return siteList;
@@ -220,7 +260,7 @@ module.exports = function (callback) {
         var siteList = _buildSiteList(result);
 
         // Write the site file to the cache
-        fs.writeFile(path.join(conf.CACHE_DIR, conf.SITE_CACHE_FILE), JSON.stringify(siteList, null, 2));
+        fs.outputFileSync(path.join(conf.CACHE_DIR, conf.SITE_CACHE_FILE), JSON.stringify(siteList, null, 2));
 
         callback(err, siteList);
     });

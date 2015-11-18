@@ -1,6 +1,6 @@
 // TODO:
 // - Make JS build faster
-// - Render urls in a simpler way
+// - Render site pages without repeating myself too much
 
 // App config
 var conf = require('./config');
@@ -43,63 +43,62 @@ function _cleanBuildDir (siteList, callback) {
 }
 
 
-function _renderIndex (siteList, pageData) {
-    var siteInfo = siteList[0].site;
+function _renderPage (siteList, pageToRender) {
+    console.log('  ››'.blue.bold, 'Rendering '+pageToRender+' page(s)');
 
-    return swig.renderFile(path.join(conf.SRC_DIR, 'templates/index.html'), {
-                site: siteInfo,
-                page: pageData
+    // Get the right site and page info
+    var siteData = siteList[0];
+    var siteInfo = siteData.site;
+    var pageType = siteData.sitePages[pageToRender];
+
+    // Get some useful vars
+    var template = path.join(conf.SRC_DIR, pageType.template);
+    var basePath = pageType.basePath;
+
+    // Set up some context data for the page
+    var templateContext = {};
+    templateContext.site = siteInfo;
+
+    if (typeof pageType.data != 'undefined') {
+        _.each(pageType.data, function (data) {
+            var paginatedData = data.pages;
+
+            // Render each page in the paginated data array
+            _.each(paginatedData, function (page) {
+                // Set the page context
+                templateContext.page = page;
+                // Path to render the template to
+                var url = path.join(conf.DEST_DIR, page.currentUrl, 'index.html');
+                // Output the page to a file at the url
+                fs.outputFileSync(url, swig.renderFile(template, templateContext));
             });
-}
-
-
-function _buildIndexPage (siteList, callback) {
-    console.log('  ››'.blue.bold, 'Building index pages');
-    _.each(siteList[0].index, function (page) {
-        var url = path.join(conf.DEST_DIR, page.url+'/index.html')
-        fs.outputFileSync(url, _renderIndex(siteList, page));
-    });
-
-    callback(null, siteList);
-}
-
-
-function _renderArchivePage (siteList, pageData) {
-    var siteInfo = siteList[0].site;
-
-    return swig.renderFile(path.join(conf.SRC_DIR, 'templates/archive.html'), {
-                site: siteInfo,
-                page: pageData
-            });
-}
-
-
-function _buildArchivePage (siteList, callback) {
-    console.log('  ››'.blue.bold, 'Building tags pages');
-    fs.outputFileSync(path.join(conf.DEST_DIR, '/archive/index.html'), _renderArchivePage(siteList, siteList[0].archive));
-
-    callback(null, siteList);
-}
-
-
-function _renderTaggedPage (siteList, tag, tagPage) {
-    var siteInfo = siteList[0].site;
-
-    return swig.renderFile(path.join(conf.SRC_DIR, 'templates/tagged.html'), {
-                site: siteInfo,
-                tag: tag,
-                page: tagPage
-            });
-}
-
-
-function _buildTaggedPage (siteList, callback) {
-    console.log('  ››'.blue.bold, 'Building tags pages');
-    _.each(siteList[0].tagged, function (tag) {
-        _.each(tag.index, function (page) {
-            var url = path.join(conf.DEST_DIR, page.url+'/index.html')
-            fs.outputFileSync(url, _renderTaggedPage(siteList, tag, page));
         });
+    } else if (typeof pageType.pages != 'undefined') {
+        var paginatedData = pageType.pages;
+
+        // Render each page in the paginated data array
+        _.each(paginatedData, function (page) {
+            // Set the page context
+            templateContext.page = page;
+            // Path to render the template to
+            var url = path.join(conf.DEST_DIR, page.currentUrl, 'index.html');
+            // Output the page to a file at the url
+            fs.outputFileSync(url, swig.renderFile(template, templateContext));
+        });
+    } else {
+        // Set the page context
+        templateContext.page = pageType.page;
+        // Path to render the template to
+        var url = path.join(conf.DEST_DIR, basePath, '/index.html');
+        // Output the page to a file at the url
+        fs.outputFileSync(url, swig.renderFile(template, templateContext));
+    }
+}
+
+
+function _buildPages (siteList, callback) {
+    _.each(siteList[0].sitePages, function (pageCollection, pageToRender) {
+        _renderPage(siteList, pageToRender);
     });
 
     callback(null, siteList);
@@ -107,7 +106,7 @@ function _buildTaggedPage (siteList, callback) {
 
 
 function _buildCss (siteList, callback) {
-    console.log('››'.bold.blue, 'Building CSS');
+    console.log('  ››'.bold.blue, 'Building CSS');
     var input = path.join(conf.SRC_DIR, conf.staticFiles.css.src);
     var output = path.join(conf.DEST_DIR, siteList[0].site.staticFiles.css.dest);
     var css = fs.readFileSync(input);
@@ -130,7 +129,7 @@ function _buildCss (siteList, callback) {
 
 
 function _buildJs (siteList, callback) {
-    console.log('››'.bold.blue, 'Building JS');
+    console.log('  ››'.bold.blue, 'Building JS');
     var input = path.join(conf.SRC_DIR, conf.staticFiles.js.src);
     var output = path.join(conf.DEST_DIR, siteList[0].site.staticFiles.js.dest);
     var js = fs.readFileSync(input);
@@ -149,7 +148,7 @@ function _buildJs (siteList, callback) {
 
 
 function _copyStaticFiles (siteList, callback) {
-    console.log('››'.bold.blue, 'Copying static');
+    console.log('  ››'.bold.blue, 'Copying static');
     fs.copySync(path.join(conf.SRC_DIR, '/.htaccess'), path.join(conf.DEST_DIR, '/.htaccess'));
     fs.copySync(path.join(conf.SRC_DIR, '/static/'), path.join(conf.DEST_DIR, '/static'));
 
@@ -165,7 +164,7 @@ function _copyImages (siteList, callback) {
 }
 
 
-var buildComposer = async.compose(_copyImages, _copyStaticFiles, _buildJs, _buildCss, _buildIndexPage, _buildArchivePage, _buildTaggedPage, _cleanBuildDir);
+var buildComposer = async.compose(_copyImages, _copyStaticFiles, _buildJs, _buildCss, _buildPages, _cleanBuildDir);
 
 
 
@@ -175,7 +174,7 @@ getSiteJson(function (err, result) {
     var siteList = result;
     console.log('››'.bold.green, 'Site data is built');
     console.log('››››'.bold.green, '----------');
-    console.log('››'.bold.blue, 'Start build steps');
+    console.log('››'.bold.blue, 'Building site');
 
     // Build the site
     buildComposer(siteList, function (err, result) {
