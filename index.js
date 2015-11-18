@@ -1,5 +1,4 @@
 // TODO:
-// - Make JS build faster
 // - Render site pages without repeating myself too much
 
 // App config
@@ -136,7 +135,7 @@ function _buildJs (siteList, callback) {
 
     // Array
     new compressor.minify({
-        type: 'gcc',
+        type: 'uglifyjs',
         fileIn: [input],
         fileOut: output,
         callback: function (err, min) {
