@@ -2,4 +2,3 @@ node_modules/
 build/
 cache/
 optimised_images/
-src/static/css/
