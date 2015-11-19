@@ -138,12 +138,11 @@ function _buildJs(siteList, callback) {
     console.log('    ››'.bold.blue, 'Building JS');
     const input = path.join(conf.SRC_DIR, conf.staticFiles.js.src);
     const output = path.join(conf.DEST_DIR, siteList[0].site.staticFiles.js.dest);
-    const js = fs.readFileSync(input);
 
     // Array
     new compressor.minify({
         type: 'uglifyjs',
-        fileIn: [input],
+        fileIn: [path.join(conf.SRC_DIR, '/static/js/plugins.js'), input],
         fileOut: output,
         callback: function (err, min) {
             fs.outputFile(output, min);

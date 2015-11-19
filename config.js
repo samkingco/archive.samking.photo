@@ -9,7 +9,7 @@ exports.DEST_DIR = './build/';
 exports.CACHE_DIR = './cache/';
 exports.IMAGE_CACHE_FILE = 'image-list.json';
 exports.SITE_CACHE_FILE = 'site-list.json';
-exports.imagesPerPage = 6;
+exports.imagesPerPage = 64;
 
 exports.imageSizes = {
     small: {

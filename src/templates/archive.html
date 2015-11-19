@@ -9,14 +9,16 @@
         </div>
 
         {% for image in month.images %}
-            <div class="post  post--square"
+            <div class="post  post--square js--open-overlay"
+                 data-index="{{ image.index }}"
                  data-caption="{{ image.caption }}"
                  data-tags="{% for tag in image.keywords %}{{ tag }},{% endfor %}"
                  data-focal="{{ image.focal }}mm"
                  data-exposure="{{ image.exposure }}s"
                  data-aperture="f/{{ image.aperture }}"
-                 data-iso="ISO {{ image.iso }}"
-                 data-timestamp="{{ image.timestamp|date('Y-m-d, H:i:s') }}">
+                 data-iso="{{ image.iso }}"
+                 data-timestamp="{{ image.timestamp|date('Y-m-d, H:i:s') }}"
+                 data-fullimage="/{{ image.sizes.large }}">
                 <div class="post__square-sizer"></div>
                 <div class="post__content-container">
                     <img src="/{{ image.sizes.large }}"

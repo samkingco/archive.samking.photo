@@ -20,8 +20,9 @@ This beta version of [samking.co](http://samking.co) is a "static site" that get
 
 There's still a shit load I need to do:
 
-- Design the thing
-- Build the front-end
+- ~~Design the thing~~
+- ~~Almost build the front-end~~
+- Make it mobile
 - Write all the docs
 - Rename some things because naming is hard
 - Simplify a few functions

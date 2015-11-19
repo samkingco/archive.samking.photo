@@ -37,5 +37,13 @@
         {% block content %}{% endblock %}
 
         <script src="{{ site.staticFiles.js.dest }}"></script>
+
+        {% block overlay_template %}
+        <div class="overlay"></div>
+
+        <script type="text/template" class="template--photo-overlay">
+            {% include './partials/image-overlay.html' %}
+        </script>
+        {% endblock %}
     </body>
 </html>

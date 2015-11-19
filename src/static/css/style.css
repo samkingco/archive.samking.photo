@@ -38,6 +38,10 @@ body {
   color: $color-black;
 }
 
+  .state--overlay-open {
+    overflow: hidden;
+  }
+
 p {
   margin: 0 0 10px;
 }
@@ -63,10 +67,32 @@ img {
   height: auto;
 }
 
+dl, dt, dd {
+  margin: 0;
+}
+
+dt {
+  font-family: Menlo, monospace;
+  color: $color-light;
+  font-size: 10px;
+  margin-bottom: 5px;
+  line-height: 1;
+}
+
+dd {
+  margin-bottom: 15px;
+}
+
 .mono {
   font-family: Menlo, monospace;
   color: $color-light;
 }
+
+.mb5 { margin-bottom: 5px; }
+.mb10 { margin-bottom: 10px; }
+.mb15 { margin-bottom: 15px; }
+.mb20 { margin-bottom: 20px; }
+.mb30 { margin-bottom: 30px; }
 
 
 
@@ -77,6 +103,10 @@ img {
   display: block;
   position: relative;
   margin-bottom: 10px;
+
+  &:hover {
+    text-decoration: none;
+  }
 
   &__logo {
     width: 32px;
@@ -211,6 +241,7 @@ img {
   &__image-container {
     width: 100%;
     background: #f2f2f2;
+    cursor: pointer;
   }
 
   &__image-sizing {
@@ -227,6 +258,10 @@ img {
     left: 0;
     right: 0;
     bottom: 0;
+  }
+
+  &__image {
+    cursor: pointer;
   }
 
   &__image--tall {
@@ -257,10 +292,77 @@ img {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+}
 
   .disabled {
-    opacity: 0.1;
+    opacity: 0.3;
     pointer-events: none;
+  }
+
+
+
+
+
+/* Photo Overlay */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #fff;
+  z-index: -10;
+  opacity: 0;
+  display: flex;
+
+  .state--overlay-open & {
+    z-index: 200;
+    opacity: 1;
+  }
+
+  &__details {
+    width: 260px;
+    padding: 20px;
+    flex-shrink: 0;
+  }
+
+  &__navigation {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+
+    a {
+      color: $color-light;
+    }
+  }
+
+  &__pagination a {
+    font-weight: bold;
+
+    &:first-child {
+      margin-right: 10px;
+    }
+  }
+
+  &__image-container {
+    flex-grow: 1;
+    position: relative;
+  }
+
+  &__image {
+    position: absolute;
+    top: 20px;
+    left: 0;
+    right: 20px;
+    bottom: 20px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+
+    &:hover {
+      cursor: -webkit-zoom-out;
+      cursor: -moz-zoom-out;
+    }
   }
 }
 
