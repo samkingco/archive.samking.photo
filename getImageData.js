@@ -280,6 +280,9 @@ function _resizeImages(image, callback) {
 
         sizes[sizeName] = fileName;
 
+        // Ensure that the optimised folder exists
+        fs.ensureDirSync(conf.OPT_IMAGES_DIR);
+
         gm(image.path)
         .resize(sizeObj.width)
         .quality(sizeObj.quality)
