@@ -81,9 +81,9 @@ _.each(cachedImagesList, function (cachedImage) {
 
 
 // Add any images to the cache object
-_.each(images, function (image) {
+_.each(images, function (image, index) {
     if (!_imageHasBeenSeenBefore(image)) {
-        _addImageToList(image);
+        _addImageToList(image, index);
     }
 });
 
@@ -114,11 +114,12 @@ function _checkForReProcessing(image) {
 
 
 // Function to add an image to the cache object
-function _addImageToList(image) {
+function _addImageToList(image, index) {
     const imagePath = path.join('images/', image);
     const modified = Date.parse(fs.statSync(imagePath).mtime);
 
     cachedImagesList.push({
+        index: index+1,
         path: imagePath,
         modified: modified,
         processed: false
