@@ -92,6 +92,7 @@ function _buildIndexData (imageList, urlKey) {
 
 
 function _buildArchivesList (imageList, urlKey) {
+    console.log('››'.bold.blue, 'Generating archive groups');
     // Some useful things for rendering
     const template = conf.urls[urlKey].template;
     const basePath = conf.urls[urlKey].basePath;
@@ -110,7 +111,7 @@ function _buildArchivesList (imageList, urlKey) {
 
     // Create an object for each date group
     _.each(archivedByDate, function (monthImages, YYYY_MM) {
-        console.log('  ››'.bold.blue, `Building archive group for ${YYYY_MM}`);
+        console.log('  ››'.bold.blue, `Generating archive group for ${YYYY_MM}`);
 
         // Apply a sort to the images
         monthImages = _.sortBy(monthImages, 'path').reverse();
@@ -137,13 +138,14 @@ function _buildArchivesList (imageList, urlKey) {
 
 
 function _getAllTags (imageList) {
-    console.log('››'.bold.blue, 'Getting all tags');
+    console.log('  ››'.bold.blue, 'Getting all tags');
     const tags = _.compact(_.uniq(_.flatten(_.pluck(imageList, 'keywords'))));
     return tags;
 }
 
 
 function _buildTaggedList (imageList, urlKey) {
+    console.log('››'.bold.blue, 'Generating tagged pages');
     // Some useful things for rendering
     const template = conf.urls[urlKey].template;
     const basePath = conf.urls[urlKey].basePath;
@@ -154,7 +156,7 @@ function _buildTaggedList (imageList, urlKey) {
     const tags = _getAllTags(imageList);
 
     _.each(tags, function (tag) {
-        console.log('  ››'.bold.blue, `Building tagged list for ${tag}`);
+        console.log('  ››'.bold.blue, `Generating tagged list for ${tag}`);
 
         const url = path.join(basePath, tag+'/');
 
@@ -189,8 +191,6 @@ function _buildTaggedList (imageList, urlKey) {
     taggedData.template = template;
     taggedData.basePath = basePath;
     taggedData.data = paginatedTaggedList;
-
-    console.log('››'.bold.green, 'List of all tags is built');
 
     return taggedData;
 }
@@ -256,8 +256,7 @@ function _buildSiteList (imageList) {
 // Get the image json and start formatting it into the site list
 module.exports = function (callback) {
     getImageJson(function (err, result) {
-        console.log('››'.bold.green, 'Image data is built');
-        console.log('››'.bold.blue, 'Building site data');
+        console.log('››'.bold.blue, 'Generating site data');
 
         const siteList = _buildSiteList(result);
 

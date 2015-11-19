@@ -51,7 +51,7 @@ images = _.filter(images, function (image) {
     return image.match(/(.png|.jpg|.gif)/i);
 });
 
-console.log('››'.bold.green, 'Built path list');
+console.log('››'.bold.green, 'Got all images successfully');
 
 
 
@@ -325,7 +325,7 @@ function _processImages(imagesToProcess, callback) {
 
 // Export the function
 module.exports = function (callback) {
-    console.log('››'.bold.blue, 'Building image data');
+    console.log('››'.bold.blue, 'Generating image data');
 
     // Check if any images need proccessing and begin processing them
     if (_imagesNeedingData().length) {
