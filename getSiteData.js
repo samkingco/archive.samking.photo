@@ -119,16 +119,11 @@ function _buildTagsList (imageList, urlKey) {
             return _.contains(imageObject['keywords'], tag);
         });
 
-        // Sample a random number of images for the tag preview
-        const taggedSample = _.sample(imagesWithTag, 5);
-
         // Push all the paginated tag stuff to the array
         taggedList.push({
             name: tag,
             url: url,
-            itemCount: imagesWithTag.length,
-            moreImagesCount: imagesWithTag.length - taggedSample.length,
-            images: taggedSample
+            itemCount: imagesWithTag.length
         });
     });
 

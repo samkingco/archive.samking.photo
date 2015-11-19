@@ -67,6 +67,7 @@ function _renderPage(siteList, pageToRender) {
             _.each(paginatedData, function (page) {
                 // Set the page context
                 templateContext.page = page;
+                templateContext.page.basePath = basePath;
                 // Path to render the template to
                 const url = path.join(conf.DEST_DIR, page.currentUrl, 'index.html');
                 // Output the page to a file at the url
@@ -80,6 +81,7 @@ function _renderPage(siteList, pageToRender) {
         _.each(paginatedData, function (page) {
             // Set the page context
             templateContext.page = page;
+            templateContext.page.basePath = basePath;
             // Path to render the template to
             const url = path.join(conf.DEST_DIR, page.currentUrl, 'index.html');
             // Output the page to a file at the url
@@ -88,6 +90,7 @@ function _renderPage(siteList, pageToRender) {
     } else {
         // Set the page context
         templateContext.page = pageType.page;
+        templateContext.page.basePath = basePath;
         // Path to render the template to
         const url = path.join(conf.DEST_DIR, basePath, '/index.html');
         // Output the page to a file at the url

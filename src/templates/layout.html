@@ -10,8 +10,28 @@
     </head>
     <body>
 
-        <div class="header">
-            <a href="/">Sam King</a>
+        <div class="navigation">
+            <a href="/" class="branding">
+                <img src="/static/img/logo.svg" class="branding__logo" width="32">
+                <span class="branding__wordmark">Sam King</span>
+            </a>
+
+            <p class="navigation__bio">
+                Photographer &amp; Designer.<br>
+                Currently @<a href="http://lyst.com" target="_blank">Lyst</a>.
+            </p>
+
+            <ul class="navigation__links  mono">
+                <li class="navigation__link{% if page.basePath == '/archive/' %} navigation__link--active{% endif %}">
+                    <a href="/archive/">Archive</a>
+                </li>
+                <li class="navigation__link{% if page.basePath == '/tagged/' %} navigation__link--active{% endif %}">
+                    <a href="/tagged/">Tags</a>
+                </li>
+                <li class="navigation__link">
+                    <a href="/">Info</a>
+                </li>
+            </ul>
         </div>
 
         {% block content %}{% endblock %}

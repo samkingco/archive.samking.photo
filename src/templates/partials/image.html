@@ -1,0 +1,24 @@
+<div class="post{% for modifier in image.modifiers %} post--{{ modifier }}{% endfor %}"
+     data-caption="{{ image.caption }}"
+     data-tags="{% for tag in image.keywords %}{{ tag }},{% endfor %}"
+     data-focal="{{ image.focal }}mm"
+     data-exposure="{{ image.exposure }}s"
+     data-aperture="f/{{ image.aperture }}"
+     data-iso="ISO {{ image.iso }}"
+     data-timestamp="{{ image.timestamp|date('Y-m-d, H:i:s') }}">
+    <p class="post__index  mono">{{ image.index }}.</p>
+    <div class="post__image-container">
+        <div class="post__image-sizing"
+             style="padding-bottom: {{ image.dimensions.height / image.dimensions.width * 100 }}%">
+            <img src="/{{ image.sizes.large }}"
+                 width="{{ image.dimensions.width }}"
+                 height="{{ image.dimensions.height }}">
+        </div>
+    </div>
+
+    {# <div>
+        {% for tag in image.keywords %}
+            <a href="{{ site.urls.tagged.basePath }}{{ tag }}">#{{ tag }}</a>
+        {% endfor %}
+    </div> #}
+</div>

@@ -1,34 +1,30 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-<h1>Tagged: {{ page.tagName }}</h1>
+<div class="page-wrapper  page-wrapper--grid">
+    <div class="post  post--square">
+        <div class="post__square-sizer"></div>
+        <h1>#{{ page.tagName }}</h1>
+    </div>
 
-<div class="post-grid">
-{% for image in page.images %}
-    <div class="post  post--in-grid"
-         data-caption="{{ image.caption }}"
-         data-tags="{% for tag in image.keywords %}{{ tag }},{% endfor %}"
-         data-focal="{{ image.focal }}mm"
-         data-exposure="{{ image.exposure }}s"
-         data-aperture="f/{{ image.aperture }}"
-         data-iso="ISO {{ image.iso }}"
-         data-timestamp="{{ image.timestamp|date('Y-m-d, H:i:s') }}">
-        <div class="post__image-container">
-            <div class="image-container__sizing"
-                 style="padding-bottom: {{ image.dimensions.height / image.dimensions.width * 100 }}%">
+    {% for image in page.images %}
+        <div class="post  post--square"
+             data-caption="{{ image.caption }}"
+             data-tags="{% for tag in image.keywords %}{{ tag }},{% endfor %}"
+             data-focal="{{ image.focal }}mm"
+             data-exposure="{{ image.exposure }}s"
+             data-aperture="f/{{ image.aperture }}"
+             data-iso="ISO {{ image.iso }}"
+             data-timestamp="{{ image.timestamp|date('Y-m-d, H:i:s') }}">
+            <div class="post__square-sizer"></div>
+            <div class="post__content-container">
                 <img src="/{{ image.sizes.large }}"
                      width="{{ image.dimensions.width }}"
-                     height="{{ image.dimensions.height }}">
+                     height="{{ image.dimensions.height }}"
+                     class="post__image{% if image.dimensions.height > image.dimensions.width %} post__image--tall{% endif %}">
             </div>
         </div>
-
-        <div>
-            {% for tag in image.keywords %}
-                <a href="{{ site.urls.tagged.basePath }}{{ tag }}">#{{ tag }}</a>
-            {% endfor %}
-        </div>
-    </div>
-{% endfor %}
+    {% endfor %}
 </div>
 
 {% include './partials/pagination.html' %}

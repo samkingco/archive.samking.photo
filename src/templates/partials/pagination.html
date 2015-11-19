@@ -1,4 +1,5 @@
 <div class="pagination">
-    {% if page.prevUrl %}<a href="{{ page.prevUrl }}">Prev</a>{% endif %}
-    {% if page.nextUrl %}<a href="{{ page.nextUrl }}">Next</a>{% endif %}
+    <a href="{{ page.prevUrl }}" class="{% if !page.prevUrl %}disabled{% endif %}">&larr; Prev</a>
+    <span>Page: {{ page.currentIndex }}/{{ page.totalPages }}</span>
+    <a href="{{ page.nextUrl }}" class="{% if !page.nextUrl %}disabled{% endif %}">Next &rarr;</a>
 </div>
