@@ -91,6 +91,111 @@ function _buildIndexData (imageList, urlKey) {
 }
 
 
+function _getAllTags (imageList) {
+    const tags = _.compact(_.uniq(_.flatten(_.pluck(imageList, 'keywords'))));
+    return tags;
+}
+
+
+function _buildTagsList (imageList, urlKey) {
+    console.log('››'.bold.blue, 'Generating tags page');
+    // Some useful things for rendering
+    const template = conf.urls[urlKey].template;
+    const basePath = conf.urls[urlKey].basePath;
+
+    // Data setup
+    const tagsData = {};
+    const taggedList = [];
+    const tags = _getAllTags(imageList);
+
+    _.each(tags, function (tag) {
+        // console.log('  ››'.bold.blue, `Generating tagged list for ${tag}`);
+
+        const url = path.join(basePath, tag+'/');
+
+        // Loop through all the images and filter for the current tag
+        // and return all images that match
+        const imagesWithTag = _.filter(imageList, function (imageObject) {
+            return _.contains(imageObject['keywords'], tag);
+        });
+
+        // Sample a random number of images for the tag preview
+        const taggedSample = _.sample(imagesWithTag, 5);
+
+        // Push all the paginated tag stuff to the array
+        taggedList.push({
+            name: tag,
+            url: url,
+            itemCount: imagesWithTag.length,
+            moreImagesCount: imagesWithTag.length - taggedSample.length,
+            images: taggedSample
+        });
+    });
+
+    // Push all the data into the index object
+    tagsData.template = template;
+    tagsData.basePath = basePath;
+    tagsData.page = taggedList;
+
+    return tagsData;
+}
+
+
+function _buildTaggedList (imageList, urlKey) {
+    console.log('››'.bold.blue, 'Generating tagged pages');
+    // Some useful things for rendering
+    const template = conf.urls[urlKey].template;
+    const basePath = conf.urls[urlKey].basePath;
+
+    // Data setup
+    const taggedData = {};
+    const paginatedTaggedList = [];
+
+    // Get all the tags
+    console.log('  ››'.bold.blue, 'Getting all tags');
+    const tags = _getAllTags(imageList);
+
+    _.each(tags, function (tag) {
+        console.log('  ››'.bold.blue, `Generating tagged list for ${tag}`);
+
+        const url = path.join(basePath, tag+'/');
+
+        // Loop through all the images and filter for the current tag
+        // and return all images that match
+        const imagesWithTag = _.filter(imageList, function (imageObject) {
+            return _.contains(imageObject['keywords'], tag);
+        });
+
+        // Sort the list of data to paginate
+        const listToPage = _.sortBy(imagesWithTag, 'path').reverse();
+
+        // Get a list of the paginated data
+        const paginatedData = _paginateList(listToPage, conf.imagesPerPage, url);
+
+        //Add data to each page in the list
+        _.each(paginatedData, function (page, index) {
+            page.tagName = tag;
+            page.currentIndex = index+1;
+            page.totalPages = paginatedData.length;
+        });
+
+        // Push all the paginated tag stuff to the array
+        paginatedTaggedList.push({
+            name: tag,
+            itemCount: imagesWithTag.length,
+            pages: paginatedData
+        });
+    });
+
+    // Push all the data into the index object
+    taggedData.template = template;
+    taggedData.basePath = basePath;
+    taggedData.data = paginatedTaggedList;
+
+    return taggedData;
+}
+
+
 function _buildArchivesList (imageList, urlKey) {
     console.log('››'.bold.blue, 'Generating archive groups');
     // Some useful things for rendering
@@ -137,65 +242,6 @@ function _buildArchivesList (imageList, urlKey) {
 }
 
 
-function _getAllTags (imageList) {
-    console.log('  ››'.bold.blue, 'Getting all tags');
-    const tags = _.compact(_.uniq(_.flatten(_.pluck(imageList, 'keywords'))));
-    return tags;
-}
-
-
-function _buildTaggedList (imageList, urlKey) {
-    console.log('››'.bold.blue, 'Generating tagged pages');
-    // Some useful things for rendering
-    const template = conf.urls[urlKey].template;
-    const basePath = conf.urls[urlKey].basePath;
-
-    // Data setup
-    const taggedData = {};
-    const paginatedTaggedList = [];
-    const tags = _getAllTags(imageList);
-
-    _.each(tags, function (tag) {
-        console.log('  ››'.bold.blue, `Generating tagged list for ${tag}`);
-
-        const url = path.join(basePath, tag+'/');
-
-        // Loop through all the images and filter for the current tag
-        // and return all images that match
-        const imagesWithTag = _.filter(imageList, function (imageObject) {
-            return _.contains(imageObject['keywords'], tag);
-        });
-
-        // Sort the list of data to paginate
-        const listToPage = _.sortBy(imagesWithTag, 'path').reverse();
-
-        // Get a list of the paginated data
-        const paginatedData = _paginateList(listToPage, conf.imagesPerPage, url);
-
-        //Add data to each page in the list
-        _.each(paginatedData, function (page, index) {
-            page.tagName = tag;
-            page.currentIndex = index+1;
-            page.totalPages = paginatedData.length;
-        });
-
-        // Push all the paginated tag stuff to the array
-        paginatedTaggedList.push({
-            name: tag,
-            itemCount: imagesWithTag.length,
-            pages: paginatedData
-        });
-    });
-
-    // Push all the data into the index object
-    taggedData.template = template;
-    taggedData.basePath = basePath;
-    taggedData.data = paginatedTaggedList;
-
-    return taggedData;
-}
-
-
 function _buildSiteInformation () {
     const staticFiles = _cachebustStatic(conf.staticFiles);
 
@@ -237,15 +283,17 @@ function _buildSiteList (imageList) {
 
     // Sort & paginate all the lists
     const indexList = _buildIndexData(imageList, 'index');
-    const archiveList = _buildArchivesList(imageList, 'archive');
+    const tagsList = _buildTagsList(imageList, 'tagsIndex');
     const taggedList = _buildTaggedList(imageList, 'tagged');
+    const archiveList = _buildArchivesList(imageList, 'archive');
 
     siteList.push({
         site: siteInformationList,
         sitePages: {
             index: indexList,
-            archive: archiveList,
-            tagged: taggedList
+            tags: tagsList,
+            tagged: taggedList,
+            archive: archiveList
         }
     });
 

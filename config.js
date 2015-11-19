@@ -34,6 +34,10 @@ exports.urls = {
         template: 'templates/index.html',
         basePath: '/'
     },
+    tagsIndex: {
+        template: 'templates/tags.html',
+        basePath: '/tagged/'
+    },
     tagged: {
         template: 'templates/tagged.html',
         basePath: '/tagged/'
