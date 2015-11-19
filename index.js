@@ -19,6 +19,7 @@ const compressor = require('node-minify');
 
 // PostCSS
 const postcss = require('postcss');
+const mixins = require('postcss-mixins');
 const simplevars = require('postcss-simple-vars');
 const autoprefixer = require('autoprefixer');
 const mqpacker = require('css-mqpacker');
@@ -113,9 +114,10 @@ function _buildCss(siteList, callback) {
     const css = fs.readFileSync(input);
 
     const processors = [
-        autoprefixer({ browsers: ['last 2 version'] }),
+        mixins,
         simplevars,
         nestedcss,
+        autoprefixer({ browsers: ['last 2 version'] }),
         cssnano
     ];
 
