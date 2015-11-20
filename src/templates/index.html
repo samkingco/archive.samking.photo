@@ -4,7 +4,7 @@
 
 <div class="page-wrapper  page-wrapper--index">
 {% for image in page.images %}
-    {% include './partials/image.html' %}
+    {% include './partials/image.html' with { showindex: true } %}
 {% endfor %}
 </div>
 

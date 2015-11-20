@@ -8,7 +8,7 @@
      data-iso="{{ image.iso }}"
      data-timestamp="{{ image.timestamp|date('Y-m-d, H:i:s') }}"
      data-fullimage="/{{ image.sizes.large }}">
-    <p class="post__index  mono">{{ image.index }}.</p>
+    {% if showindex %}<p class="post__index  mono">{{ image.index }}.</p>{% endif %}
     <div class="post__image-container">
         <picture class="post__image-placeholder"
                  style="padding-bottom: {{ image.dimensions.height / image.dimensions.width * 100 }}%">
@@ -16,19 +16,13 @@
             <source data-srcset="/{{ image.sizes.medium }}" media="(min-width: 1440px)">
             <source data-srcset="/{{ image.sizes.medium }}, /{{ image.sizes.large }} 2x" media="(min-width: 768px)">
             <!--[if IE 9]></video><![endif]-->
-            <img src="/static/img/space.gif" data-srcset="/{{ image.sizes.small }}" class="image lazyload">
+            <img src="/static/img/space.gif" data-srcset="/{{ image.sizes.small }}" class="lazyload post__image">
         </picture>
         <noscript>
             <img src="/{{ image.sizes.small }}"
                  width="{{ image.dimensions.width }}"
                  height="{{ image.dimensions.height }}"
-                 class="image">
+                 class="post__image">
         </noscript>
     </div>
-
-    {# <div>
-        {% for tag in image.keywords %}
-            <a href="{{ site.urls.tagged.basePath }}{{ tag }}">#{{ tag }}</a>
-        {% endfor %}
-    </div> #}
 </div>
