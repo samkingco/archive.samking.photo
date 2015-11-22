@@ -3,8 +3,11 @@
 {% block content %}
 <div class="page-wrapper  page-wrapper--grid">
     <div class="post  post--square  post--title-block">
-        <div class="post__square-sizer"></div>
-        <h1>#{{ page.tagName }}</h1>
+        <div class="post--square__container">
+            <div class="post--square__content">
+                <h1>#{{ page.tagName }}</h1>
+            </div>
+        </div>
     </div>
 
     {% for image in page.images %}

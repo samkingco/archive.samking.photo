@@ -1,32 +1,43 @@
-<div class="overlay__details" data-overlayindex="<%- sk.image.overlayindex %>">
-    <div class="overlay__navigation">
-        <a href="#" class="js--overlay-close">&times;</a>
-        <div class="overlay__pagination">
-            <a href="#" class="js--overlay-prev<% if (!sk.image.prevImageIndex) { %> disabled<% } %>">&larr;</a>
-            <a href="#" class="js--overlay-next<% if (!sk.image.nextImageIndex) { %> disabled<% } %>">&rarr;</a>
-        </div>
+<div class="overlay__navigation">
+    <a href="#" class="js--overlay-close">&times;</a>
+    <div class="overlay__pagination">
+        <a href="#" class="js--overlay-prev<% if (!sk.image.prevImageIndex) { %> disabled<% } %>">&larr;</a>
+        <a href="#" class="js--overlay-next<% if (!sk.image.nextImageIndex) { %> disabled<% } %>">&rarr;</a>
     </div>
-    <dl class="overlay__image-data">
-        <dt><%- sk.image.index %>. <%- sk.image.timestamp %></dt>
-        <dd class="mb30"><%- sk.image.caption %></dd>
+</div>
+
+<div class="overlay__image-container">
+    <div class="overlay__ratio"
+         style="padding-bottom: <%- sk.image.ratio %>"></div>
+    <div class="overlay__image  js--overlay-close"
+         style="background-image: url(<%- sk.image.fullimage %>)"></div>
+</div>
+
+<dl class="overlay__details" data-overlayindex="<%- sk.image.overlayindex %>">
+    <div class="overlay__details__section">
+        <dt><%- sk.image.index %>. <%- sk.image.capturedate %></dt>
+        <dd><%- sk.image.caption %></dd>
+    </div>
+    <div class="overlay__details__section overlay__details__section--half">
         <dt>Focal Length</dt>
         <dd><%- sk.image.focal %></dd>
         <dt>Shutter</dt>
         <dd><%- sk.image.exposure %></dd>
-        <dt>Aperture</dd>
+    </div>
+    <div class="overlay__details__section overlay__details__section--half">
+        <dt>Aperture</dt>
         <dd><%- sk.image.aperture %></dd>
         <dt>ISO</dt>
-        <dd class="mb30"><%- sk.image.iso %></dd>
-        <% if (sk.image.tags.length) { %>
-            <dt>Tagged</dt>
-            <dd>
-                <% _.each(sk.image.tags, function (tag) { %>
-                    <a href="<%- tag.url %>">#<%- tag.name %></a>
-                <% }); %>
-            </dd>
-        <% } %>
-    </dl>
-</div>
-<div class="overlay__image-container">
-    <div class="overlay__image  js--overlay-close" style="background-image: url(<%- sk.image.fullimage %>)"></div>
-</div>
+        <dd><%- sk.image.iso %></dd>
+    </div>
+    <% if (sk.image.tags.length) { %>
+    <div class="overlay__details__section">
+        <dt>Tagged</dt>
+        <dd>
+            <% _.each(sk.image.tags, function (tag) { %>
+                <a href="<%- tag.url %>">#<%- tag.name %></a>
+            <% }); %>
+        </dd>
+    </div>
+    <% } %>
+</dl>

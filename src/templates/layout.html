@@ -11,15 +11,17 @@
     <body>
 
         <div class="navigation">
-            <a href="/" class="branding">
-                <img src="/static/img/logo.svg" class="branding__logo" width="32">
-                <span class="branding__wordmark">Sam King</span>
-            </a>
+            <div class="navigation__bio">
+                <a href="/" class="branding">
+                    <img src="/static/img/logo.svg" class="branding__logo" width="32">
+                    <span class="branding__wordmark">Sam King</span>
+                </a>
 
-            <p class="navigation__bio">
-                Photographer &amp; Designer.<br>
-                Currently @<a href="http://lyst.com" target="_blank">Lyst</a>.
-            </p>
+                <p>
+                    Photographer &amp; Designer.<br>
+                    Currently @<a href="http://lyst.com" target="_blank">Lyst</a>.
+                </p>
+            </div>
 
             <ul class="navigation__links  mono">
                 <li class="navigation__link{% if page.basePath == '/archive/' %} navigation__link--active{% endif %}">

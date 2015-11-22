@@ -121,6 +121,7 @@ function _buildCss(siteList, callback) {
         simplevars,
         nestedcss,
         autoprefixer({ browsers: ['last 2 version'] }),
+        mqpacker,
         cssnano
     ];
 

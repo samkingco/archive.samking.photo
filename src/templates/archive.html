@@ -4,8 +4,11 @@
 <div class="page-wrapper  page-wrapper--grid">
     {% for month in page %}
         <div class="post  post--square  post--title-block">
-            <div class="post__square-sizer"></div>
-            <h1>{{ month.name|date('Y-m') }}</h1>
+            <div class="post--square__container">
+                <div class="post--square__content">
+                    <h1>{{ month.name|date('Y-m') }}</h1>
+                </div>
+            </div>
         </div>
 
         {% for image in month.images %}

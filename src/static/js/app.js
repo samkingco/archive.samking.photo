@@ -10,30 +10,33 @@
 
 
     // Open the overlay from clicking an image
-    function _openOverlay(event) {
-        event.preventDefault();
+    function _openOverlay(e) {
+        e.preventDefault();
 
         // Show the overlay
-        document.body.classList.add('state--overlay-open');
+        document.querySelector('html').classList.add('state--overlay-open');
 
         // Get the thing that triggered the overlay
-        var postEl = findAncestor(event.target, 'js--open-overlay');
+        var postEl = findAncestor(e.target, 'js--open-overlay');
 
         // Render the overlay from the event.target data
         _renderOverlay(postEl);
     }
 
 
-    function _closeOverlay(event) {
-        event.preventDefault();
+    function _closeOverlay(e) {
+        e.preventDefault();
 
         // Hide the overlay
-        document.body.classList.remove('state--overlay-open');
+        document.querySelector('html').classList.remove('state--overlay-open');
+
+        // And then remove it's contents
+        document.querySelector('.overlay').innerHTML = '';
     }
 
 
-    function _overlayNavigateTo(index) {
-        event.preventDefault();
+    function _overlayNavigateTo(e, index) {
+        e.preventDefault();
         var toImage = document.querySelector('.js--open-overlay[data-overlayindex="'+index+'"]');
         _renderOverlay(toImage);
     }
@@ -68,18 +71,6 @@
             imageData.nextImageIndex = imageData.overlayindex + 1;
         }
 
-        // Transform the image data into something a little nicer
-        var ts = new Date(imageData.timestamp);
-        var formattedTimestamp = ts.getFullYear() + '-'
-             + ('0' + (ts.getMonth()+1)).slice(-2) + '-'
-             + ('0' + ts.getDate()).slice(-2);
-
-        imageData.timestamp = formattedTimestamp;
-
-        if (!imageData.caption.length) {
-            imageData.caption = '—';
-        }
-
         var keywords = _.compact(imageData.tags.split(','));
 
         if (keywords.length) {
@@ -104,11 +95,11 @@
         });
 
         document.querySelector('.js--overlay-prev').addEventListener('click', function (event) {
-            _overlayNavigateTo(imageData.prevImageIndex);
+            _overlayNavigateTo(event, imageData.prevImageIndex);
         });
 
         document.querySelector('.js--overlay-next').addEventListener('click', function (event) {
-            _overlayNavigateTo(imageData.nextImageIndex);
+            _overlayNavigateTo(event, imageData.nextImageIndex);
         });
 
         function onKeyDown(event) {
@@ -120,12 +111,12 @@
 
             if (key === 37 && imageData.prevImageIndex) {
                 event.preventDefault();
-                _overlayNavigateTo(imageData.prevImageIndex);
+                _overlayNavigateTo(event, imageData.prevImageIndex);
             }
 
             if (key === 39 && imageData.nextImageIndex) {
                 event.preventDefault();
-                _overlayNavigateTo(imageData.nextImageIndex);
+                _overlayNavigateTo(event, imageData.nextImageIndex);
             }
         }
 

@@ -12,6 +12,19 @@ $desk-size: 90em;
 $desk-lg-size: 106.25em;
 
 
+/* Spacing */
+$page-palm-horz: 20px;
+$page-lap-left: 8%;
+$page-lap-right: 8%;
+$page-desk-top: 113px;
+$page-desk-left: 15%;
+$page-desk-right: 10%;
+
+$post-gutter: 40px;
+$grid-gutter-palm: 20px;
+$grid-gutter: 30px;
+
+
 /* @font-face helper */
 @define-mixin font-face $font-family, $file-path, $weight: normal, $style: normal {
   @font-face {
@@ -60,9 +73,12 @@ body {
   line-height: 1.4;
   letter-spacing: 0.07em;
   color: $color-black;
+  overflow: auto;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
 
-  .state--overlay-open {
+  .state--overlay-open,
+  .state--overlay-open body {
     overflow: hidden;
   }
 
@@ -84,7 +100,7 @@ h1 {
   font-weight: bold;
   margin: 0;
 
-  @mixin mq-min $palm-size {
+  @mixin mq-min $portable-size {
     font-size: 36px;
   }
 }
@@ -161,16 +177,27 @@ dd {
   padding: 40px 20px;
 
   @mixin mq-min $palm-size {
+    display: flex;
+    justify-content: space-between;
+    padding: 60px $page-lap-right 40px $page-lap-left;
+  }
+
+  @mixin mq-min $lap-size {
+    display: block;
     padding: 0;
     max-width: 200px;
     position: fixed;
     top: 100px;
-    left: 100px;
+    left: 7%;
     z-index: 100;
   }
 
   &__bio {
     margin-bottom: 20px;
+
+    p {
+      margin-bottom: 0;
+    }
   }
 
   &__links {
@@ -208,28 +235,31 @@ dd {
 
 
 
-$page-mob-horz: 20px;
-$page-lap-top: 113px;
-$page-lap-left: 160px;
-$page-lap-right: 200px;
-
 
 /* Page Content */
 .page-wrapper {
-  margin: 0 $page-mob-horz 60px;
+  margin: 0 calc($page-palm-horz - ($grid-gutter-palm / 2)) 60px;
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-end;
 
   @mixin mq-min $palm-size {
-    margin-top: $page-lap-top;
     margin-left: $page-lap-left;
     margin-right: $page-lap-right;
   }
 
+  @mixin mq-min $lap-size {
+    margin-top: $page-desk-top;
+    margin-left: $page-desk-left;
+    margin-right: $page-desk-right;
+  }
+
   &--index {
-    @mixin mq-min $palm-size {
-      margin-top: calc($(page-lap-top) - 20px);
+    margin-left: $page-palm-horz;
+    margin-right: $page-palm-horz;
+
+    @mixin mq-min $lap-size {
+      margin-top: calc($page-desk-top - 20px);
     }
   }
 
@@ -237,14 +267,14 @@ $page-lap-right: 200px;
     justify-content: flex-start;
 
     @mixin mq-min $palm-size {
-      margin-left: calc($(page-lap-left) - 15px);
-      margin-right: calc($(page-lap-right) - 15px);
+      margin-left: calc($page-lap-left - ($grid-gutter / 2));
+      margin-right: calc($page-lap-right - ($grid-gutter / 2));
     }
   }
 }
 
   .page-content {
-    @mixin mq-min $palm-size {
+    @mixin mq-min $lap-size {
       width: 80%;
     }
   }
@@ -265,13 +295,14 @@ $page-lap-right: 200px;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
+  position: relative;
 
   @mixin mq-min $palm-size {
     width: 80%;
-  }
 
-  &--extended {
-    width: 100%;
+    &--extended {
+      width: 100%;
+    }
   }
 
   &--half {
@@ -291,23 +322,45 @@ $page-lap-right: 200px;
   }
 
   &--square {
-    width: calc(50% - 10px);
-    margin: 0 5px 30px;
-    overflow: hidden;
-    position: relative;
+    width: calc(50% - $grid-gutter-palm);
+    margin-left: calc($grid-gutter-palm / 2);
+    margin-right: calc($grid-gutter-palm / 2);
+    margin-bottom: $grid-gutter-palm;
 
     @mixin mq-min $palm-size {
-      width: calc(33.333% - 30px);
-      margin-left: 15px;
-      margin-right: 15px;
+      width: calc(50% - $grid-gutter-palm);
+    }
+
+    @mixin mq-min $lap-size {
+      width: calc(33.333% - $(grid-gutter));
+      margin-left: calc($grid-gutter / 2);
+      margin-right: calc($grid-gutter / 2);
+      margin-bottom: $grid-gutter;
     }
   }
 
-  &__square-sizer {
-    float: left;
-    width: 1px;
-    height: 0;
-    padding-bottom: 100%;
+  &--square__container {
+    width: 100%;
+    position: relative;
+
+    &:before {
+      content: '';
+      display: block;
+      position: relative;
+      width: 100%;
+      padding-bottom: 100%;
+    }
+  }
+
+  &--square__content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   &__index {
@@ -316,49 +369,77 @@ $page-lap-right: 200px;
     width: 100%;
     text-align: left;
   }
+}
 
-  &__image-container {
+
+/* Has padding-bottom applied in markup */
+.ratio-container {
+  background: #f2f2f2 url('/static/img/logo.svg') no-repeat center;
+  background-size: 64px;
+  position: relative;
+
+  &--wide {
     width: 100%;
-    cursor: pointer;
+    max-height: 100%;
+
+    .ratio-container__sizer {
+      width: 100%;
+      height: 0;
+    }
   }
 
-  &__image-placeholder {
-    height: 0;
-    overflow: hidden;
-    background: #f2f2f2 url('/static/img/logo.svg') no-repeat center;
-    background-size: 64px;
-  }
+  &--tall {
+    height: 100%;
 
-  &__content-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    .ratio-container__sizer {
+      width: 0;
+      height: 100%;
+    }
   }
 
   &__image {
-    cursor: pointer;
-  }
-
-  &__image--tall {
-    width: auto;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
     height: 100%;
-    max-width: none;
-    max-height: 100%;
+    cursor: pointer;
+
+    .post--pad1 & {
+      width: 95%;
+      height: 95%;
+    }
+
+    .post--pad2 & {
+      width: 90%;
+      height: 90%;
+      top: 5%;
+      left: 5%;
+    }
+
+    .post--pad3 & {
+      width: 85%;
+      height: 85%;
+      top: 7.5%;
+      left: 7.5%;
+    }
+
+    .post--pad4 & {
+      width: 80%;
+      height: 80%;
+      top: 10%;
+      left: 10%;
+    }
+
+    .post--pad5 & {
+      width: 75%;
+      height: 75%;
+      top: 12.5%;
+      left: 12.5%;
+    }
   }
 }
-
-  .image__image-container {
-    .image--pad1 & { padding: 5%; }
-    .image--pad2 & { padding: 10%; }
-    .image--pad3 & { padding: 15%; }
-    .image--pad4 & { padding: 20%; }
-    .image--pad5 & { padding: 25%; }
-  }
 
 
 
@@ -366,12 +447,22 @@ $page-lap-right: 200px;
 
 /* Pagination */
 .pagination {
-  margin: 0 160px 200px 200px;
+  margin: 0 $page-palm-horz 200px;
   padding-top: 20px;
   border-top: 1px solid #f2f2f2;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+
+  @mixin mq-min $palm-size {
+    margin-left: $page-lap-left;
+    margin-right: $page-lap-right;
+  }
+
+  @mixin mq-min $lap-size {
+    margin-left: $page-desk-left;
+    margin-right: $page-desk-right;
+  }
 }
 
   .disabled {
@@ -390,26 +481,35 @@ $page-lap-right: 200px;
   left: 0;
   right: 0;
   bottom: 0;
+  width: 100%;
+  min-height: 100%;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
   background: #fff;
   z-index: -10;
   opacity: 0;
-  display: flex;
+  padding: 20px;
+
+  @mixin mq-min $portable-size {
+    display: flex;
+  }
 
   .state--overlay-open & {
     z-index: 200;
     opacity: 1;
   }
 
-  &__details {
-    width: 260px;
-    padding: 20px;
-    flex-shrink: 0;
-  }
-
   &__navigation {
+    margin-bottom: 30px;
     display: flex;
     justify-content: space-between;
-    margin-bottom: 30px;
+
+    @mixin mq-min $portable-size {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      width: 220px;
+    }
 
     a {
       color: $color-light;
@@ -424,20 +524,80 @@ $page-lap-right: 200px;
     }
   }
 
+  &__details {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+
+    @mixin mq-min $portable-size {
+      display: block;
+      width: 240px;
+      padding-top: 60px;
+      padding-right: 20px;
+      flex-shrink: 0;
+    }
+  }
+
+  &__details__section {
+    width: 100%;
+    margin-bottom: 30px;
+
+    &--half {
+      width: 50%;
+
+      @mixin mq-min $lap-size {
+        width: 25%;
+      }
+
+      @mixin mq-min $portable-size {
+        width: 100%;
+        margin-bottom: 10px;
+
+        & + & {
+          margin-bottom: 30px;
+        }
+      }
+    }
+
+    *:last-child {
+      margin-bottom: 0;
+    }
+  }
+
   &__image-container {
-    flex-grow: 1;
+    width: 100%;
     position: relative;
+    margin-bottom: 30px;
+
+    @mixin mq-min $portable-size {
+      order: 2;
+      margin-bottom: 0;
+      height: 100%;
+    }
+  }
+
+  &__ratio {
+    width: 100%;
+    height: 0;
+    background: #f2f2f2 url('/static/img/logo.svg') center no-repeat;
+    background-size: 64px;
+
+    @mixin mq-min $portable-size {
+      padding-bottom: 0 !important;
+      height: 100%;
+      background-color: transparent;
+    }
   }
 
   &__image {
     position: absolute;
-    top: 20px;
+    top: 0;
     left: 0;
-    right: 20px;
-    bottom: 20px;
-    background-size: contain;
+    width: 100%;
+    height: 100%;
     background-repeat: no-repeat;
     background-position: center;
+    background-size: contain;
 
     &:hover {
       cursor: -webkit-zoom-out;
