@@ -29,6 +29,21 @@ exports.imageSizes = {
     }
 }
 
+
+// Static pages that have no context data
+exports.flatpages = {
+    info: {
+        template: 'templates/flatpages/info.html',
+        url: '/info/index.html'
+    },
+    fourohfour: {
+        template: 'templates/flatpages/404.html',
+        url: '404.html'
+    }
+}
+
+
+// All urls that have some context data
 exports.urls = {
     index: {
         template: 'templates/index.html',

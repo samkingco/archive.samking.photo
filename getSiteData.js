@@ -244,7 +244,8 @@ function _buildSiteInformation () {
         staticFiles: staticFiles,
         author: conf.author,
         info: conf.siteInfo,
-        urls: conf.urls
+        urls: conf.urls,
+        flatpages: conf.flatpages
     }
 }
 

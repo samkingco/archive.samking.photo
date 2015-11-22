@@ -99,10 +99,35 @@ function _renderPage(siteList, pageToRender) {
 }
 
 
+function _renderFlatPage(siteList, pageToRender) {
+    console.log('    ››'.blue.bold, `Rendering flatpage: ${pageToRender.url}`);
+
+    // Get the right site and page info
+    const siteData = siteList[0];
+    const siteInfo = siteData.site;
+
+    // Get some useful consts
+    const template = path.join(conf.SRC_DIR, pageToRender.template);
+
+    // Set up some context data for the page
+    const templateContext = {};
+    templateContext.site = siteInfo;
+
+    // Path to render the template to
+    const url = path.join(conf.DEST_DIR, pageToRender.url);
+    // Output the page to a file at the url
+    fs.outputFileSync(url, swig.renderFile(template, templateContext));
+}
+
+
 function _buildPages(siteList, callback) {
     console.log('  ››'.bold.blue, 'Render pages');
     _.each(siteList[0].sitePages, function (pageCollection, pageToRender) {
         _renderPage(siteList, pageToRender);
+    });
+
+    _.each(siteList[0].site.flatpages, function (pageToRender) {
+        _renderFlatPage(siteList, pageToRender);
     });
 
     callback(null, siteList);
