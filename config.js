@@ -35,12 +35,12 @@ exports.flatpages = {
     info: {
         template: 'templates/flatpages/info.html',
         url: '/info/index.html',
-        name: 'Info'
+        basePath: '/info/'
     },
     fourohfour: {
         template: 'templates/flatpages/404.html',
         url: '404.html',
-        name: '404'
+        basePath: '/404.html'
     }
 }
 
@@ -93,6 +93,7 @@ exports.author = {
 
 // Site info
 exports.siteInfo = {
+    baseUrl: 'http://beta.samking.co',
     analytics: 'UA-23814339-7',
     description: 'The creative process Journal of Photographer & Designer – Sam King.',
     defaultKeywords: [  'sam king',

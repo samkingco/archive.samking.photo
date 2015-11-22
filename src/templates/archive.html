@@ -1,8 +1,12 @@
 {% extends 'layout.html' %}
 
+{% block title %}Archive &mdash; {% endblock %}
+{% block head_description %}Photos from 2015-09 to present day.{% endblock %}
+{% block head_keywords %}archive{% endblock %}
+
 {% block content %}
 <div class="page-wrapper  page-wrapper--grid">
-    {% for month in page %}
+    {% for month in page.months %}
         <div class="post  post--square  post--title-block">
             <div class="post--square__container">
                 <div class="post--square__content">

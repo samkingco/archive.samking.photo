@@ -112,7 +112,9 @@ function _renderFlatPage(siteList, pageToRender) {
     // Set up some context data for the page
     const templateContext = {};
     templateContext.site = siteInfo;
-    templateContext.name = pageToRender.name;
+    templateContext.page = {
+        basePath: pageToRender.basePath
+    };
 
     // Path to render the template to
     const url = path.join(conf.DEST_DIR, pageToRender.url);
@@ -182,6 +184,7 @@ function _buildJs(siteList, callback) {
 function _copyStaticFiles(siteList, callback) {
     console.log('    ››'.bold.blue, 'Copying static');
     fs.copySync(path.join(conf.SRC_DIR, '/.htaccess'), path.join(conf.DEST_DIR, '/.htaccess'));
+    fs.copySync(path.join(conf.SRC_DIR, '/favicon.ico'), path.join(conf.DEST_DIR, '/favicon.ico'));
     fs.copySync(path.join(conf.SRC_DIR, '/static/'), path.join(conf.DEST_DIR, '/static'));
 
     callback(null, siteList);

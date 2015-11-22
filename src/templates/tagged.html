@@ -1,5 +1,9 @@
 {% extends 'layout.html' %}
 
+{% block title %}Tagged '{{ page.tagName }}' &mdash; {% endblock %}
+{% block head_description %}Photos tagged '{{ page.tagName }}'.{% endblock %}
+{% block head_keywords %}{{ page.tagName }}{% endblock %}
+
 {% block content %}
 <div class="page-wrapper  page-wrapper--grid">
     <div class="post  post--square  post--title-block">

@@ -1,5 +1,8 @@
 {% extends 'layout.html' %}
 
+{% block title %}Tags &mdash; {% endblock %}
+{% block head_keywords %}{% for tag in page %}{{ tag.name }}, {% endfor %}{% endblock %}
+
 {% block content %}
 
 <div class="page-wrapper">

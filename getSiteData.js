@@ -52,6 +52,7 @@ function _paginateList (list, unit, path) {
             currentUrl: currentUrl,
             prevUrl: prevUrl,
             nextUrl: nextUrl,
+            shareImage: pageData[0].sizes.large,
             images: pageData
         }
 
@@ -231,7 +232,10 @@ function _buildArchivesList (imageList, urlKey) {
     // Push all the data above into the index object
     archivesData.template = template;
     archivesData.basePath = basePath;
-    archivesData.page = monthList;
+    archivesData.page = {
+        months: monthList,
+        shareImage: monthList[0].images[0].sizes.large
+    }
 
     return archivesData;
 }
