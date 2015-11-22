@@ -34,11 +34,13 @@ exports.imageSizes = {
 exports.flatpages = {
     info: {
         template: 'templates/flatpages/info.html',
-        url: '/info/index.html'
+        url: '/info/index.html',
+        name: 'Info'
     },
     fourohfour: {
         template: 'templates/flatpages/404.html',
-        url: '404.html'
+        url: '404.html',
+        name: '404'
     }
 }
 

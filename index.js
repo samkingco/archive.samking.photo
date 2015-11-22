@@ -112,6 +112,7 @@ function _renderFlatPage(siteList, pageToRender) {
     // Set up some context data for the page
     const templateContext = {};
     templateContext.site = siteInfo;
+    templateContext.name = pageToRender.name;
 
     // Path to render the template to
     const url = path.join(conf.DEST_DIR, pageToRender.url);
