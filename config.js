@@ -84,7 +84,7 @@ exports.author = {
     instagram: 'samkingphoto',
     twitter: 'samkingphoto',
     github: 'samisking',
-    emai: 'mail@samking.co',
+    email: 'mail@samking.co',
     emailSafe: '&#109;&#97;&#105;&#108;&#64;&#115;&#97;&#109;&#107;&#105;&#110;&#103;&#46;&#99;&#111;'
 }
 

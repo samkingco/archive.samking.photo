@@ -4,9 +4,24 @@
 
 <div class="page-wrapper">
     <div class="page-content">
-        <p>
-            Yo dawg!
-        </p>
+        <p class="text--hero">I'm a Photographer &amp; Designer currently working at <a href="http://lyst.com" target="_blank">Lyst</a>.</p>
+
+        <p class="mb30">This website documents my creative process through photos and adventures. It's rendered entirely from photographs and their associated meta data&mdash;see how it's built over on <a href="http://github.com/samisking/samking.co">GitHub</a>.</p>
+
+        <dl class="dl-grid">
+            <div class="dl-grid__section">
+                <dt>Email</dt>
+                <dd><a href="mailto:{{ site.author.emailSafe }}">{{ site.author.email }}</a></dd>
+                <dt>GitHub</dt>
+                <dd><a href="http://github.com/{{ site.author.github }}">{{ site.author.github }}</a></dd>
+            </div>
+            <div class="dl-grid__section">
+                <dt>Instagram</dt>
+                <dd><a href="http://instagram.com/{{ site.author.instagram }}">@{{ site.author.instagram }}</a></dd>
+                <dt>Twitter</dt>
+                <dd><a href="http://twitter.com/{{ site.author.twitter }}">@{{ site.author.twitter }}</a></dd>
+            </div>
+        </dl>
     </div>
 </div>
 

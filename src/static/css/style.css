@@ -83,12 +83,12 @@ body {
   }
 
 p {
+  max-width: 36em;
   margin: 0 0 10px;
 }
 
 a {
   color: $color-black;
-  text-decoration: none;
 
   &:hover {
     text-decoration: underline;
@@ -131,6 +131,21 @@ dd {
   margin-bottom: 15px;
 }
 
+.dl-grid {
+  max-width: 36em;
+  display: flex;
+  justify-content: space-between;
+
+  &__section {
+    width: calc(50% - 20px);
+  }
+}
+
+
+.text--hero {
+  font-size: 18px;
+}
+
 .mono {
   font-family: Menlo, monospace;
   color: $color-light;
@@ -142,37 +157,15 @@ dd {
 .mb20 { margin-bottom: 20px; }
 .mb30 { margin-bottom: 30px; }
 
+.text--center {
+  text-align: center;
+}
+
 
 
 
 
 /* Navigation */
-.branding {
-  display: block;
-  position: relative;
-  margin-bottom: 10px;
-
-  &:hover {
-    text-decoration: none;
-  }
-
-  &__logo {
-    width: 32px;
-    position: absolute;
-    left: 0;
-    bottom: 5px;
-  }
-
-  &__wordmark {
-    padding-left: calc(32px + 10px);
-    font-size: 16px;
-    letter-spacing: 0.14em;
-    line-height: 1;
-    text-transform: uppercase;
-    font-weight: bold;
-  }
-}
-
 .navigation {
   padding: 40px 20px;
 
@@ -190,6 +183,14 @@ dd {
     top: 100px;
     left: 7%;
     z-index: 100;
+  }
+
+  a {
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
   }
 
   &__bio {
@@ -216,7 +217,7 @@ dd {
       color: $color-light;
 
       &:hover {
-        color: $color-black;
+        color: $color-black;;
       }
     }
   }
@@ -229,6 +230,33 @@ dd {
       color: $color-black;
       text-decoration: underline;
     }
+  }
+}
+
+.branding {
+  outline: none;
+  display: block;
+  position: relative;
+  margin-bottom: 10px;
+
+  a&:hover {
+    text-decoration: none;
+  }
+
+  &__logo {
+    width: 32px;
+    position: absolute;
+    left: 0;
+    bottom: 5px;
+  }
+
+  &__wordmark {
+    padding-left: calc(32px + 10px);
+    font-size: 16px;
+    letter-spacing: 0.14em;
+    line-height: 1;
+    text-transform: uppercase;
+    font-weight: bold;
   }
 }
 
@@ -274,14 +302,29 @@ dd {
 }
 
   .page-content {
+    width: 100%;
+    padding: 0 10px;
+
+    @mixin mq-min $palm-size {
+      padding: 0;
+    }
+
     @mixin mq-min $lap-size {
-      width: 80%;
+      width: 75%;
     }
   }
 
     .tag-cloud {
       font-size: 36px;
       font-weight: bold;
+
+      a {
+        text-decoration: none;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
     }
 
 
@@ -364,6 +407,7 @@ dd {
   }
 
   &__index {
+    max-width: none;
     font-size: 10px;
     margin-bottom: 5px;
     width: 100%;
