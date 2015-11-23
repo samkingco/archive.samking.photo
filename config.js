@@ -93,7 +93,7 @@ exports.author = {
 
 // Site info
 exports.siteInfo = {
-    baseUrl: 'http://beta.samking.co',
+    baseUrl: 'http://samking.co',
     analytics: 'UA-23814339-7',
     description: 'The creative process Journal of Photographer & Designer – Sam King.',
     defaultKeywords: [  'sam king',
