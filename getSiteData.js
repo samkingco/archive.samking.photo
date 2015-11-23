@@ -110,8 +110,6 @@ function _buildTagsList (imageList, urlKey) {
     const tags = _getAllTags(imageList);
 
     _.each(tags, function (tag) {
-        // console.log('  ››'.bold.blue, `Generating tagged list for ${tag}`);
-
         const url = path.join(basePath, tag+'/');
 
         // Loop through all the images and filter for the current tag
@@ -131,7 +129,7 @@ function _buildTagsList (imageList, urlKey) {
     // Push all the data into the index object
     tagsData.template = template;
     tagsData.basePath = basePath;
-    tagsData.page = taggedList;
+    tagsData.page = _.sortBy(taggedList, 'name');
 
     return tagsData;
 }
@@ -233,7 +231,7 @@ function _buildArchivesList (imageList, urlKey) {
     archivesData.template = template;
     archivesData.basePath = basePath;
     archivesData.page = {
-        months: monthList,
+        months: _.sortBy(monthList, 'name').reverse(),
         shareImage: monthList[0].images[0].sizes.large
     }
 
