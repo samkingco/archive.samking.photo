@@ -2,7 +2,7 @@
 // - Render site pages without repeating myself too much
 
 // App config
-const conf = require('./config');
+const conf = require('./lib/config/config');
 
 // Output helpers
 const colors = require('colors');
@@ -27,7 +27,7 @@ const nestedcss = require('postcss-nested');
 const cssnano = require('cssnano');
 
 // Created data things
-const getSiteJson = require('./getSiteData');
+const getSiteData = require('./lib/get-site-data');
 
 var siteList;
 
@@ -224,7 +224,7 @@ const buildTasks = [
 
 
 // Get the image json and start the build
-getSiteJson(function (err, result) {
+getSiteData(function (err, result) {
     siteList = result;
     console.log('››'.bold.green, 'Site data is ready');
     console.log('››››'.bold.green, '----------');

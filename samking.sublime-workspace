@@ -1,0 +1,1912 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"mo",
+				"modifiers"
+			],
+			[
+				"archi",
+				"archivesData"
+			],
+			[
+				"pa",
+				"pageData"
+			],
+			[
+				"text",
+				"text-decoration"
+			],
+			[
+				"tex",
+				"text-decoration"
+			],
+			[
+				"font-",
+				"font-size"
+			],
+			[
+				"tem",
+				"templates"
+			],
+			[
+				"max",
+				"max-height"
+			],
+			[
+				"flex-",
+				"flex-start"
+			],
+			[
+				"padding",
+				"padding"
+			],
+			[
+				"pos",
+				"pos-f	position: fixed;"
+			],
+			[
+				"h",
+				"height"
+			],
+			[
+				"tag",
+				"tagObj"
+			],
+			[
+				"mar",
+				"margin-bottom"
+			],
+			[
+				"page-",
+				"page-lap-left"
+			],
+			[
+				"margin",
+				"margin-bottom"
+			],
+			[
+				"grid",
+				"grid-gutter"
+			],
+			[
+				"gri",
+				"grid-gutter"
+			],
+			[
+				"crop",
+				"cropRatio"
+			],
+			[
+				"save",
+				"saveData"
+			],
+			[
+				"fil",
+				"fileName"
+			],
+			[
+				"dkr",
+				"dkrmImage"
+			],
+			[
+				"tar",
+				"targetEl"
+			],
+			[
+				"init",
+				"initDarkroom"
+			],
+			[
+				"change",
+				"changeRatio"
+			],
+			[
+				"get",
+				"getRatioFromElement"
+			],
+			[
+				"paddin",
+				"padding-bottom"
+			],
+			[
+				"po",
+				"pos-f	position: fixed;"
+			],
+			[
+				"bac",
+				"background"
+			],
+			[
+				"op",
+				"opacity"
+			],
+			[
+				"margin-",
+				"margin-bottom"
+			],
+			[
+				"backgroun",
+				"background"
+			],
+			[
+				"font",
+				"font-size"
+			],
+			[
+				"new",
+				"newImage"
+			],
+			[
+				"clas",
+				"classList"
+			],
+			[
+				"dat",
+				"dataUri"
+			],
+			[
+				"set",
+				"setupCanvas"
+			],
+			[
+				"ima",
+				"imageToCrop"
+			],
+			[
+				"img",
+				"imageToCrop"
+			],
+			[
+				"up",
+				"uploadedImage"
+			],
+			[
+				"file",
+				"fileSrc"
+			],
+			[
+				"pre",
+				"prevImageIndex"
+			],
+			[
+				"color-",
+				"color-light"
+			],
+			[
+				"background",
+				"background-size"
+			],
+			[
+				"add",
+				"addEventListener"
+			],
+			[
+				"nex",
+				"nextIndex"
+			],
+			[
+				"ne",
+				"nextImageIndex"
+			],
+			[
+				"iam",
+				"imageData"
+			],
+			[
+				"js--",
+				"js--open-overlay"
+			],
+			[
+				"_o",
+				"_overlayNextImage"
+			],
+			[
+				"a",
+				"addEventListener"
+			],
+			[
+				"quer",
+				"querySelector"
+			],
+			[
+				"for",
+				"formattedTimestamp"
+			],
+			[
+				"image",
+				"imageData"
+			],
+			[
+				"ke",
+				"keywords"
+			],
+			[
+				"re",
+				"_renderOverlay"
+			],
+			[
+				"padding-",
+				"padding-top"
+			],
+			[
+				"pos-",
+				"pos-a	position: absolute;"
+			],
+			[
+				"di",
+				"display"
+			],
+			[
+				"back",
+				"background-position"
+			],
+			[
+				"colo",
+				"color-black"
+			],
+			[
+				"wid",
+				"width"
+			],
+			[
+				"l",
+				"left"
+			],
+			[
+				"li",
+				"line-height"
+			],
+			[
+				"color",
+				"color-light"
+			],
+			[
+				"list",
+				"list-n	list-style-type: none;"
+			],
+			[
+				"tags",
+				"tagsList"
+			],
+			[
+				"imae",
+				"imageList"
+			],
+			[
+				"tagg",
+				"taggedSample"
+			],
+			[
+				"G",
+				"Generating"
+			],
+			[
+				"cac",
+				"cachedContents"
+			],
+			[
+				"site",
+				"siteData"
+			],
+			[
+				"page",
+				"pageToRender"
+			],
+			[
+				"tagge",
+				"taggedList"
+			],
+			[
+				"url",
+				"urlKey"
+			],
+			[
+				"te",
+				"templateContext"
+			],
+			[
+				"templ",
+				"templateContext"
+			],
+			[
+				"ur",
+				"urlKey"
+			],
+			[
+				"mont",
+				"monthImages"
+			],
+			[
+				"mon",
+				"monthList"
+			],
+			[
+				"item",
+				"itemCount"
+			],
+			[
+				"month",
+				"monthList"
+			],
+			[
+				"ite",
+				"itemCount"
+			],
+			[
+				"con",
+				"context"
+			],
+			[
+				"p",
+				"pageType"
+			],
+			[
+				"_build",
+				"_buildPages"
+			],
+			[
+				"pagina",
+				"paginatedData"
+			],
+			[
+				"lis",
+				"listToPage"
+			],
+			[
+				"archive",
+				"archiveList"
+			],
+			[
+				"ar",
+				"archiveList"
+			],
+			[
+				"time",
+				"timestamp"
+			],
+			[
+				"in",
+				"input"
+			],
+			[
+				"proce",
+				"processors"
+			],
+			[
+				"_buil",
+				"_buildIndexPage"
+			],
+			[
+				"build",
+				"buildStatic"
+			],
+			[
+				"sti",
+				"siteList"
+			],
+			[
+				"siz",
+				"sizePath"
+			],
+			[
+				"im",
+				"OPT_IMAGES_DIR"
+			],
+			[
+				"size",
+				"sizeObj"
+			],
+			[
+				"wr",
+				"writeFileName"
+			],
+			[
+				"e",
+				"extension"
+			],
+			[
+				"result",
+				"results"
+			],
+			[
+				"images",
+				"imagesToProcess"
+			],
+			[
+				"ca",
+				"cachedImagesObj"
+			],
+			[
+				"cach",
+				"cachedImagesObj"
+			],
+			[
+				"_images",
+				"_imagesNeedingData"
+			],
+			[
+				"_ima",
+				"_imagesNeedingData"
+			],
+			[
+				"_image",
+				"_imageShouldBeRemoved"
+			],
+			[
+				"cache",
+				"cachedImage"
+			],
+			[
+				"remo",
+				"removedObj"
+			],
+			[
+				"cached",
+				"cachedImage"
+			],
+			[
+				"modi",
+				"modified"
+			],
+			[
+				"n",
+				"newFileName"
+			],
+			[
+				"imag",
+				"imagePath"
+			],
+			[
+				"_cah",
+				"_cachebustImages"
+			],
+			[
+				"st",
+				"staticList"
+			],
+			[
+				"stat",
+				"staticFiles"
+			],
+			[
+				"us",
+				"useCachedList"
+			],
+			[
+				"pagin",
+				"paginatedTag"
+			],
+			[
+				"inde",
+				"indexPagesData"
+			],
+			[
+				"pagi",
+				"paginatedList"
+			],
+			[
+				"chu",
+				"chunkedList"
+			],
+			[
+				"tagged",
+				"taggedList"
+			],
+			[
+				"da",
+				"dataList"
+			],
+			[
+				"sit",
+				"siteList"
+			],
+			[
+				"Im",
+				"IMAGES_DIR"
+			],
+			[
+				"Des",
+				"DEST_DIR"
+			],
+			[
+				"curren",
+				"currentUrl"
+			]
+		]
+	},
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 354.0,
+		"last_filter": "del",
+		"selected_items":
+		[
+			[
+				"del",
+				"ANF: Delete Current File"
+			],
+			[
+				"ren",
+				"File: Rename"
+			],
+			[
+				"dupl",
+				"File: Duplicate"
+			],
+			[
+				"de",
+				"ANF: Delete Current File"
+			],
+			[
+				"prev",
+				"Markdown Preview: Preview in Browser"
+			],
+			[
+				"nex",
+				"Set Syntax: JavaScript Next"
+			],
+			[
+				"next",
+				"Set Syntax: JavaScript Next"
+			],
+			[
+				"syntax",
+				"Set Syntax: JavaScript Next"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"r",
+				"File: Rename"
+			],
+			[
+				"dup",
+				"File: Duplicate"
+			],
+			[
+				"du",
+				"File: Duplicate"
+			],
+			[
+				"musta",
+				"Set Syntax: HTML with mustaches"
+			],
+			[
+				"syntax dj",
+				"Set Syntax: HTML (Django)"
+			],
+			[
+				"swi",
+				"Set Syntax: Swig"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"jav",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"rena",
+				"File: Rename"
+			],
+			[
+				"lint",
+				"SublimeLinter: Toggle Linter"
+			],
+			[
+				"json",
+				"Set Syntax: JSON"
+			],
+			[
+				"djan",
+				"Set Syntax: HTML (Django)"
+			],
+			[
+				"new file",
+				"File: New File Relative to Current View"
+			],
+			[
+				"dj",
+				"Set Syntax: HTML (Django)"
+			],
+			[
+				"jij",
+				"Set Syntax: Jinja2"
+			],
+			[
+				"dja",
+				"Set Syntax: HTML (Django)"
+			],
+			[
+				"ins",
+				"Package Control: Install Package"
+			],
+			[
+				"remove",
+				"Package Control: Remove Package"
+			],
+			[
+				"dele",
+				"ANF: Delete Current File"
+			],
+			[
+				"",
+				"ANF: Delete File"
+			],
+			[
+				"syntadjan",
+				"Set Syntax: HTML (Django)"
+			],
+			[
+				"set syntax dj",
+				"Set Syntax: HTML (Django)"
+			],
+			[
+				"bash",
+				"Set Syntax: Shell Script (Bash)"
+			],
+			[
+				"bas",
+				"Set Syntax: Shell Script (Bash)"
+			],
+			[
+				"diff",
+				"Git: Diff Current File"
+			],
+			[
+				"dif",
+				"Git: Diff Staged Files"
+			],
+			[
+				"blame",
+				"Git: Blame"
+			],
+			[
+				"jin",
+				"Set Syntax: HTML (Jinja Templates)"
+			],
+			[
+				"blam",
+				"Git: Blame"
+			],
+			[
+				"gitbla",
+				"Git: Blame"
+			],
+			[
+				"bla",
+				"Git: Blame"
+			],
+			[
+				"jinj",
+				"Set Syntax: HTML (Jinja Templates)"
+			],
+			[
+				"jim",
+				"Set Syntax: HTML (Jinja Templates)"
+			],
+			[
+				"log",
+				"Git: Log Current File"
+			],
+			[
+				"jinja",
+				"Set Syntax: Jinja Templates"
+			],
+			[
+				"inst",
+				"Package Control: Install Package"
+			],
+			[
+				"wrp",
+				"Word Wrap: Toggle"
+			],
+			[
+				"wrap",
+				"Word Wrap: Toggle"
+			],
+			[
+				"pre",
+				"Markdown Preview: Preview in Browser"
+			],
+			[
+				"preview",
+				"Markdown Preview: Preview in Browser"
+			],
+			[
+				"liqui",
+				"Set Syntax: HTML (Liquid)"
+			],
+			[
+				"java",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"lo",
+				"Git: Log All"
+			],
+			[
+				"le",
+				"Set Syntax: LESS"
+			],
+			[
+				"html",
+				"Set Syntax: HTML"
+			],
+			[
+				"tw",
+				"Set Syntax: HTML (Twig)"
+			],
+			[
+				"space",
+				"Indentation: Convert to Spaces"
+			],
+			[
+				"twi",
+				"Set Syntax: HTML (Twig)"
+			],
+			[
+				"spaces",
+				"Indentation: Convert to Spaces"
+			],
+			[
+				"snipp",
+				"Snippet: css-comment-header"
+			],
+			[
+				"apac",
+				"Set Syntax: Apache Conf"
+			],
+			[
+				"alignmen",
+				"Preferences: Alignment File Settings – Default"
+			],
+			[
+				"ali",
+				"Preferences: Alignment File Settings – Syntax Specific – User"
+			],
+			[
+				"in",
+				"Package Control: Install Package"
+			],
+			[
+				"git lo",
+				"Git: Log Current File"
+			],
+			[
+				"TW",
+				"Set Syntax: HTML (Twig)"
+			],
+			[
+				"di",
+				"Git: Diff Current File"
+			],
+			[
+				"g st",
+				"Git: Diff Staged"
+			],
+			[
+				"markdown se",
+				"Preferences: MarkdownEditing Settings – Default"
+			],
+			[
+				"mark",
+				"Preferences: MarkdownEditing Settings – User"
+			],
+			[
+				"remov",
+				"Package Control: Remove Package"
+			],
+			[
+				"sas",
+				"Set Syntax: Sass"
+			],
+			[
+				" remo",
+				"Package Control: Remove Package"
+			],
+			[
+				"scss",
+				"Set Syntax: SCSS"
+			],
+			[
+				"quic",
+				"Git: Quick Commit"
+			],
+			[
+				"add",
+				"Git: Add..."
+			],
+			[
+				"quick",
+				"Git: Quick Commit"
+			],
+			[
+				"gitadd",
+				"Git: Add..."
+			],
+			[
+				"quickco",
+				"Git: Quick Commit"
+			],
+			[
+				"commi",
+				"Git: Commit"
+			],
+			[
+				"gcomm",
+				"Git: Quick Commit"
+			],
+			[
+				"gs",
+				"Git: Status"
+			],
+			[
+				"g add",
+				"Git: Add..."
+			],
+			[
+				"g bla",
+				"Git: Blame"
+			],
+			[
+				"rmeo",
+				"Package Control: Remove Package"
+			],
+			[
+				"remo",
+				"Package Control: Remove Package"
+			],
+			[
+				"package contr",
+				"Package Control: List Packages"
+			],
+			[
+				"git",
+				"Git: Status"
+			],
+			[
+				"sass",
+				"Set Syntax: Sass"
+			],
+			[
+				"markdown",
+				"Set Syntax: Markdown"
+			],
+			[
+				"php",
+				"Set Syntax: PHP"
+			]
+		],
+		"width": 575.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/Users/Sam/Repos/samking-v5/getImageData.js",
+		"/Users/Sam/Repos/samking-v5/cache/site-list.json",
+		"/Users/Sam/Repos/samking-v5/getSiteData.js",
+		"/Users/Sam/Repos/samking-v5/src/templates/tags.html",
+		"/Users/Sam/Repos/samking-v5/src/templates/tagged.html",
+		"/Users/Sam/Repos/samking-v5/src/templates/layout.html",
+		"/Users/Sam/Repos/samking-v5/config.js",
+		"/Users/Sam/Repos/samking-v5/src/templates/archive.html",
+		"/Users/Sam/Repos/samking-v5/index.js",
+		"/Users/Sam/Repos/samking-v5/src/templates/partials/head.html",
+		"/Users/Sam/Repos/samking-v5/Readme.md",
+		"/Users/Sam/Repos/samking-v5/src/templates/flatpages/info.html",
+		"/Users/Sam/Repos/samking-v5/src/static/css/style.css",
+		"/Users/Sam/Repos/samking-v5/src/templates/flatpages/404.html",
+		"/Users/Sam/Repos/samking-v5/src/templates/partials/image-overlay.html",
+		"/Users/Sam/Repos/samking-v5/src/static/js/app.js",
+		"/Users/Sam/Repos/samking-v5/src/static/js/plugins.js",
+		"/Users/Sam/Repos/samking-v5/src/templates/partials/image.html",
+		"/Users/Sam/Repos/samking-v5/src/templates/partials/image-square.html",
+		"/Users/Sam/Repos/samking-v5/src/templates/index.html",
+		"/Users/Sam/Repos/samking-v5/package.json",
+		"/Users/Sam/Repos/samking-v5/cache/image-list.json",
+		"/Users/Sam/Repos/samking-v5/samking.sublime-project",
+		"/Users/Sam/Repos/lyst-production-assistant/js/darkroom.js",
+		"/Users/Sam/Repos/lyst-production-assistant/js/dropzone.js",
+		"/Users/Sam/Repos/lyst-production-assistant/css/darkroom.css",
+		"/Users/Sam/Repos/samking-v5/.git/COMMIT_EDITMSG",
+		"/Users/Sam/Repos/samking-v5/build/static/js/app.js",
+		"/Users/Sam/Repos/samking-v5/src/templates/partials/pagination.html",
+		"/Users/Sam/Repos/samking-v5/build/static/css/samking_1447935759000.css",
+		"/Users/Sam/Repos/samking-v5/build/static/css/style.css",
+		"/Users/Sam/Repos/samking-v5/build/index.html",
+		"/Users/Sam/Repos/samking-v5/.gitignore",
+		"/Users/Sam/Repos/samking-v4/Readme.md",
+		"/Users/Sam/Repos/samking-v4/index.js",
+		"/Users/Sam/Repos/samking-v4/src/static/css/style.css",
+		"/Users/Sam/Repos/samking-v4/cache/image-list.json",
+		"/Users/Sam/Repos/samking-v4/getSiteData.js",
+		"/Users/Sam/Repos/samking-v4/getImageData.js",
+		"/Users/Sam/Repos/samking-v4/cache/site-list.json",
+		"/Users/Sam/Repos/samking-v4/config.js",
+		"/Users/Sam/Repos/samking-v4/src/templates/index.html",
+		"/Users/Sam/Repos/samking-v4/src/templates/tagged.html",
+		"/Users/Sam/Repos/samking-v4/.git/COMMIT_EDITMSG",
+		"/Users/Sam/Repos/samking-v4/src/.htaccess",
+		"/etc/apache2/extra/httpd-vhosts.conf",
+		"/Users/Sam/Dropbox (Personal)/Sites/samking-v4/script.js",
+		"/Users/Sam/Dropbox (Personal)/Sites/samking-v4/.git/COMMIT_EDITMSG",
+		"/Users/Sam/Dropbox (Personal)/Sites/samking-v4/getImageData.js",
+		"/Users/Sam/Dropbox (Personal)/Sites/samking-v4/ideal-site-list.txt",
+		"/Users/Sam/Dropbox (Personal)/Sites/samking-v4/src/templates/partials/pagination.html",
+		"/Users/Sam/Dropbox (Personal)/Sites/samking-v4/cache/site-list.json",
+		"/Users/Sam/Dropbox (Personal)/Sites/samking-v4/src/templates/archive.html",
+		"/Users/Sam/Dropbox (Personal)/Sites/samking-v4/src/static/css/style.css",
+		"/Users/Sam/Dropbox (Personal)/Sites/samking-v4/src/templates/index.html",
+		"/Users/Sam/Dropbox (Personal)/Sites/samking-v4/config.js",
+		"/Users/Sam/Dropbox (Personal)/Sites/samking-v4/cache/image-list.json",
+		"/Users/Sam/Dropbox (Personal)/Sites/samking-v4/index.js",
+		"/Users/Sam/Dropbox (Personal)/Sites/samking-v4/package.json",
+		"/Users/Sam/Dropbox (Personal)/Sites/samking-v4/src/static/css/samking.css",
+		"/Users/Sam/Dropbox (Personal)/Sites/samking-v4/buildStatic.js",
+		"/Users/Sam/Dropbox (Personal)/Sites/samking-v4/src/templates/tagged.html",
+		"/Users/Sam/Dropbox (Personal)/Sites/samking-v4/src/templates/layout.html",
+		"/Users/Sam/Dropbox (Personal)/Sites/samking-v4/getSiteData.js",
+		"/Users/Sam/Dropbox (Personal)/Sites/samking-v4/.gitignore",
+		"/Users/Sam/Dropbox (Personal)/Sites/samking-v4/nodemon.json",
+		"/Users/Sam/Dropbox (Personal)/Sites/samking.v4/cache/image-list.json",
+		"/Users/Sam/Dropbox (Personal)/Sites/samking.v4/getImageData.js",
+		"/Users/Sam/Dropbox (Personal)/Sites/samking.v4/cache/site-list.json",
+		"/Users/Sam/Repos/samking-v4/src/templates/partials/pagination.html",
+		"/Users/Sam/Repos/samking-v4/package.json",
+		"/Users/Sam/Repos/samking-v4/build/static/css/style.css",
+		"/Users/Sam/Repos/samking-v4/.gitignore",
+		"/Users/Sam/Repos/samking-v4/cache/image-list.txt",
+		"/Users/Sam/Repos/samking-v4/site-list.txt",
+		"/Users/Sam/Repos/samking-v4/old-index.js",
+		"/Users/Sam/Repos/node-exif/images/0002.jpg",
+		"/Users/Sam/Repos/nyc-spots/js/lib/underscore.js",
+		"/Users/Sam/Repos/nyc-spots/package.json",
+		"/Users/Sam/Repos/nyc-spots/offline.appcache",
+		"/Users/Sam/Repos/nyc-spots/js/lib/underscore.min.js",
+		"/Users/Sam/Repos/nyc-spots/data.json",
+		"/Users/Sam/Repos/nyc-spots/index.html",
+		"/Users/Sam/Repos/nyc-spots/.git/COMMIT_EDITMSG",
+		"/Users/Sam/Repos/nyc-spots/.gitignore",
+		"/Users/Sam/Repos/nyc-spots/js/lib/form2js.js",
+		"/Users/Sam/Repos/lyst/.git/COMMIT_EDITMSG",
+		"/Users/Sam/Repos/lyst/media/web/css/variables.less",
+		"/Users/Sam/Repos/lyst/src/ssaw/portal/template_serializers/modules/featured_banners.py",
+		"/Users/Sam/Repos/lyst/media/web/css/patterns/buttons.less",
+		"/Users/Sam/Repos/lyst/media/web/css/images/glyph-images.less",
+		"/Users/Sam/Repos/lyst/media/web/css/modules/featured-collection.less",
+		"/Users/Sam/Repos/lyst/src/ssaw/portal/templates/modules/featured_collection.jinja",
+		"/Users/Sam/Repos/lyst/media/web/css/core/typography.less",
+		"/Users/Sam/Repos/lyst/media/web/css/modules/gender-category-navigation.less",
+		"/Users/Sam/Repos/lyst/Makefile",
+		"/Users/Sam/Repos/lyst/src/ssaw/portal/templates/pages/blog/blog_index.jinja",
+		"/Users/Sam/Repos/lyst/src/ssaw/portal/templates/pages/blog/blog_post.jinja",
+		"/Users/Sam/Repos/lyst/src/ssaw/portal/views/terms.py",
+		"/Users/Sam/Repos/lyst/media/web/css/units/new-collection.less",
+		"/Users/Sam/Repos/lyst/media/web/css/layouts/default.less",
+		"/Users/Sam/Repos/lyst/media/web/css/layouts/new-collection-layout.less",
+		"/Users/Sam/Repos/lyst/src/ssaw/portal/templates/layouts/collection_layout.jinja",
+		"/Users/Sam/Repos/lyst/src/ssaw/portal/templates/layouts/new_collection_layout.jinja",
+		"/Users/Sam/Repos/lyst/src/ssaw/portal/templates/modules/collection/collection_title.jinja",
+		"/Users/Sam/Repos/lyst/media/web/script/templates/modules/collection/collection_title.js",
+		"/Users/Sam/Repos/lyst/media/web/css/modules/product-feed.less",
+		"/Users/Sam/Repos/lyst/media/web/css/lyst.less",
+		"/Users/Sam/Repos/lyst/src/ssaw/portal/views/profile/collection.py",
+		"/Users/Sam/Repos/lyst/src/ssaw/portal/templates/pages/users/collection.jinja",
+		"/Users/Sam/Repos/lyst/src/ssaw/api/models/__init__.py",
+		"/Users/Sam/Repos/lyst/src/edna/__init__.py",
+		"/Users/Sam/Repos/lyst/src/ssaw/portal/views/collection.py",
+		"/Users/Sam/Repos/lyst/media/web/script/components/lyst-cards-grid.js",
+		"/Users/Sam/Repos/lyst/src/ssaw/portal/templates/users/settings/order_history.html",
+		"/Users/Sam/Repos/lyst/src/ssaw/portal/templates/pages/help/base.html",
+		"/Users/Sam/Repos/lyst/src/ssaw/portal/templates/help/shopping/shipping-information.html",
+		"/Users/Sam/Repos/lyst/src/ssaw/portal/templates/help/shopping/returns-and-exchanges.html",
+		"/Users/Sam/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings",
+		"/Users/Sam/Repos/lyst/.git/rebase-merge/git-rebase-todo",
+		"/Users/Sam/Repos/lyst/src/ssaw/portal/templates/modules/cart_callout.jinja",
+		"/Users/Sam/Repos/lyst/src/ssaw/portal/template_serializers/modules/cart_callout.py",
+		"/Users/Sam/Repos/lyst/src/ssaw/portal/templates/modules/cart/cart_item.jinja",
+		"/Users/Sam/Repos/lyst/media/web/css/modules/checkout/checkout-section.less",
+		"/Users/Sam/Repos/lyst/src/ssaw/portal/templates/modules/cart/cart_order.jinja",
+		"/Users/Sam/Repos/lyst/src/ssaw/portal/templates/layouts/cart_layout.jinja",
+		"/Users/Sam/Repos/lyst/media/web/css/modules/cart-item.less",
+		"/Users/Sam/Repos/lyst/media/web/css/modules/cart-callout.less"
+	],
+	"find":
+	{
+		"height": 72.0
+	},
+	"find_in_files":
+	{
+		"height": 164.0,
+		"where_history":
+		[
+			"src/templates",
+			"",
+			"media/",
+			"src/",
+			"media/",
+			"src/",
+			"media/",
+			"media/, src/",
+			"media/",
+			"",
+			"media",
+			"",
+			"media/web/css/",
+			"media/",
+			"",
+			"media/",
+			"/media",
+			"",
+			"media/",
+			"src/, media/",
+			"src/",
+			"arc/",
+			"media/",
+			"src/",
+			"/src/",
+			"/src",
+			"",
+			"media/web/script",
+			"media/script",
+			"",
+			"/Users/Sam/Repos/lyst/media/img/glyphs",
+			"media/, src/",
+			"media/",
+			"media/, src/ssaw/portal/",
+			"media/, src/",
+			"_sass/*",
+			"_sass",
+			"",
+			"src/",
+			"media/, src/",
+			"",
+			"media/",
+			"",
+			"/media",
+			"",
+			"media/web/css",
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"htaccess",
+			"htacc",
+			"shareImage",
+			"\"archive\"",
+			"name",
+			"\"archive\"",
+			"{% block title %}{% endblock %}",
+			"{{ share_image }}",
+			"twitter_username",
+			"{{ description }}",
+			"{{ site.title }}",
+			"{{ page.url | prepend: site.url }}",
+			"{% if url != '/' %}{{ page.title }} — {% endif %}{{ site.title }}",
+			"twitter",
+			"instagram",
+			"_renderFlatPage",
+			"basePath",
+			"pageType",
+			"pageCollection",
+			"urls",
+			"_renderPage",
+			"buildpage",
+			"v4",
+			"v4.",
+			"width",
+			"lap-size",
+			"body",
+			"post",
+			"20px",
+			"image-data",
+			"overlayindex",
+			"\"",
+			"event",
+			"_overlayNavigateTo",
+			"grid-gutter-mob",
+			"page-lap-top",
+			"lap",
+			"page-mob-horz",
+			"lap",
+			"mqpacker",
+			"autoprefixer",
+			"postcss",
+			"{ ",
+			"image",
+			"page-lap-left",
+			"lap",
+			"grid-gutter",
+			"$grid-gutter",
+			"15px",
+			"$page-mob-horz",
+			"media=\\",
+			"save-image",
+			"_replaceCurrentImage",
+			"refresh",
+			"refresf",
+			"reset",
+			"crop-me",
+			"format-",
+			"#fff",
+			"#000",
+			"h4",
+			".cropping",
+			" value",
+			"value",
+			"#drop_zone",
+			"getElementById",
+			"highlightDropZone",
+			"readAsDataURL",
+			"resolveOption",
+			"this.options.method",
+			"setupCanvas",
+			"done",
+			"out",
+			"20",
+			"5",
+			"querySelector('.overlay')",
+			"state--overlay-open",
+			"nextImage",
+			"nextIndex",
+			"_overlayNextImage",
+			"formattedTimestamp",
+			"timestamp",
+			"loop",
+			"in-grid",
+			"post",
+			"grey",
+			"#212121",
+			"/assets",
+			"font-face",
+			"#{$",
+			"_addImageToList",
+			"month",
+			"Month",
+			"month",
+			"_buildTagsList",
+			"taggedData",
+			"building ",
+			"building archive",
+			"CACHE_DIR",
+			"var",
+			"cachedImagesList",
+			"var",
+			"const",
+			"_copyStaticFiles",
+			"var",
+			"let",
+			"use strict",
+			"const",
+			"_paginateList",
+			"var",
+			"function",
+			"require(",
+			"var",
+			"get_site_json",
+			"imageName",
+			"seenBefore",
+			"imagePath",
+			"imageObj",
+			"imagePath",
+			"cachedImageMtime",
+			"srcImageMtime",
+			"imageName",
+			"cachedImage",
+			"cachedImagesList",
+			"cacheFile",
+			"getSiteJson",
+			"cache",
+			"ensureFile"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"function (",
+			"Rizon is a beautiful Golden Hour calculator for your iPhone that helps you easily find the best time to shoot outdoors in natural light. Set reminders, save offline locations, and see data for any date in the future.",
+			"",
+			"lazyload",
+			"layout: quarter",
+			"layout: third",
+			"layout: half",
+			"letter-spacing: .2em;",
+			"text-align: center;",
+			"text-transform: uppercase",
+			"display: inline-block",
+			"$su1",
+			"$su4",
+			"$su3",
+			"$su2",
+			"$su1",
+			"$font-meta",
+			"$font-akzidenz",
+			"font-family: $brand-alt;\nfont-weight: bold",
+			"font-family: $brand-alt",
+			"font-family: $brand-default;\n	font-style: italic",
+			"font-family: $brand-default;\n	font-weight: bold;",
+			"font-family: $brand-default;\n	font-weight: normal;",
+			"$mb4",
+			"$mb3",
+			"$mb2",
+			"$mb1",
+			"$mb2/2",
+			"$mb1",
+			"$mb2",
+			"$mb3",
+			"$mb4",
+			"$mb5",
+			"$mbm",
+			"$mb4",
+			"$color-black",
+			"$colour-black",
+			"$color-grey-lightest\n	margin-right: auto;",
+			"margin-left: auto;\n	margin-right: auto;",
+			"max-width: none",
+			"overflow: hidden",
+			"@include island(default)",
+			"@include island()",
+			"margin-bottom: 0",
+			"margin-bottom: $mb1/2",
+			"margin-bottom: $mb1",
+			".center",
+			"%island",
+			"$spacing-unit-xs",
+			"$spacing-unit-s",
+			"$spacing-unit-xl",
+			"$spacing-unit-l",
+			"$spacing-unit-m",
+			"$spacing-unit",
+			"$mega-size",
+			"nav--oc",
+			"page-type--post",
+			"page-media",
+			"page-content",
+			"page-head",
+			"header--main",
+			"page-header",
+			"hero__image",
+			"hero",
+			"island",
+			".browser--desktop",
+			"state--header-small",
+			"show_exif",
+			"@extend %font-body-italic;",
+			"@extend %font-body-bold;",
+			"@extend %font-body-reg;",
+			"@extend %font-headline-reg;",
+			"@extend %font-headline-bold;",
+			"nav--slide-out"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"incremental_find":
+	{
+		"height": 34.0
+	},
+	"input":
+	{
+		"height": 72.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"replace":
+	{
+		"height": 64.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"getim",
+				"getImageData.js"
+			],
+			[
+				"get",
+				"getSiteData.js"
+			],
+			[
+				"conf",
+				"config.js"
+			],
+			[
+				"index",
+				"index.js"
+			],
+			[
+				"tagg",
+				"src/templates/tagged.html"
+			],
+			[
+				"sitein",
+				"cache/site-list.json"
+			],
+			[
+				"getsi",
+				"getSiteData.js"
+			],
+			[
+				"siteli",
+				"cache/site-list.json"
+			],
+			[
+				"inde",
+				"index.js"
+			],
+			[
+				"info",
+				"src/templates/flatpages/info.html"
+			],
+			[
+				"arhi",
+				"src/templates/archive.html"
+			],
+			[
+				"ll",
+				"src/templates/layout.html"
+			],
+			[
+				"red",
+				"Readme.md"
+			],
+			[
+				"con",
+				"config.js"
+			],
+			[
+				"ind",
+				"index.js"
+			],
+			[
+				"sit",
+				"getSiteData.js"
+			],
+			[
+				"styl",
+				"src/static/css/style.css"
+			],
+			[
+				"layou",
+				"src/templates/layout.html"
+			],
+			[
+				"sitedata",
+				"getSiteData.js"
+			],
+			[
+				"imageo",
+				"src/templates/partials/image-overlay.html"
+			],
+			[
+				"app",
+				"src/static/js/app.js"
+			],
+			[
+				"tag",
+				"src/templates/tagged.html"
+			],
+			[
+				"archi",
+				"src/templates/archive.html"
+			],
+			[
+				"plug",
+				"src/static/js/plugins.js"
+			],
+			[
+				"images",
+				"src/templates/partials/image-square.html"
+			],
+			[
+				"ima",
+				"src/templates/partials/image.html"
+			],
+			[
+				"imageover",
+				"src/templates/partials/image-overlay.html"
+			],
+			[
+				"image",
+				"src/templates/partials/image.html"
+			],
+			[
+				"layout",
+				"src/templates/layout.html"
+			],
+			[
+				"plugin",
+				"src/static/js/plugins.js"
+			],
+			[
+				"img",
+				"src/templates/partials/image.html"
+			],
+			[
+				"pack",
+				"package.json"
+			],
+			[
+				"plu",
+				"src/static/js/plugins.js"
+			],
+			[
+				"imagelis",
+				"cache/image-list.json"
+			],
+			[
+				"darkrom",
+				"js/darkroom.js"
+			],
+			[
+				"drop",
+				"js/dropzone.js"
+			],
+			[
+				"setti",
+				"_sass/common/_settings.scss"
+			],
+			[
+				"readme",
+				"Readme.md"
+			],
+			[
+				"templatinde",
+				"src/templates/index.html"
+			],
+			[
+				"tagge",
+				"src/templates/tagged.html"
+			],
+			[
+				"ar",
+				"src/templates/archive.html"
+			],
+			[
+				"archive",
+				"src/templates/archive.html"
+			],
+			[
+				"appjs",
+				"build/static/js/app.js"
+			],
+			[
+				"getsite",
+				"getSiteData.js"
+			],
+			[
+				"templateinde",
+				"src/templates/index.html"
+			],
+			[
+				"templatetagg",
+				"src/templates/tagged.html"
+			],
+			[
+				"pag",
+				"src/templates/partials/pagination.html"
+			],
+			[
+				"templaarchiv",
+				"src/templates/archive.html"
+			],
+			[
+				"templatetagge",
+				"src/templates/tagged.html"
+			],
+			[
+				"tags",
+				"src/templates/tags.html"
+			],
+			[
+				"templateind",
+				"src/templates/index.html"
+			],
+			[
+				"site",
+				"getSiteData.js"
+			],
+			[
+				"c",
+				"config.js"
+			],
+			[
+				"sty",
+				"src/static/css/style.css"
+			],
+			[
+				"templindexhtml",
+				"src/templates/index.html"
+			],
+			[
+				"getima",
+				"getImageData.js"
+			],
+			[
+				"paginatio",
+				"src/templates/partials/pagination.html"
+			],
+			[
+				"templaindex",
+				"src/templates/index.html"
+			],
+			[
+				"siteda",
+				"getSiteData.js"
+			],
+			[
+				"sitelis",
+				"cache/site-list.json"
+			],
+			[
+				"imag",
+				"cache/image-list.json"
+			],
+			[
+				"sitel",
+				"cache/site-list.json"
+			],
+			[
+				"gets",
+				"getSiteData.js"
+			],
+			[
+				"indexjs",
+				"index.js"
+			],
+			[
+				"imageli",
+				"cache/image-list.json"
+			],
+			[
+				"confi",
+				"config.js"
+			],
+			[
+				"geti",
+				"getImageData.js"
+			],
+			[
+				"git",
+				".gitignore"
+			],
+			[
+				"getsie",
+				"getSiteData.js"
+			],
+			[
+				"dat",
+				"data.json"
+			],
+			[
+				"s",
+				"css/style.scss"
+			],
+			[
+				"va",
+				"media/web/css/variables.less"
+			],
+			[
+				"featuredcollec",
+				"src/ssaw/portal/templates/modules/featured_collection.jinja"
+			],
+			[
+				"feature",
+				"media/web/css/modules/featured-collection.less"
+			],
+			[
+				"gl",
+				"media/web/css/images/glyph-images.less"
+			],
+			[
+				"glyph",
+				"media/web/css/images/glyph-images.less"
+			],
+			[
+				"typo",
+				"media/web/css/core/typography.less"
+			],
+			[
+				"button",
+				"media/web/css/patterns/buttons.less"
+			],
+			[
+				"featurebanners",
+				"src/ssaw/portal/template_serializers/modules/featured_banners.py"
+			],
+			[
+				"gender-category-navigation",
+				"media/web/css/modules/gender-category-navigation.less"
+			],
+			[
+				"vari",
+				"media/web/css/variables.less"
+			],
+			[
+				"blogin",
+				"src/ssaw/portal/templates/pages/blog/blog_index.jinja"
+			],
+			[
+				"blogpos",
+				"src/ssaw/portal/templates/pages/blog/blog_post.jinja"
+			],
+			[
+				"blogpost",
+				"src/ssaw/portal/templates/pages/blog/blog_post.jinja"
+			],
+			[
+				"featuredbanners",
+				"src/ssaw/portal/templates/modules/featured_banners.jinja"
+			],
+			[
+				"blogj",
+				"src/ssaw/portal/templates/pages/blog/blog_index.jinja"
+			],
+			[
+				"blogpo",
+				"src/ssaw/portal/templates/pages/blog/blog_post.jinja"
+			],
+			[
+				"blog-p",
+				"media/web/css/modules/blog-post.less"
+			],
+			[
+				"terms",
+				"src/ssaw/portal/views/terms.py"
+			],
+			[
+				"overlay",
+				"media/web/css/units/overlay.less"
+			],
+			[
+				"collection_title",
+				"src/ssaw/portal/templates/modules/collection/collection_title.jinja"
+			],
+			[
+				"lysle",
+				"media/web/css/lyst.less"
+			],
+			[
+				"defaultle",
+				"media/web/css/layouts/default.less"
+			],
+			[
+				"defal",
+				"media/web/css/layouts/default.less"
+			],
+			[
+				"collecless",
+				"media/web/css/units/new-collection.less"
+			],
+			[
+				"collection.py",
+				"src/ssaw/portal/views/profile/collection.py"
+			],
+			[
+				"collectionpy",
+				"src/ssaw/portal/views/collection.py"
+			],
+			[
+				"lyst-car",
+				"media/web/script/components/lyst-cards-grid.js"
+			],
+			[
+				"collectio",
+				"src/ssaw/portal/templates/layouts/collection_layout.jinja"
+			],
+			[
+				"orderhis",
+				"src/ssaw/portal/templates/users/settings/order_history.html"
+			],
+			[
+				"ly",
+				"media/web/css/lyst.less"
+			],
+			[
+				"var",
+				"media/web/css/variables.less"
+			],
+			[
+				"cartca",
+				"src/ssaw/portal/templates/modules/cart_callout.jinja"
+			],
+			[
+				"cartitemle",
+				"media/web/css/modules/cart-item.less"
+			],
+			[
+				"cartit",
+				"src/ssaw/portal/templates/modules/cart/cart_item.jinja"
+			],
+			[
+				"cartcallout",
+				"src/ssaw/portal/templates/modules/cart_callout.jinja"
+			],
+			[
+				"cart-ite",
+				"media/web/css/modules/cart-item.less"
+			],
+			[
+				"checkoutsec",
+				"media/web/css/modules/checkout/checkout-section.less"
+			],
+			[
+				"summaryjijn",
+				"src/ssaw/portal/templates/modules/cart/cart_summary.jinja"
+			],
+			[
+				"cartitji",
+				"src/ssaw/portal/templates/modules/cart/cart_item.jinja"
+			],
+			[
+				"cartitem",
+				"media/web/css/modules/cart-item.less"
+			],
+			[
+				"checkoutless",
+				"media/web/css/checkout.less"
+			],
+			[
+				"templatescart",
+				"src/ssaw/portal/templates/layouts/cart_layout.jinja"
+			],
+			[
+				"desktop",
+				"media/web/script/components/desktop-header.js"
+			],
+			[
+				"termsp",
+				"src/ssaw/portal/views/terms.py"
+			],
+			[
+				"termsla",
+				"src/ssaw/portal/template_serializers/layouts/terms_layout.py"
+			],
+			[
+				"desktopheader",
+				"media/web/script/components/desktop-header.js"
+			],
+			[
+				"space",
+				"media/web/css/patterns/spacers.less"
+			],
+			[
+				"termslayou",
+				"src/ssaw/portal/templates/layouts/terms_layout.jinja"
+			],
+			[
+				"termsjin",
+				"src/ssaw/portal/templates/pages/terms.jinja"
+			],
+			[
+				"legal",
+				"media/web/css/modules/legal-text.less"
+			],
+			[
+				"grunt",
+				"Gruntfile.js"
+			],
+			[
+				"cartorder",
+				"src/ssaw/portal/templates/modules/cart/cart_order.jinja"
+			],
+			[
+				"cartordrjin",
+				"src/ssaw/portal/templates/modules/cart/cart_order.jinja"
+			],
+			[
+				"promotionspy",
+				"src/ssaw/portal/template_serializers/modules/promotions.py"
+			],
+			[
+				"promotiobannerl",
+				"media/web/css/modules/promotion-banner.less"
+			],
+			[
+				"promotiobannerj",
+				"media/web/script/components/promotion-banners.js"
+			],
+			[
+				"promoionbannerjs",
+				"media/web/tests/spec/components/promotion-banners.js"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 250.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
