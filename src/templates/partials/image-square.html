@@ -8,7 +8,7 @@
      data-iso="{{ image.iso }}"
      data-capturedate="{{ image.timestamp|date('Y-m-d') }}"
      data-timestamp="{{ image.timestamp|date('Y-m-d, H:i:s') }}"
-     data-fullimage="/{{ image.sizes.large }}"
+     data-fullimage="{{ image.url }}"
      data-ratio="{{ image.dimensions.height / image.dimensions.width * 100 }}%">
     <div class="post--square__container">
         <div class="post--square__content">
@@ -16,8 +16,8 @@
             style="{% if image.dimensions.height > image.dimensions.width %}width: {{ image.dimensions.width / image.dimensions.height * 100 }}%{% else %}height: {{ image.dimensions.height / image.dimensions.width * 100 }}%{% endif %}">
                 <img src="/static/img/space.gif"
                      data-sizes="auto"
-                     data-src="/{{ image.sizes.small }}"
-                     data-srcset="/{{ image.sizes.small }} 768w, /{{ image.sizes.medium }} 1024w, /{{ image.sizes.large }} 1400w"
+                     data-src="{{ image.url }}?w=768"
+                     data-srcset="{{ image.url }}?w=768 768w, {{ image.url }}?w=1216 1024w, {{ image.url }}?w=2880 1400w"
                      class="ratio-container__image  post__image{% if image.dimensions.height > image.dimensions.width %} post__image--tall{% endif %}  lazyload"
                      data-parent-fit="contain">
             </div>

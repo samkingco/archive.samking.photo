@@ -193,7 +193,7 @@ function _copyStaticFiles(siteList, callback) {
 
 function _copyImages(siteList, callback) {
     console.log('    ››'.blue.bold, 'Copying images');
-    fs.copySync(conf.OPT_IMAGES_DIR, path.join(conf.DEST_DIR, conf.IMAGES_DIR));
+    fs.copySync(conf.IMAGES_DIR, path.join(conf.DEST_DIR, conf.IMAGES_DIR));
 
     callback(null, siteList);
 }

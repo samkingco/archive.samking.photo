@@ -8,7 +8,7 @@
      data-iso="{{ image.iso }}"
      data-capturedate="{{ image.timestamp|date('Y-m-d') }}"
      data-timestamp="{{ image.timestamp|date('Y-m-d, H:i:s') }}"
-     data-fullimage="/{{ image.sizes.large }}"
+     data-fullimage="{{ image.url }}"
      data-ratio="{{ image.dimensions.height / image.dimensions.width * 100 }}%">
     {% if showindex %}<p class="post__index  mono">{{ image.index }}.</p>{% endif %}
     <div class="ratio-container  ratio-container--wide">
@@ -16,11 +16,11 @@
              style="padding-bottom: {{ image.dimensions.height / image.dimensions.width * 100 }}%"></div>
         <img src="/static/img/space.gif"
              data-sizes="auto"
-             data-src="/{{ image.sizes.small }}"
-             data-srcset="/{{ image.sizes.small }} 768w, /{{ image.sizes.medium }} 1024w, /{{ image.sizes.large }} 1400w"
+             data-src="{{ image.url }}?w=768"
+             data-srcset="{{ image.url }}?w=768 768w, {{ image.url }}?w=1216 1024w, {{ image.url }}?w=2880 1400w"
              class="post__image  ratio-container__image  lazyload">
         <noscript>
-            <img src="/{{ image.sizes.small }}"
+            <img src="{{ image.url }}"
                  width="{{ image.dimensions.width }}"
                  height="{{ image.dimensions.height }}"
                  class="post__image  ratio-container__image">

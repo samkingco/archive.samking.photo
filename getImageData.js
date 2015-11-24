@@ -1,5 +1,6 @@
 // App config
 const conf = require('./config');
+const secret = require('./secrets');
 
 // Output helpers
 const colors = require('colors');
@@ -10,6 +11,8 @@ const path = require('path');
 const async = require('async');
 const _ = require('underscore');
 const gm = require('gm').subClass({imageMagick: true});
+const ImgixClient = require('imgix-core-js');
+const imgix = new ImgixClient(secret.imgixUrl, secret.imgixToken);
 
 
 // Helper functions
@@ -118,9 +121,19 @@ function _addImageToList(image, index) {
     const imagePath = path.join('images/', image);
     const modified = Date.parse(fs.statSync(imagePath).mtime);
 
+    // If the config is to use imgix
+    if (conf.useImgix) {
+        // Then set the imageUrl to the imgix url
+        var imageUrl = imgix.path(image).toUrl().toString();
+    } else {
+        // Else set it to the local images folder
+        var imageUrl = path.join('/', imagePath);
+    }
+
     cachedImagesList.push({
         index: index+1,
         path: imagePath,
+        url: imageUrl,
         modified: modified,
         processed: false
     });
@@ -271,32 +284,6 @@ function _getCaption(image, callback) {
     });
 }
 
-function _resizeImages(image, callback) {
-    const sizes = {};
-
-    async.forEachOf(conf.imageSizes, function (sizeObj, sizeName, callback) {
-        const extension = sizeObj.extension + '_' + image.modified + image.path.substring(image.path.lastIndexOf("."));
-        const fileName = image.path.substring(0, image.path.lastIndexOf(".")) + extension;
-        const writeFileName = path.join('optimised_images/', fileName.replace('images/', ''));
-
-        sizes[sizeName] = fileName;
-
-        // Ensure that the optimised folder exists
-        fs.ensureDirSync(conf.OPT_IMAGES_DIR);
-
-        gm(image.path)
-        .resize(sizeObj.width)
-        .quality(sizeObj.quality)
-        .write(writeFileName, function (err) {
-            if (!err) callback();
-        });
-    }, function (err) {
-        image.sizes = sizes;
-        console.log('  ››'.bold.green, `Resized ${image.path}`);
-        callback(null, image)
-    });
-}
-
 
 
 
@@ -307,7 +294,7 @@ function _resizeImages(image, callback) {
 
 
 // Set up the composer to be called
-const imageProcessComposer = async.compose(_setAsProcessed, _resizeImages, _getDimensions, _getModifiers, _getTimestamp, _getShutter, _getAperture, _getIso, _getFocal, _getKeywords, _getCaption);
+const imageProcessComposer = async.compose(_setAsProcessed, _getDimensions, _getModifiers, _getTimestamp, _getShutter, _getAperture, _getIso, _getFocal, _getKeywords, _getCaption);
 
 
 // First built a list of images that need meta data
@@ -335,7 +322,7 @@ module.exports = function (callback) {
         _processImages(_imagesNeedingData(), function (err, result) {
             console.log('››'.bold.blue, 'Processing complete, updating cache file');
             // Update the cache file on disk
-            fs.outputFileSync(path.join(conf.CACHE_DIR, conf.IMAGE_CACHE_FILE), JSON.stringify(cachedImagesList, null, 2));
+            // fs.outputFileSync(path.join(conf.CACHE_DIR, conf.IMAGE_CACHE_FILE), JSON.stringify(cachedImagesList, null, 2));
             // Return with the newly updated list
             callback(err, cachedImagesList);
         });

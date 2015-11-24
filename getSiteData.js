@@ -52,7 +52,7 @@ function _paginateList (list, unit, path) {
             currentUrl: currentUrl,
             prevUrl: prevUrl,
             nextUrl: nextUrl,
-            shareImage: pageData[0].sizes.large,
+            shareImage: pageData[0].imageUrl,
             images: pageData
         }
 
@@ -232,7 +232,7 @@ function _buildArchivesList (imageList, urlKey) {
     archivesData.basePath = basePath;
     archivesData.page = {
         months: _.sortBy(monthList, 'name').reverse(),
-        shareImage: monthList[0].images[0].sizes.large
+        shareImage: monthList[0].images[0].imageUrl
     }
 
     return archivesData;

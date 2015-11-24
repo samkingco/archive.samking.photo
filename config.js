@@ -10,24 +10,7 @@ exports.CACHE_DIR = './cache/';
 exports.IMAGE_CACHE_FILE = 'image-list.json';
 exports.SITE_CACHE_FILE = 'site-list.json';
 exports.imagesPerPage = 64;
-
-exports.imageSizes = {
-    small: {
-        width: 768,
-        quality: 75,
-        extension: '_sml'
-    },
-    medium: {
-        width: 1216,
-        quality: 75,
-        extension: '_med'
-    },
-    large: {
-        width: 2880,
-        quality: 50,
-        extension: '_lrg'
-    }
-}
+exports.useImgix = false;
 
 
 // Static pages that have no context data
@@ -86,8 +69,7 @@ exports.author = {
     instagram: 'samkingphoto',
     twitter: 'samkingphoto',
     github: 'samisking',
-    email: 'mail@samking.co',
-    emailSafe: '&#109;&#97;&#105;&#108;&#64;&#115;&#97;&#109;&#107;&#105;&#110;&#103;&#46;&#99;&#111;'
+    email: 'mail@samking.co'
 }
 
 
@@ -96,13 +78,5 @@ exports.siteInfo = {
     baseUrl: 'http://samking.co',
     analytics: 'UA-23814339-7',
     description: 'The creative process Journal of Photographer & Designer – Sam King.',
-    defaultKeywords: [  'sam king',
-                        'photographer',
-                        'photography',
-                        'designer',
-                        'web designer',
-                        'graphic designer',
-                        'developer',
-                        'london',
-                        'united kingdom' ]
+    defaultKeywords: ['sam king', 'photographer', 'photography', 'designer', 'web designer', 'graphic designer', 'developer', 'london', 'united kingdom']
 }
