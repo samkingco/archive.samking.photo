@@ -1,5 +1,5 @@
 node_modules/
 build/
 cache/
-optimised_images/
+images/
 secrets.js

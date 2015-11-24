@@ -322,7 +322,7 @@ module.exports = function (callback) {
         _processImages(_imagesNeedingData(), function (err, result) {
             console.log('››'.bold.blue, 'Processing complete, updating cache file');
             // Update the cache file on disk
-            // fs.outputFileSync(path.join(conf.CACHE_DIR, conf.IMAGE_CACHE_FILE), JSON.stringify(cachedImagesList, null, 2));
+            fs.outputFileSync(path.join(conf.CACHE_DIR, conf.IMAGE_CACHE_FILE), JSON.stringify(cachedImagesList, null, 2));
             // Return with the newly updated list
             callback(err, cachedImagesList);
         });

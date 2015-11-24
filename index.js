@@ -29,27 +29,27 @@ const cssnano = require('cssnano');
 // Created data things
 const getSiteJson = require('./getSiteData');
 
+var siteList;
+
 
 
 
 
 // The building of the project thing
 
-function _cleanBuildDir(siteList, callback) {
+function _cleanBuildDir() {
     console.log('  ››'.bold.blue, 'Cleaning up build directory');
     fs.removeSync(conf.DEST_DIR);
-
-    callback(null, siteList);
 }
 
 
 function _renderPage(siteList, pageToRender) {
-    console.log('    ››'.blue.bold, `Rendering ${pageToRender} page(s)`);
+    console.log('    ››'.blue.bold, `Rendering ${pageToRender.template} page(s)`);
 
     // Get the right site and page info
     const siteData = siteList[0];
     const siteInfo = siteData.site;
-    const pageType = siteData.sitePages[pageToRender];
+    const pageType = pageToRender;
 
     // Get some useful consts
     const template = path.join(conf.SRC_DIR, pageType.template);
@@ -123,22 +123,31 @@ function _renderFlatPage(siteList, pageToRender) {
 }
 
 
-function _buildPages(siteList, callback) {
-    console.log('  ››'.bold.blue, 'Render pages');
-    _.each(siteList[0].sitePages, function (pageCollection, pageToRender) {
+function _buildSitePages(callback) {
+    console.log('  ››'.bold.blue, 'Render site pages');
+
+    async.forEachOf(siteList[0].sitePages, function (pageToRender, key, callback) {
         _renderPage(siteList, pageToRender);
+        callback();
+    }, function (err) {
+        callback(null);
     });
-
-    _.each(siteList[0].site.flatpages, function (pageToRender) {
-        _renderFlatPage(siteList, pageToRender);
-    });
-
-    callback(null, siteList);
 }
 
 
-function _buildCss(siteList, callback) {
-    console.log('  ››'.bold.blue, 'Static');
+function _buildFlatPages(callback) {
+    console.log('  ››'.bold.blue, 'Render flat pages');
+
+    async.forEachOf(siteList[0].site.flatpages, function (pageToRender, key, callback) {
+        _renderFlatPage(siteList, pageToRender);
+        callback();
+    }, function (err) {
+        callback(null);
+    });
+}
+
+
+function _buildCss(callback) {
     console.log('    ››'.bold.blue, 'Building CSS');
     const input = path.join(conf.SRC_DIR, conf.staticFiles.css.src);
     const output = path.join(conf.DEST_DIR, siteList[0].site.staticFiles.css.dest);
@@ -156,15 +165,16 @@ function _buildCss(siteList, callback) {
     postcss(processors)
     .process(css, { from: input, to: output })
     .then(function (result) {
-        fs.outputFile(output, result.css);
-
-        callback(null, siteList);
+        fs.outputFile(output, result.css, function (err) {
+            callback(null);
+        });
     });
 }
 
 
-function _buildJs(siteList, callback) {
+function _buildJs(callback) {
     console.log('    ››'.bold.blue, 'Building JS');
+
     const input = path.join(conf.SRC_DIR, conf.staticFiles.js.src);
     const output = path.join(conf.DEST_DIR, siteList[0].site.staticFiles.js.dest);
 
@@ -174,48 +184,59 @@ function _buildJs(siteList, callback) {
         fileIn: [path.join(conf.SRC_DIR, '/static/js/plugins.js'), input],
         fileOut: output,
         callback: function (err, min) {
-            fs.outputFile(output, min);
-            callback(null, siteList);
+            fs.outputFile(output, min, function (err) {
+                callback(null);
+            });
         }
     });
 }
 
 
-function _copyStaticFiles(siteList, callback) {
+function _copyStaticFiles(callback) {
     console.log('    ››'.bold.blue, 'Copying static');
-    fs.copySync(path.join(conf.SRC_DIR, '/.htaccess'), path.join(conf.DEST_DIR, '/.htaccess'));
-    fs.copySync(path.join(conf.SRC_DIR, '/favicon.ico'), path.join(conf.DEST_DIR, '/favicon.ico'));
-    fs.copySync(path.join(conf.SRC_DIR, '/static/'), path.join(conf.DEST_DIR, '/static'));
 
-    callback(null, siteList);
+    // TODO: Ignore the templates directory
+    fs.copy(conf.SRC_DIR, conf.DEST_DIR, function (err) {
+        callback(null);
+    });
 }
 
 
-function _copyImages(siteList, callback) {
+function _copyImages(callback) {
     console.log('    ››'.blue.bold, 'Copying images');
-    fs.copySync(conf.IMAGES_DIR, path.join(conf.DEST_DIR, conf.IMAGES_DIR));
 
-    callback(null, siteList);
+    fs.copy(conf.IMAGES_DIR, path.join(conf.DEST_DIR, conf.IMAGES_DIR), function (err) {
+        callback(null);
+    });
 }
 
 
-const buildComposer = async.compose(_copyImages, _copyStaticFiles, _buildJs, _buildCss, _buildPages, _cleanBuildDir);
+const buildTasks = [
+        _copyImages,
+        _copyStaticFiles,
+        _buildJs,
+        _buildCss,
+        _buildSitePages,
+        _buildFlatPages
+    ];
 
 
 
 
 // Get the image json and start the build
 getSiteJson(function (err, result) {
-    var siteList = result;
+    siteList = result;
     console.log('››'.bold.green, 'Site data is ready');
     console.log('››››'.bold.green, '----------');
     console.log('››'.bold.blue, 'Building site');
 
+    _cleanBuildDir();
+
     // Build the site
-    buildComposer(siteList, function (err, result) {
+    async.parallel(buildTasks, function (err, results) {
         // Process timers
-        const endTimer = process.hrtime(startTimer);
-        const formattedTimer = prettyHrtime(endTimer);
+        var endTimer = process.hrtime(startTimer);
+        var formattedTimer = prettyHrtime(endTimer);
         console.log('››››'.bold.green, '----------');
         console.log('››'.bold.green, `Completed in: ${formattedTimer}`);
     });
