@@ -24,6 +24,8 @@
     "postcss-nested": "^1.0.0",
     "postcss-simple-vars": "^1.1.0",
     "pretty-hrtime": "^1.0.1",
+    "rsync": "^0.4.0",
+    "s3": "^4.4.0",
     "swig": "^1.4.2",
     "underscore": "^1.8.3"
   }
