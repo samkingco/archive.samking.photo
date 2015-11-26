@@ -44,12 +44,11 @@ function _cleanBuildDir() {
 
 
 function _renderPage(siteList, pageToRender) {
-    console.log('    ››'.blue.bold, `Rendering ${pageToRender.template} page(s)`);
+    console.log('    ››'.blue.bold, `Rendering ${pageToRender} page(s)`);
 
     // Get the right site and page info
     const siteData = siteList[0];
-    const siteInfo = siteData.site;
-    const pageType = pageToRender;
+    const pageType = siteData.sitePages[pageToRender];
 
     // Get some useful consts
     const template = path.join(conf.SRC_DIR, pageType.template);
@@ -57,7 +56,6 @@ function _renderPage(siteList, pageToRender) {
 
     // Set up some context data for the page
     const templateContext = {};
-    templateContext.site = siteInfo;
 
     if (typeof pageType.data != 'undefined') {
         _.each(pageType.data, function (data) {
@@ -104,14 +102,12 @@ function _renderFlatPage(siteList, pageToRender) {
 
     // Get the right site and page info
     const siteData = siteList[0];
-    const siteInfo = siteData.site;
 
     // Get some useful consts
     const template = path.join(conf.SRC_DIR, pageToRender.template);
 
     // Set up some context data for the page
     const templateContext = {};
-    templateContext.site = siteInfo;
     templateContext.page = {
         basePath: pageToRender.basePath
     };
@@ -126,23 +122,16 @@ function _renderFlatPage(siteList, pageToRender) {
 function _buildSitePages(callback) {
     console.log('  ››'.bold.blue, 'Render site pages');
 
-    async.forEachOf(siteList[0].sitePages, function (pageToRender, key, callback) {
+    swig.setDefaults({ locals: { site:siteList[0].site }});
+
+    _.each(siteList[0].sitePages, function (pageCollection, pageToRender) {
         _renderPage(siteList, pageToRender);
-        callback();
-    }, function (err) {
-        callback(null);
     });
-}
 
-
-function _buildFlatPages(callback) {
     console.log('  ››'.bold.blue, 'Render flat pages');
 
-    async.forEachOf(siteList[0].site.flatpages, function (pageToRender, key, callback) {
+    _.each(siteList[0].site.flatpages, function (pageToRender) {
         _renderFlatPage(siteList, pageToRender);
-        callback();
-    }, function (err) {
-        callback(null);
     });
 }
 
@@ -216,8 +205,7 @@ const buildTasks = [
         _copyStaticFiles,
         _buildJs,
         _buildCss,
-        _buildSitePages,
-        _buildFlatPages
+        _buildSitePages
     ];
 
 
