@@ -8,7 +8,7 @@
 <div class="page-wrapper">
     <div class="page-content">
         <p class="tag-cloud">
-            {% for tag in page %}
+            {% for tag in page.tags %}
                 <a href="{{ tag.url }}">#{{ tag.name }}</a>{% if loop.last != true %}, {% endif %}
             {% endfor %}
         </p>

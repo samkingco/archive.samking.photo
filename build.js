@@ -28,8 +28,7 @@ const cssnano = require('cssnano');
 
 // Created data things
 const getSiteData = require('./lib/get-site-data');
-
-var siteList;
+var siteData;
 
 
 
@@ -43,105 +42,66 @@ function _cleanBuildDir() {
 }
 
 
-function _renderPage(siteList, pageToRender) {
-    console.log('  ››'.blue.bold, `Rendering ${pageToRender} page(s)`);
-
-    // Get the right site and page info
-    const siteData = siteList[0];
-    const pageType = siteData.sitePages[pageToRender];
-
-    // Get some useful consts
-    const template = path.join(conf.SRC_DIR, pageType.template);
-    const basePath = pageType.basePath;
-
-    // Set up some context data for the page
-    const templateContext = {};
-
-    if (typeof pageType.data != 'undefined') {
-        _.each(pageType.data, function (data) {
-            const paginatedData = data.pages;
-
-            // Render each page in the paginated data array
-            _.each(paginatedData, function (page) {
-                // Set the page context
-                templateContext.page = page;
-                templateContext.page.basePath = basePath;
-                // Path to render the template to
-                const url = path.join(conf.DEST_DIR, page.currentUrl, 'index.html');
-                // Output the page to a file at the url
-                fs.outputFileSync(url, swig.renderFile(template, templateContext));
-            });
-        });
-    } else if (typeof pageType.pages != 'undefined') {
-        const paginatedData = pageType.pages;
-
-        // Render each page in the paginated data array
-        _.each(paginatedData, function (page) {
-            // Set the page context
-            templateContext.page = page;
-            templateContext.page.basePath = basePath;
-            // Path to render the template to
-            const url = path.join(conf.DEST_DIR, page.currentUrl, 'index.html');
-            // Output the page to a file at the url
-            fs.outputFileSync(url, swig.renderFile(template, templateContext));
-        });
-    } else {
-        // Set the page context
-        templateContext.page = pageType.page;
-        templateContext.page.basePath = basePath;
-        // Path to render the template to
-        const url = path.join(conf.DEST_DIR, basePath, '/index.html');
-        // Output the page to a file at the url
-        fs.outputFileSync(url, swig.renderFile(template, templateContext));
-    }
-}
-
-
-function _renderFlatPage(siteList, pageToRender) {
-    console.log('  ››'.blue.bold, `Rendering flatpage: ${pageToRender.url}`);
-
-    // Get the right site and page info
-    const siteData = siteList[0];
-
+function _renderPage(siteData, pageToRender) {
     // Get some useful consts
     const template = path.join(conf.SRC_DIR, pageToRender.template);
+    const basePath = pageToRender.basePath;
 
-    // Set up some context data for the page
+    // Set a context
     const templateContext = {};
-    templateContext.page = {
-        basePath: pageToRender.basePath
-    };
 
-    // Path to render the template to
-    const url = path.join(conf.DEST_DIR, pageToRender.url);
-    // Output the page to a file at the url
-    fs.outputFileSync(url, swig.renderFile(template, templateContext));
+    // If the type of page has child pages
+    if (typeof pageToRender.pages != 'undefined') {
+        // Render each page in the paginated data array
+        _.each(pageToRender.pages, function (page) {
+
+            templateContext.page = page;
+            templateContext.page.basePath = basePath;
+
+            if (page.url) {
+                var url = path.join(conf.DEST_DIR, page.url);
+            } else {
+                var url = path.join(conf.DEST_DIR, page.currentUrl+'index.html');
+            }
+
+            fs.outputFile(url, swig.renderFile(template, templateContext), function (err) {});
+        });
+    } else {
+        templateContext.page = pageToRender.page;
+        templateContext.page.basePath = basePath;
+
+        if (pageToRender.url) {
+            var url = path.join(conf.DEST_DIR, pageToRender.url);
+        } else {
+            var url = path.join(conf.DEST_DIR, basePath+'/index.html');
+        }
+
+        fs.outputFile(url, swig.renderFile(template, templateContext), function (err) {});
+    }
 }
 
 
 function _buildSitePages(callback) {
     console.log('››'.bold.blue, 'Render site pages');
 
-    swig.setDefaults({ locals: { site:siteList[0].site }});
+    // Set a default context
+    swig.setDefaults({ locals: { site: siteData.site }});
 
-    _.each(siteList[0].sitePages, function (pageCollection, pageToRender) {
-        _renderPage(siteList, pageToRender);
+    // Render each page to the build dir
+    async.forEachOf(siteData.pages, function (pageToRender, pageType, cb) {
+        console.log('  ››'.blue.bold, `Rendering ${pageType} page`);
+        _renderPage(siteData, pageToRender);
+        cb();
+    }, function (err) {
+        callback(null);
     });
-
-    console.log('››'.bold.blue, 'Render flat pages');
-
-    _.each(siteList[0].site.flatpages, function (pageToRender) {
-        _renderFlatPage(siteList, pageToRender);
-    });
-
-    callback(null);
 }
 
 
 function _buildCss(callback) {
     console.log('››'.bold.blue, 'Building CSS');
-    const input = path.join(conf.SRC_DIR, conf.staticFiles.css.src);
-    const output = path.join(conf.DEST_DIR, siteList[0].site.staticFiles.css.dest);
+    const input = path.join(conf.SRC_DIR, conf.staticfiles.css.src);
+    const output = path.join(conf.DEST_DIR, siteData.site.staticfiles.css.dest);
     const css = fs.readFileSync(input);
 
     const processors = [
@@ -166,8 +126,8 @@ function _buildCss(callback) {
 function _buildJs(callback) {
     console.log('››'.bold.blue, 'Building JS');
 
-    const input = path.join(conf.SRC_DIR, conf.staticFiles.js.src);
-    const output = path.join(conf.DEST_DIR, siteList[0].site.staticFiles.js.dest);
+    const input = path.join(conf.SRC_DIR, conf.staticfiles.js.src);
+    const output = path.join(conf.DEST_DIR, siteData.site.staticfiles.js.dest);
 
     // Array
     new compressor.minify({
@@ -215,7 +175,8 @@ const buildTasks = [
 
 // Get the image json and start the build
 getSiteData(function (err, result) {
-    siteList = result;
+    siteData = result[0];
+
     console.log('››'.bold.green, 'Site data is ready');
     console.log('››››'.bold.green, '----------');
     console.log('››'.bold.blue, 'Building site');
