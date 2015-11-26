@@ -38,13 +38,13 @@ var siteList;
 // The building of the project thing
 
 function _cleanBuildDir() {
-    console.log('  ››'.bold.blue, 'Cleaning up build directory');
+    console.log('››'.bold.blue, 'Cleaning up build directory');
     fs.removeSync(conf.DEST_DIR);
 }
 
 
 function _renderPage(siteList, pageToRender) {
-    console.log('    ››'.blue.bold, `Rendering ${pageToRender} page(s)`);
+    console.log('  ››'.blue.bold, `Rendering ${pageToRender} page(s)`);
 
     // Get the right site and page info
     const siteData = siteList[0];
@@ -98,7 +98,7 @@ function _renderPage(siteList, pageToRender) {
 
 
 function _renderFlatPage(siteList, pageToRender) {
-    console.log('    ››'.blue.bold, `Rendering flatpage: ${pageToRender.url}`);
+    console.log('  ››'.blue.bold, `Rendering flatpage: ${pageToRender.url}`);
 
     // Get the right site and page info
     const siteData = siteList[0];
@@ -120,7 +120,7 @@ function _renderFlatPage(siteList, pageToRender) {
 
 
 function _buildSitePages(callback) {
-    console.log('  ››'.bold.blue, 'Render site pages');
+    console.log('››'.bold.blue, 'Render site pages');
 
     swig.setDefaults({ locals: { site:siteList[0].site }});
 
@@ -128,16 +128,18 @@ function _buildSitePages(callback) {
         _renderPage(siteList, pageToRender);
     });
 
-    console.log('  ››'.bold.blue, 'Render flat pages');
+    console.log('››'.bold.blue, 'Render flat pages');
 
     _.each(siteList[0].site.flatpages, function (pageToRender) {
         _renderFlatPage(siteList, pageToRender);
     });
+
+    callback(null);
 }
 
 
 function _buildCss(callback) {
-    console.log('    ››'.bold.blue, 'Building CSS');
+    console.log('››'.bold.blue, 'Building CSS');
     const input = path.join(conf.SRC_DIR, conf.staticFiles.css.src);
     const output = path.join(conf.DEST_DIR, siteList[0].site.staticFiles.css.dest);
     const css = fs.readFileSync(input);
@@ -162,7 +164,7 @@ function _buildCss(callback) {
 
 
 function _buildJs(callback) {
-    console.log('    ››'.bold.blue, 'Building JS');
+    console.log('››'.bold.blue, 'Building JS');
 
     const input = path.join(conf.SRC_DIR, conf.staticFiles.js.src);
     const output = path.join(conf.DEST_DIR, siteList[0].site.staticFiles.js.dest);
@@ -182,7 +184,7 @@ function _buildJs(callback) {
 
 
 function _copyStaticFiles(callback) {
-    console.log('    ››'.bold.blue, 'Copying static');
+    console.log('››'.bold.blue, 'Copying static');
 
     // TODO: Ignore the templates directory
     fs.copy(conf.SRC_DIR, conf.DEST_DIR, function (err) {
@@ -192,7 +194,7 @@ function _copyStaticFiles(callback) {
 
 
 function _copyImages(callback) {
-    console.log('    ››'.blue.bold, 'Copying images');
+    console.log('››'.blue.bold, 'Copying images');
 
     fs.copy(conf.IMAGES_DIR, path.join(conf.DEST_DIR, conf.IMAGES_DIR), function (err) {
         callback(null);
