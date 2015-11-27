@@ -8,7 +8,7 @@
      data-iso="{{ image.iso }}"
      data-capturedate="{{ image.timestamp|date('Y-m-d') }}"
      data-timestamp="{{ image.timestamp|date('Y-m-d, H:i:s') }}"
-     data-fullimage="{{ image.url }}&fit=max&auto=format&w=2880&q=30"
+     data-fullimage="{{ image.sizes.large }}"
      data-ratio="{{ image.dimensions.height / image.dimensions.width * 100 }}%">
     <div class="post--square__container">
         <div class="post--square__content">
@@ -16,15 +16,10 @@
             style="{% if image.dimensions.height > image.dimensions.width %}width: {{ image.dimensions.width / image.dimensions.height * 100 }}%{% else %}height: {{ image.dimensions.height / image.dimensions.width * 100 }}%{% endif %}">
                 <img src="/static/img/space.gif"
                      data-sizes="auto"
-                     data-src="{{ image.url }}&w=768&q=50"
-                     data-srcset="{{ image.url }}&fit=max&auto=format&w=480&q=50 480w 1x,
-                                  {{ image.url }}&fit=max&auto=format&w=480&q=30&dpr=2 480w 2x,
-                                  {{ image.url }}&fit=max&auto=format&w=768&q=50 768w 1x,
-                                  {{ image.url }}&fit=max&auto=format&w=768&q=30&dpr=2 768w 2x,
-                                  {{ image.url }}&fit=max&auto=format&w=1024&q=50 1024w 1x,
-                                  {{ image.url }}&fit=max&auto=format&w=1024&q=30&dpr=2 1024w 2x,
-                                  {{ image.url }}&fit=max&auto=format&w=1400&q=50 1400w 1x,
-                                  {{ image.url }}&fit=max&auto=format&w=1400&q=30&dpr=2 1400w 2x"
+                     data-src="{{ image.sizes.small }}"
+                     data-srcset="{{ image.sizes.small }} 768w,
+                                  {{ image.sizes.medium }} 1024w,
+                                  {{ image.sizes.large }} 1400w"
                      class="ratio-container__image  post__image{% if image.dimensions.height > image.dimensions.width %} post__image--tall{% endif %}  lazyload"
                      data-parent-fit="contain">
             </div>

@@ -156,7 +156,7 @@ function _copyStaticFiles(callback) {
 function _copyImages(callback) {
     console.log('››'.blue.bold, 'Copying images');
 
-    fs.copy(conf.IMAGES_DIR, path.join(conf.DEST_DIR, conf.IMAGES_DIR), function (err) {
+    fs.copy(conf.OPT_IMAGES_DIR, path.join(conf.DEST_DIR, conf.IMAGES_DIR), function (err) {
         callback(null);
     });
 }

@@ -5,7 +5,7 @@
         <meta http-equiv="content-language" content="en-gb">
         <meta name="description" content="Sam King">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="{{ site.staticFiles.css.dest }}">
+        <link rel="stylesheet" href="{{ site.staticfiles.css.dest }}">
         <link rel="dns-prefetch" href="//www.google-analytics.com">
         <!-- Meta -->
         <title>{% block title %}{% endblock %}{{ site.info.name }}</title>
@@ -65,7 +65,7 @@
 
         {% block content %}{% endblock %}
 
-        <script src="{{ site.staticFiles.js.dest }}"></script>
+        <script src="{{ site.staticfiles.js.dest }}"></script>
 
         {% block overlay_template %}
         <div class="overlay"></div>
