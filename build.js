@@ -1,8 +1,5 @@
-// TODO:
-// - Render site pages without repeating myself too much
-
 // App config
-const conf = require('./lib/config/config');
+const config = require('./lib/config');
 
 // Output helpers
 const colors = require('colors');
@@ -38,13 +35,13 @@ var siteData;
 
 function _cleanBuildDir() {
     console.log('››'.bold.blue, 'Cleaning up build directory');
-    fs.removeSync(conf.DEST_DIR);
+    fs.removeSync(config.DEST_DIR);
 }
 
 
 function _renderPage(siteData, pageToRender) {
     // Get some useful consts
-    const template = path.join(conf.SRC_DIR, pageToRender.template);
+    const template = path.join(config.SRC_DIR, pageToRender.template);
     const basePath = pageToRender.basePath;
 
     // Set a context
@@ -59,9 +56,9 @@ function _renderPage(siteData, pageToRender) {
             templateContext.page.basePath = basePath;
 
             if (page.url) {
-                var url = path.join(conf.DEST_DIR, page.url);
+                var url = path.join(config.DEST_DIR, page.url);
             } else {
-                var url = path.join(conf.DEST_DIR, page.currentUrl+'index.html');
+                var url = path.join(config.DEST_DIR, page.currentUrl+'index.html');
             }
 
             fs.outputFile(url, swig.renderFile(template, templateContext), function (err) {});
@@ -71,9 +68,9 @@ function _renderPage(siteData, pageToRender) {
         templateContext.page.basePath = basePath;
 
         if (pageToRender.url) {
-            var url = path.join(conf.DEST_DIR, pageToRender.url);
+            var url = path.join(config.DEST_DIR, pageToRender.url);
         } else {
-            var url = path.join(conf.DEST_DIR, basePath+'/index.html');
+            var url = path.join(config.DEST_DIR, basePath+'/index.html');
         }
 
         fs.outputFile(url, swig.renderFile(template, templateContext), function (err) {});
@@ -100,8 +97,8 @@ function _buildSitePages(callback) {
 
 function _buildCss(callback) {
     console.log('››'.bold.blue, 'Building CSS');
-    const input = path.join(conf.SRC_DIR, conf.staticfiles.css.src);
-    const output = path.join(conf.DEST_DIR, siteData.site.staticfiles.css.dest);
+    const input = path.join(config.SRC_DIR, config.staticfiles.css.src);
+    const output = path.join(config.DEST_DIR, siteData.site.staticfiles.css.dest);
     const css = fs.readFileSync(input);
 
     const processors = [
@@ -126,13 +123,13 @@ function _buildCss(callback) {
 function _buildJs(callback) {
     console.log('››'.bold.blue, 'Building JS');
 
-    const input = path.join(conf.SRC_DIR, conf.staticfiles.js.src);
-    const output = path.join(conf.DEST_DIR, siteData.site.staticfiles.js.dest);
+    const input = path.join(config.SRC_DIR, config.staticfiles.js.src);
+    const output = path.join(config.DEST_DIR, siteData.site.staticfiles.js.dest);
 
     // Array
     new compressor.minify({
         type: 'uglifyjs',
-        fileIn: [path.join(conf.SRC_DIR, '/static/js/plugins.js'), input],
+        fileIn: [path.join(config.SRC_DIR, '/static/js/plugins.js'), input],
         fileOut: output,
         callback: function (err, min) {
             fs.outputFile(output, min, function (err) {
@@ -147,7 +144,7 @@ function _copyStaticFiles(callback) {
     console.log('››'.bold.blue, 'Copying static');
 
     // TODO: Ignore the templates directory
-    fs.copy(conf.SRC_DIR, conf.DEST_DIR, function (err) {
+    fs.copy(config.SRC_DIR, config.DEST_DIR, function (err) {
         callback(null);
     });
 }
@@ -156,7 +153,7 @@ function _copyStaticFiles(callback) {
 function _copyImages(callback) {
     console.log('››'.blue.bold, 'Copying images');
 
-    fs.copy(conf.OPT_IMAGES_DIR, path.join(conf.DEST_DIR, conf.IMAGES_DIR), function (err) {
+    fs.copy(config.OPT_IMAGES_DIR, path.join(config.DEST_DIR, config.IMAGES_DIR), function (err) {
         callback(null);
     });
 }
