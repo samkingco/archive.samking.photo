@@ -1,8 +1,9 @@
+// Set the production flag
+process.env.NODE_ENV = 'production';
+
 // App config
-const conf = require('./lib/config/config');
-const buildConf = require('./lib/config/production').settings;
+const config = require('./lib/config');
 const secret = require('./lib/config/secrets');
-const args = [JSON.stringify(buildConf)];
 
 // Libs
 const childProcess = require('child_process');
@@ -11,37 +12,6 @@ const path = require('path');
 const colors = require('colors');
 const s3 = require('s3');
 const Rsync = require('rsync');
-
-
-// Build the site with the production config
-function buildSite(callback) {
-    // keep track of whether callback has been invoked to prevent multiple invocations
-    var invoked = false;
-    var process = childProcess.fork('./build', args);
-
-    // listen for errors as they may prevent the exit event from firing
-    process.on('error', function (err) {
-        if (invoked) return;
-        invoked = true;
-        callback(err);
-    });
-
-    // execute the callback once the process has finished running
-    process.on('exit', function (code) {
-        if (invoked) return;
-        invoked = true;
-        var err = code === 0 ? null : new Error('exit code ' + code);
-        callback(err);
-    });
-}
-
-// Now we can run a script and invoke a callback when complete, e.g.
-buildSite(function (err) {
-    if (err) throw err;
-
-    // Finished building the site so kick off the S3 upload
-    uploadImagesToS3();
-});
 
 
 
@@ -56,10 +26,10 @@ var s3client = s3.createClient({
 
 // Set some options for uploading files
 var uploadImages = {
-    localDir: conf.IMAGES_DIR,
+    localDir: config.OPT_IMAGES_DIR,
     deleteRemoved: true,
     s3Params: {
-        Bucket: "samkingco-imgix",
+        Bucket: "samkingco-v5",
         Prefix: "images/"
     }
 };
@@ -100,3 +70,6 @@ function uploadImagesToS3 () {
         });
     });
 }
+
+
+uploadImagesToS3();
