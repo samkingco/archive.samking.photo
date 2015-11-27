@@ -4,3 +4,5 @@ cache/
 optimised_images/
 images/
 secrets.js
+*.sublime-project
+*.sublime-workspace
