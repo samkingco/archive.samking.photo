@@ -11,6 +11,7 @@
   "dependencies": {
     "async": "^1.5.0",
     "autoprefixer": "^6.1.0",
+    "aws-cloudfront-sign": "^2.0.1",
     "colors": "^1.1.2",
     "css-mqpacker": "^4.0.0",
     "cssnano": "^3.3.2",
