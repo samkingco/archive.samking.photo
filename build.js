@@ -1,3 +1,6 @@
+// TODO: Only copy static files when they change so syncing
+// with S3 doesn't have to happen every time the app builds
+
 // App config
 var config = require('./lib/config');
 
@@ -13,6 +16,7 @@ var async = require('async');
 var _ = require('underscore');
 var swig = require('swig');
 var compressor = require('node-minify');
+var gzip = require('gzipme');
 
 // PostCSS
 var postcss = require('postcss');
@@ -123,6 +127,7 @@ function buildCss(callback) {
     .then(function (result) {
         fs.outputFile(output, result.css, function (err) {
             if (err) return callback(err);
+            gzip(output, false, "best");
             callback(null);
         });
     });
@@ -146,6 +151,7 @@ function buildJs(callback) {
         callback: function (err, min) {
             fs.outputFile(output, min, function (err) {
                 if (err) return callback(err);
+                gzip(output, false, "best");
                 callback(null);
             });
         }
