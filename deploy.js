@@ -2,16 +2,17 @@
 process.env.NODE_ENV = 'production';
 
 // App config
-const config = require('./lib/config');
-const secret = require('./lib/config/secrets');
+var config = require('./lib/config');
+var secret = require('./lib/config/secrets');
 
 // Libs
-const childProcess = require('child_process');
-const fs = require('fs-extra');
-const path = require('path');
-const colors = require('colors');
-const s3 = require('s3');
-const Rsync = require('rsync');
+var fs = require('fs-extra');
+var path = require('path');
+var colors = require('colors');
+var s3 = require('s3');
+var Rsync = require('rsync');
+
+
 
 
 
@@ -72,4 +73,5 @@ function uploadImagesToS3 () {
 }
 
 
+// Kick off the upload to S3 and subsequent server deploy
 uploadImagesToS3();
