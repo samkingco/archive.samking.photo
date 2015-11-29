@@ -4,7 +4,13 @@
 </IfModule>
 
 # Redirect old urls
-RedirectMatch permanent /adventures(.*) /photos$1
+RedirectMatch permanent /adventures(.*) /
+RedirectMatch permanent /projects(.*) /
+RedirectMatch permanent /photos(.*) /
+RedirectMatch permanent /singles(.*) /
+RedirectMatch permanent /journal(.*) /
+RedirectMatch permanent /shop(.*) /
+RedirectMatch permanent /rizon(.*) /
 
 # ----------------------------------------------------------------------
 # Better website experience for IE users
