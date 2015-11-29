@@ -143,7 +143,7 @@ function buildJs(callback) {
     var output = path.join(config.DEST_DIR, siteData.site.staticfiles.js.dest);
 
     new compressor.minify({
-        type: 'uglifyjs',
+        type: 'yui-js',
         fileIn: input,
         fileOut: output,
         callback: function (err, min) {
@@ -202,7 +202,7 @@ getSiteData(function (err, result) {
 
     // Build the site in parallel
     async.parallel(buildTasks, function (err, results) {
-        if (err) console.err(err);
+        if (err) console.error(err);
 
         // Process timers
         var endTimer = process.hrtime(startTimer);
