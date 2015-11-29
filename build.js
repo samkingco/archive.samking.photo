@@ -16,7 +16,6 @@ var async = require('async');
 var _ = require('underscore');
 var swig = require('swig');
 var compressor = require('node-minify');
-var gzip = require('gzipme');
 
 // PostCSS
 var postcss = require('postcss');
@@ -127,7 +126,6 @@ function buildCss(callback) {
     .then(function (result) {
         fs.outputFile(output, result.css, function (err) {
             if (err) return callback(err);
-            gzip(output, false, "best");
             callback(null);
         });
     });
@@ -151,7 +149,6 @@ function buildJs(callback) {
         callback: function (err, min) {
             fs.outputFile(output, min, function (err) {
                 if (err) return callback(err);
-                gzip(output, false, "best");
                 callback(null);
             });
         }
@@ -205,7 +202,7 @@ getSiteData(function (err, result) {
 
     // Build the site in parallel
     async.parallel(buildTasks, function (err, results) {
-        if (err) console.log(err);
+        if (err) console.err(err);
 
         // Process timers
         var endTimer = process.hrtime(startTimer);
