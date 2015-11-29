@@ -356,14 +356,14 @@ dd {
   &--half {
     width: calc(50% - 10px);
 
-    & + & {
+    &:nth-child(even) {
       margin-left: 20px;
     }
 
     @mixin mq-min $palm-size {
       width: calc(40% - 20px);
 
-      & + & {
+      &:nth-child(even) {
         margin-left: 40px;
       }
     }
