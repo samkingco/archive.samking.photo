@@ -154,6 +154,10 @@ dd {
 .mono {
   font-family: Menlo, monospace;
   color: $color-light;
+
+  small {
+    font-size: 10px;
+  }
 }
 
 .mb5 { margin-bottom: 5px; }
@@ -186,8 +190,12 @@ dd {
     max-width: 200px;
     position: fixed;
     top: 100px;
-    left: 7%;
+    left: 6%;
     z-index: 100;
+  }
+
+  @mixin mq-min $portable-size {
+    left: 100px;
   }
 
   a {
@@ -274,7 +282,7 @@ dd {
   margin: 0 calc($page-palm-horz - ($grid-gutter-palm / 2)) 60px;
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-end;
+  justify-content: space-between;
 
   @mixin mq-min $palm-size {
     margin-left: $page-lap-left;
@@ -293,6 +301,7 @@ dd {
 
     @mixin mq-min $lap-size {
       margin-top: calc($page-desk-top - 20px);
+      margin-left: calc($page-desk-left * 2);
     }
   }
 
@@ -304,6 +313,18 @@ dd {
       margin-right: calc($page-lap-right - ($grid-gutter / 2));
     }
   }
+
+  &--text {
+    justify-content: flex-end;
+
+    @mixin mq-min $lap-size {
+      margin-left: calc(6% + 200px + 60px);
+    }
+
+    @mixin mq-min $portable-size {
+      margin-left: 400px;
+    }
+  }
 }
 
   .page-content {
@@ -312,10 +333,6 @@ dd {
 
     @mixin mq-min $palm-size {
       padding: 0;
-    }
-
-    @mixin mq-min $lap-size {
-      width: 75%;
     }
   }
 
@@ -345,27 +362,18 @@ dd {
   flex-wrap: wrap;
   position: relative;
 
-  @mixin mq-min $palm-size {
-    width: 80%;
-
+  @mixin mq-min $lap-size {
     &--extended {
-      width: 100%;
+      width: 125%;
+      margin-left: -25%;
     }
   }
 
   &--half {
     width: calc(50% - 10px);
 
-    &:nth-child(even) {
-      margin-left: 20px;
-    }
-
     @mixin mq-min $palm-size {
-      width: calc(40% - 20px);
-
-      &:nth-child(even) {
-        margin-left: 40px;
-      }
+      width: calc(50% - 20px);
     }
   }
 
