@@ -1,0 +1,19 @@
+service: sk-assets
+
+plugins:
+  - serverless-s3-sync
+
+provider:
+  name: aws
+
+custom:
+  s3Sync:
+    - bucketName: imgix-samking
+      localDir: ../../.images
+      params:
+        - "*.jpg":
+            CacheControl: 'public, max-age=31536000'
+        - "*.png":
+            CacheControl: 'public, max-age=31536000'
+        - "*.gif":
+            CacheControl: 'public, max-age=31536000'

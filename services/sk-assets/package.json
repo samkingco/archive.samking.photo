@@ -1,0 +1,14 @@
+{
+  "name": "sk-assets",
+  "version": "0.0.1",
+  "description": "",
+  "main": "handler.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Sam King",
+  "license": "MIT",
+  "dependencies": {
+    "serverless-s3-sync": "^1.6.1"
+  }
+}
