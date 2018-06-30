@@ -1,0 +1,26 @@
+{
+  "name": "samking.co",
+  "version": "0.0.1",
+  "description": "Website and services for samking.co",
+  "main": "index.js",
+  "scripts": {
+    "start": "echo \"See Makefile for commands\"",
+    "build": "echo \"See Makefile for commands\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "github.com/samisking/samking.co"
+  },
+  "author": "Sam King",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^5.0.1",
+    "exif": "^0.6.0",
+    "image-size": "^0.6.3",
+    "md5-file": "^4.0.0",
+    "prettier": "^1.13.7",
+    "yamljs": "^0.3.0"
+  },
+  "dependencies": {}
+}

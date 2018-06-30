@@ -1,0 +1,57 @@
+title: Sam King
+blurb:
+  I'm a Product Designer with ~6 years experience working on the web and for native app environments. Lately I've become more passionate about front-end and how you can scale design for the web.
+
+contact:
+  - name: Email
+    user: mail@samking.co
+    url: mailto:mail@samking.co
+  - name: Twitter
+    user: @samkingphoto
+    url: https://twitter.com/samkingphoto
+  - name: Instagram
+    user: @samkingphoto
+    url: https://instagram.com/samkingphoto
+  - name: GitHub
+    user: samisking
+    url: https://github.com/samisking
+
+experience:
+  - date: 2017–Present
+    role: Product Designer
+    company: Deliveroo
+    about:
+      - Deliveroo delivers the food from restaurants you love, straight to your door.
+      - I'm working within the restaurants team to improve the Deliveroo experience for our restaurant partners.
+  - date: 2016–2017
+    role: Product Designer
+    company: MutualArt
+    about:
+      - MutualArt aims to connect collectors of art with buyers/sellers along with providing in depth art market analysis.
+      - I worked on cleaning up the site after an agency build.
+      - I also worked on an exhibition finding app for iOS.
+  - date: 2014–2016
+    role: Product Designer
+    company: Lyst
+    about:
+      - Lyst is one of the biggest online fashion aggregators with an enormous inventory and a universal checkout experience.
+      - I worked in the web team improving conversion and the discoverability of products.
+      - I also worked on print & marketing campaigns (posters, shooting photos for social).
+      - Shortly before leaving, I was part of a 4 man team working on a substantial internal dashboard project allowing the site to support retailer promotions, promoted content and much more.
+  - date: 2012–2014
+    role: Product Designer
+    company: RetailMeNot, .Inc
+    about:
+      - RetailMeNot is product that helps people save money at their favourite brands.
+      - I worked mainly on the website and app, re-designing it for iOS 7 and Android.
+      - I also produced various print collateral.
+  - date: 2011–2012
+    role: Designer & Developer
+    company: Solutions
+    about:
+      - Solutions was a small local agency where I worked on sites for local businesses, NHS trusts, and The Charity Commission.
+  - date: 2010–2012
+    role: Freelance Photographer & Designer
+    about:
+      - Shooting photos for BMX publications and small fashion companies.
+      - Designing and building websites for local businesses.
