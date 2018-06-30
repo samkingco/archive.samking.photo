@@ -1,0 +1,20 @@
+{
+  "name": "sk-api",
+  "version": "0.0.1",
+  "main": "server.js",
+  "author": "Sam King",
+  "license": "MIT",
+  "scripts": {
+    "dev": "serverless offline start"
+  },
+  "dependencies": {
+    "koa": "^2.5.1",
+    "koa-router": "^7.4.0",
+    "serverless-http": "^1.6.0"
+  },
+  "devDependencies": {
+    "prettier": "^1.13.7",
+    "serverless-domain-manager": "^2.4.0",
+    "serverless-offline": "^3.25.5"
+  }
+}

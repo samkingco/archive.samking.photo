@@ -1,0 +1,31 @@
+service: sk-api
+
+plugins:
+  - serverless-offline
+  - serverless-domain-manager
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+
+custom:
+  stage: ${opt:stage, self:provider.stage}
+  domains:
+    dev: api-dev.samking.co
+    prod: api.samking.co
+  customDomain:
+    domainName: ${self:custom.domains.${self:custom.stage}}
+    basePath: ''
+    stage: ${self:custom.stage}
+    createRoute53Record: true
+
+functions:
+  api:
+    handler: server.api
+    events:
+    - http:
+        path: / # this matches the base path
+        method: ANY
+    - http:
+        path: /{any+} # this matches any path, the token 'any' doesn't mean anything special
+        method: ANY
