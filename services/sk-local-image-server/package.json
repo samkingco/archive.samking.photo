@@ -1,0 +1,16 @@
+{
+  "name": "sk-local-image-server",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Sam King",
+  "license": "MIT",
+  "dependencies": {
+    "koa": "^2.5.1",
+    "koa-router": "^7.4.0",
+    "sharp": "^0.20.5"
+  }
+}
