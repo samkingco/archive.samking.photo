@@ -2,7 +2,7 @@ title: Rizon
 subtitle: A golden hour calculator for iPhone
 date: 2014
 intro: Figuring out when to take photos outdoors can be a real nightmare. Rizon is an app that alerts you when Golden Hour is approaching so you never miss out on that perfect light. It's currently available on the App Store and has had over 7.7k downloads since August 2015.
-cover: rizon/cover.png
+cover: rizon/cover.jpg
 link:
   url: https://rizonapp.co
   text: rizonapp.co
@@ -11,9 +11,9 @@ content: |
 
   I had the idea for Rizon in a small book store in New York. I saw a calendar with beautiful illustrations of sun and moon phases when I remembered how frustrating it was finding the best time to take photos outdoors. There were a few online tools, but they were all clunky and displayed too much information. I wanted to change that, taking inspiration from the calendar I'd seen in New York. I did some sketches on the flight home and started designing the next day.
 
-  ![Ideas & inspiration](rizon/inspiration.png "Ideas & inspiration"),
+  ![Ideas & inspiration](rizon/inspiration.png "Ideas & inspiration")
 
-  ![First Designs](rizon/first-designs.png "First pass of screens after sketches"),
+  ![First Designs](rizon/first-designs.png "First pass of screens after sketches")
 
   I built a simple prototype as a web app, but soon realised there were things missing that you couldn't do without going native. Push notifications were very hard to work with in 2014 and monetisation was also tricky as I didn't want to rely on ad revenue.
 
@@ -73,12 +73,12 @@ content: |
 
   ![Featured placements on the App Store](rizon/featured.png "Featured placements on the App Store")
 
-  ## Future plans'
+  ## Future plans
 
   We're not currently working on Rizon as we both have little free time, but this hasn't stopped me updating designs whenever I do have the time. Hopefully we'll get to build all the features users requested.
 
   ![Future plans for Rizon](rizon/future-plans.png)
 
-  ## A great learning experience'
+  ## A great learning experience
 
   I've learnt a lot about what it takes to launch an app. I never realised how much work goes into managing a beta, marketing, and even getting things ready for the App Store. Working with a remote developer has been a great challenge, and it's helped me learn a little about AutoLayout and Objective-C. Overall I've loved working on Rizon despite it just being a small side project.

@@ -26,9 +26,9 @@ content: |
 
   ![Second redesign of the spot list app](sandbox/spots-3.png)
 
-  ![Refresh of the spot list app](sandbox/spots43.png "More refined versions of the app design")
+  ![Refresh of the spot list app](sandbox/spots-3.png "More refined versions of the app design")
 
-  ##nNote keeper
+  ## Note keeper
 
   Most note apps just drop you in to your list of notes, but I found myself constantly adding new ones instead of viewing old ones. I made this simple app to add new notes quickly. You're always dropped into the new note screen instead. I also wanted a way to tag notes with just hashtags for easier organisation.
 
