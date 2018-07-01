@@ -115,28 +115,31 @@ const parseMarkdown = (content, imageTransformData) => {
       ? transformer(node.children)
       : null;
 
+    const children =
+      transformedChildren && transformedChildren.length === 1
+        ? transformedChildren[0]
+        : transformedChildren;
+
     // Return arrays to destructure in the format of:
-    // [type, attributes, children];
+    // [type, children, attributes];
 
     switch (node.type) {
       case 'root':
-        return ['article', null, transformedChildren];
+        return children;
       case 'heading':
-        return [`h${node.depth}`, null, transformedChildren];
+        return [`h${node.depth}`, children];
       case 'text':
         return node.value;
       case 'list':
-        return [node.ordered ? 'ol' : 'ul', null, transformedChildren];
+        return [node.ordered ? 'ol' : 'ul', children];
       case 'listItem':
-        return ['li', null, transformedChildren];
-      case 'paragraph':
-        return ['p', null, transformedChildren];
+        return ['li', children];
+      case 'paragraph': {
+        const childIsImage = Array.isArray(children) && children[0] === 'img';
+        return childIsImage ? children : ['p', children];
+      }
       case 'link':
-        return [
-          'a',
-          { title: node.title, href: node.url },
-          transformedChildren,
-        ];
+        return ['a', children, { title: node.title, href: node.url }];
       case 'image': {
         const imageTransform = imageTransformData.find(
           i => i.meta.src === node.url,
@@ -151,33 +154,33 @@ const parseMarkdown = (content, imageTransformData) => {
 
         return [
           'img',
+          null,
           {
-            title: node.title,
+            caption: node.title,
             alt: node.alt,
             src,
             width,
             height,
             ratio,
           },
-          null,
         ];
       }
       case 'emphasis':
-        return ['em', null, transformedChildren];
+        return ['em', children];
       case 'strong':
-        return ['strong', null, transformedChildren];
+        return ['strong', children];
       case 'inlineCode':
-        return ['code', null, transformedChildren];
+        return ['code', children];
       case 'code':
-        return ['pre', { lang: node.lang }, ['code', null, node.value]];
+        return ['pre', ['code', null, node.value], { lang: node.lang }];
       case 'blockquote':
-        return ['blockquote', null, transformedChildren];
+        return ['blockquote', children];
       case 'break':
-        return ['br', null, null];
+        return ['br'];
       case 'thematicBreak':
-        return ['hr', null, null];
+        return ['hr'];
       case 'linkReference':
-        return ['span', null, transformedChildren];
+        return ['span', children];
       default:
         return node;
     }
