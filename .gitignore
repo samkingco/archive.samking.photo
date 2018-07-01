@@ -1,5 +1,5 @@
 .images
-content/photos
+content/*/images
 
 # package directories
 node_modules

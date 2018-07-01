@@ -7,7 +7,7 @@ export
 
 build-api:
 	@echo "→ Building API content"
-	node scripts/build-api.js
+	node scripts/build-api/index.js
 
 start-api:
 	@echo "→ Starting api server"

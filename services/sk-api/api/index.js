@@ -7,6 +7,7 @@ const about = require('../data/about.json');
 const photos = require('../data/photos.json');
 const photoSets = require('../data/photoSets.json');
 const tags = require('../data/tags.json');
+const design = require('../data/design.json');
 
 const app = new Koa();
 const api = new KoaRouter();
@@ -26,6 +27,7 @@ api.get('/photo-sets', async ctx => listEndpoint(ctx, photoSets));
 api.get('/photo-sets/:id', async ctx => idEndpoint(ctx, photoSets));
 api.get('/tags', async ctx => listEndpoint(ctx, tags));
 api.get('/tags/:id', async ctx => idEndpoint(ctx, tags));
+api.get('/design', async ctx => listEndpoint(ctx, design));
 
 app.use(api.routes());
 

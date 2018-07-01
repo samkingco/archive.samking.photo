@@ -1,0 +1,55 @@
+title: Lyst
+subtitle: One of the worlds largest fashion aggregators
+intro: Lyst is one of the biggest online fashion aggregators with over 11,000 designers & retailers and an inventory of millions.
+cover: lyst/cover.png
+link:
+  url: https://lyst.com
+  text: lyst.com
+content: |
+  ## Where I fit in
+
+  I joined as a designer as part of the web team where we worked towards increasing conversion and improving the discoverability of the huge inventory. I worked on a wide range of projects on the website including a header redesign, a product page redesign, editorial content, and homepage redesign.
+
+  ![Header Desktop](lyst/header-desktop.png)
+
+  ![Header Mobile](lyst/header-mobile.png)
+
+  ![Product pages](lyst/pdp.png)
+
+  ![Refined product pages](lyst/pdp-v2.png)
+
+  ![Sales Hub](lyst/sales-hub.png)
+
+  ![Editorial content](lyst/editorial.png)
+
+  ![Lysts](lyst/lysts.png)
+
+  ![Type Pages](lyst/type-pages.png)
+
+  ![Category navigation](lyst/category-nav.png)
+
+  ![Homepage](lyst/homepage.png)
+
+  ## Internal tools
+
+  To improve the life of people working at Lyst, I worked on a couple of internal tools. I made a small tool for the editorial team (or anyone in the company) to crop and resize lyst for various places around the product. This was accompanied by a chrome extension to preview said lyst on the website
+
+  ![Drop Crop Pop](lyst/drop-crop-pop.png "Drop Crop & Pop")
+
+  I was also part of a small team tasked with building an internal dashboard for promoting content to various places on the site. We started by creating components for form elements and layout, then writing extensive unit tests. This paid off when it came to adding more dashboards to this project because of the reusability.
+
+  We wanted this to be the sole place for all internal dashboards. We called it Lyst OS. There were quite a few existing dashboards, but a new one was in progress so it made sense to build it directly in Lyst OS. This was a dashboard for retailer promotions, which I worked on almost exclusively while the rest of the team continued work on the promoted content dashboard and the supporting backend.
+
+  As far as I know, Lyst OS is still being worked on with new dashboards being added. Because of the reusability of components, it has apparently been very resilient and ‘stood the test of time’.
+
+  ![Lyst OS Promotions dashboard](lyst/promotions.png)
+
+  ![Lyst OS form components](lyst/components.png "Lyst OS Promotions dashboard & a whole host of form components")
+
+  ## Marketing
+
+  The design team also shared responsibility of working on marketing campaigns and social content. This meant I worked on some print collateral and even some poster campaigns that were used in Old St. station take overs, and fly posting in New York.
+
+  ![Old Street Takeover](lyst/oldst-takeover.png)
+
+  ![NYC Takeover](lyst/nyc-takeover.png)
