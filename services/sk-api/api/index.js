@@ -21,13 +21,18 @@ api.get('/', async ctx =>
 );
 
 api.get('/about', async ctx => rawEndpoint(ctx, about));
+
 api.get('/photos', async ctx => listEndpoint(ctx, photos.reverse()));
 api.get('/photos/:id', async ctx => idEndpoint(ctx, photos));
 api.get('/photo-sets', async ctx => listEndpoint(ctx, photoSets));
 api.get('/photo-sets/:id', async ctx => idEndpoint(ctx, photoSets));
 api.get('/tags', async ctx => listEndpoint(ctx, tags));
 api.get('/tags/:id', async ctx => idEndpoint(ctx, tags));
-api.get('/design', async ctx => listEndpoint(ctx, design));
+
+api.get('/design', async ctx =>
+  listEndpoint(ctx, design.map(({ content, ...rest }) => rest)),
+);
+api.get('/design/:id', async ctx => idEndpoint(ctx, design));
 
 app.use(api.routes());
 
