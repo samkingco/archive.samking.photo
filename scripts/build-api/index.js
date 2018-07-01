@@ -34,7 +34,11 @@ const build = async () => {
   const tagsSrc = loadSrc('photos/tags.yml');
   const setsSrc = loadSrc('photos/sets.yml');
   const photosSrc = loadSrc('photos/photos.yml');
-  const designSrc = [loadSrc('design/lyst.yml')];
+  const designSrc = [
+    loadSrc('design/lyst.yml'),
+    loadSrc('design/rizon.yml'),
+    loadSrc('design/sandbox.yml'),
+  ];
 
   // Generate individual JSON
   const buildJSON = async (src, buildFn, imagesDir, ...args) =>
