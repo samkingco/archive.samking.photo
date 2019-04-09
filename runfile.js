@@ -57,6 +57,17 @@ function serve(port = PORTS.SERVE_DIST) {
   run(`serve dist -p ${port}`);
 }
 
+function serveImages() {
+  console.log(`Starting ${pkg.name} mock image server`);
+
+  const env = [
+    `PORT=${PORTS.IMAGE_SERVER}`,
+    `APP_IMAGES_DEST=${PATHS.imagesDest}`,
+  ];
+
+  run(`${env.join(' ')} nodemon ${PATHS.bin}/image-server.js`);
+}
+
 module.exports = {
   start,
   build: {
@@ -69,4 +80,5 @@ module.exports = {
   },
   analyze,
   serve,
+  serveImages,
 };

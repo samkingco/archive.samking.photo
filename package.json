@@ -8,6 +8,7 @@
     "build": "echo \"Use runjs command: 'npx run build:site'\"",
     "analyze": "echo \"Use runjs command: 'npx run analyze'\"",
     "serve": "echo \"Use runjs command: 'npx run serve'\"",
+    "serve:images": "echo \"Use runjs command: 'npx run serveImages'\""
   },
   "dependencies": {
     "@reach/router": "^1.2.1",
