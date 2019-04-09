@@ -7,6 +7,8 @@ function App() {
     <Root>
       <nav>
         <Link to="/">Photos</Link>
+        <Link to="/tags">Tags</Link>
+        <Link to="/sets">Sets</Link>
         <Link to="/info">Info</Link>
       </nav>
       <div className="content">
