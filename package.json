@@ -1,0 +1,40 @@
+{
+  "name": "samking-photo",
+  "private": true,
+  "scripts": {
+    "start": "echo \"Use runjs command: 'npx run start'\"",
+    "stage": "echo \"Use runjs command: 'npx run build:site dev'\"",
+    "build": "echo \"Use runjs command: 'npx run build:site'\"",
+    "analyze": "echo \"Use runjs command: 'npx run analyze'\"",
+    "serve": "echo \"Use runjs command: 'npx run serve'\"",
+  },
+  "dependencies": {
+    "@reach/router": "^1.2.1",
+    "react": "^16.8.2",
+    "react-dom": "^16.8.2",
+    "react-static": "^7.0.0",
+    "react-static-plugin-reach-router": "^7.0.0"
+  },
+  "devDependencies": {
+    "babel-eslint": "9.x",
+    "eslint": "5.x",
+    "eslint-config-react-app": "^3.0.8",
+    "eslint-config-react-tools": "1.x.x",
+    "eslint-plugin-flowtype": "2.x",
+    "eslint-plugin-import": "2.x",
+    "eslint-plugin-jsx-a11y": "6.x",
+    "eslint-plugin-react": "7.x",
+    "exif": "^0.6.0",
+    "fs-extra": "^7.0.1",
+    "image-size": "^0.7.3",
+    "koa": "^2.7.0",
+    "koa-router": "^7.4.0",
+    "nodemon": "^1.18.11",
+    "prettier": "^1.16.4",
+    "runjs": "^4.4.2",
+    "serve": "10.1.2",
+    "sharp": "^0.20.5",
+    "yamljs": "^0.3.0",
+    "yargs": "^13.2.2"
+  }
+}
