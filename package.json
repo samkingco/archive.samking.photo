@@ -2,6 +2,7 @@
   "name": "samking-photo",
   "private": true,
   "scripts": {
+    "build:content": "echo \"Use runjs command: 'npx run build:content'\"",
     "start": "echo \"Use runjs command: 'npx run start'\"",
     "stage": "echo \"Use runjs command: 'npx run build:site dev'\"",
     "build": "echo \"Use runjs command: 'npx run build:site'\"",

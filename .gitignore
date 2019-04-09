@@ -1,6 +1,10 @@
 # package directories
 node_modules
 
+# production
+/dist
+/content/dist
+
 # dev
 /artifacts
 /tmp

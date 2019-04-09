@@ -17,7 +17,25 @@ const PATHS = {
 
 const PORTS = {
   SERVE_DIST: 3000,
+  IMAGE_SERVER: 4001,
 };
+
+const IMAGE_BASE_URLS = {
+  dev: 'https://samking.imgix.net',
+  prod: 'https://samking.imgix.net',
+  local: `http://localhost:${PORTS.IMAGE_SERVER}`,
+};
+
+function buildContent(stage = 'prod') {
+  console.log(`Building ${pkg.name} content for ${envMap[stage]}`);
+
+  const env = [
+    `NODE_ENV=${envMap[stage]}`,
+    `APP_IMAGE_BASE_URLS=${IMAGE_BASE_URLS[stage]}`,
+  ];
+
+  run(`${env.join(' ')} node ${PATHS.bin}/build-content.js`);
+}
 
 function start() {
   console.log(`Starting ${pkg.name} for ${envMap.dev}`);
@@ -43,8 +61,10 @@ module.exports = {
   start,
   build: {
     all(stage) {
+      buildContent(stage);
       buildSite(stage);
     },
+    content: buildContent,
     site: buildSite,
   },
   analyze,

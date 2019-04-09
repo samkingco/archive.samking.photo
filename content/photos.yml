@@ -1,0 +1,94 @@
+- src: 1.jpg
+  set: skye
+  tags:
+    - skye
+    - nature
+- src: 2.jpg
+  set: skye
+  tags:
+    - skye
+    - nature
+- src: 3.jpg
+  set: skye
+  tags:
+    - skye
+    - nature
+- src: 4.jpg
+  set: skye
+  tags:
+    - skye
+    - nature
+- src: 5.jpg
+  set: skye
+  tags:
+    - skye
+    - nature
+- src: 6.jpg
+  set: skye
+  tags:
+    - skye
+    - nature
+    - b&w
+- src: 7.jpg
+  set: skye
+  tags:
+    - skye
+    - nature
+    - b&w
+- src: 8.jpg
+  set: new-york
+  tags:
+    - nyc
+    - b&w
+    - street
+- src: 9.jpg
+  set: new-york
+  tags:
+    - nyc
+    - b&w
+    - architecture
+- src: 10.jpg
+  set: new-york
+  tags:
+    - nyc
+    - b&w
+    - street
+    - shadows
+- src: 11.jpg
+  set: new-york
+  tags:
+    - nyc
+    - b&w
+- src: 12.jpg
+  set: new-york
+  tags:
+    - nyc
+    - b&w
+    - street
+    - shadows
+- src: 13.jpg
+  set: new-york
+  tags:
+    - nyc
+    - b&w
+    - architecture
+- src: 14.jpg
+  set: new-york
+  tags:
+    - nyc
+    - b&w
+- src: 15.jpg
+  set: new-york
+  tags:
+    - nyc
+    - b&w
+- src: 16.jpg
+  set: new-york
+  tags:
+    - nyc
+    - b&w
+- src: 17.jpg
+  set: new-york
+  tags:
+    - nyc
+    - b&w
