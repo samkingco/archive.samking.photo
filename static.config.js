@@ -8,7 +8,7 @@ const PHOTOS_PAGE_SIZE = 48;
 const PHOTOS_PAGE_TOKEN = 'page';
 
 export default {
-  plugins: [require.resolve('react-static-plugin-reach-router')],
+  plugins: ['react-static-plugin-reach-router', 'react-static-plugin-emotion'],
   getRoutes: async () => {
     const photoRoutes = makePageRoutes({
       items: photos,
