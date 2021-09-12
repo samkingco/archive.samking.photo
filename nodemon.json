@@ -1,4 +1,0 @@
- {
-    "ignore": ["build/*", "optimised_images/*"],
-    "ext": "html css js png gif jpg"
- }
